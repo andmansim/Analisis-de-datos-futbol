@@ -32,7 +32,7 @@ Ejercicio de verdad
   
 '''
 
-import requests
+'''import requests
 from bs4 import BeautifulSoup
 
 # URL del endpoint de la API de SofaScore que deseas acceder
@@ -55,4 +55,12 @@ if response.status_code == 200:
     data = response.json()
     print(data)
 else:
-    print("Error al obtener los datos:", response.status_code)
+    print("Error al obtener los datos:", response.status_code)'''
+    
+
+import ScraperFC as snfc
+import pandas as pd
+
+sofascore = snfc.SofaScore()
+datos = sofascore.get_general_match_stats('https://www.sofascore.com/tournament/football/europe/uefa-champions-league/7#23766,tab:details')
+print(datos)
