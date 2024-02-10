@@ -31,6 +31,28 @@ Ejercicio de verdad
   -Final: Los dos equipos que han ganado en las semifinales se enfrentan en un partido.
   
 '''
-import requests 
+
+import requests
 from bs4 import BeautifulSoup
-r = requests.get('https://www.sofascore.com/tournament/football/europe/uefa-champions-league/7#id:23766,tab:standings')
+
+# URL del endpoint de la API de SofaScore que deseas acceder
+url = 'https://api.sofascore.com/api/v1/your/endpoint'
+
+# Tu clave de API de SofaScore
+api_key = 'Bearer'
+
+# Encabezado de autorización con la clave de API
+headers = {
+    'Authorization': f'Bearer {api_key}'
+}
+
+# Realiza una solicitud HTTP GET a la API de SofaScore
+response = requests.get(url, headers=headers)
+
+# Verifica si la solicitud fue exitosa (código de estado 200)
+if response.status_code == 200:
+    # Imprime la respuesta JSON
+    data = response.json()
+    print(data)
+else:
+    print("Error al obtener los datos:", response.status_code)
