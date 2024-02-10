@@ -5,14 +5,14 @@ Ejercicio de verdad
 2. Necesito la lista de los equpos que van a jugar en este año
 3. Puede que la lista de los partidos de los años anterirores
 4. Ns que más. 
-5. Hacer un master en futbol. 
+5. Hacer un master en fútbol. 
 6. hacer gráficos de todos los años con las estadísticas de los últimos 10 años. 
-7. usar la sopa para extraer datos de webs (em cripto 9022024)
+7. usar la sopa para extraer datos de webs (en cripto 9022024)
 '''
 
 '''
 ¿Cómo funciona el fútbol?
--Grupos: Los clubs de futbol se reparten en 8 grupos de 4 equipos cada uno. Cada equipo juega 6 partidos, 
+-Grupos: Los clubs de fútbol se reparten en 8 grupos de 4 equipos cada uno. Cada equipo juega 6 partidos, 
 3 en casa y 3 fuera. En función del resutado se reparten una serie de puntos (3 por victoria, 
 1 por empate y 0 por derrota). Solo avanzan a la siguiente fase los dos primeros de cada grupo.
 
