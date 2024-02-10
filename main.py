@@ -57,10 +57,29 @@ if response.status_code == 200:
 else:
     print("Error al obtener los datos:", response.status_code)'''
     
-
+'''
 import ScraperFC as snfc
 import pandas as pd
+from bs4 import BeautifulSoup
 
-sofascore = snfc.SofaScore()
-datos = sofascore.get_general_match_stats('https://www.sofascore.com/tournament/football/europe/uefa-champions-league/7#23766,tab:details')
-print(datos)
+sofascore = snfc.Sofascore()
+datos = sofascore.get_match_data('https://www.sofascore.com/tournament/football/europe/uefa-champions-league/7')
+print(datos)'''
+
+
+import requests
+from bs4 import BeautifulSoup
+
+# URL de la página web que quieres hacer scraping
+url = 'https://www.sofascore.com'
+
+# Hacer una solicitud HTTP a la página web
+response = requests.get(url)
+
+# Crear un objeto BeautifulSoup con el contenido de la página web
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Buscar un elemento específico en el HTML
+elemento = soup.find_all('div', {'class': 'sc-fqkvVR byYarT'})
+
+print(elemento)
