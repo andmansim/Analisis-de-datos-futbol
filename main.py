@@ -31,3 +31,6 @@ Ejercicio de verdad
   -Final: Los dos equipos que han ganado en las semifinales se enfrentan en un partido.
   
 '''
+import requests 
+from bs4 import BeautifulSoup
+r = requests.get('https://www.sofascore.com/tournament/football/europe/uefa-champions-league/7#id:23766,tab:standings')
