@@ -73,13 +73,21 @@ from bs4 import BeautifulSoup
 # URL de la página web que quieres hacer scraping
 url = 'https://www.sofascore.com'
 
-# Hacer una solicitud HTTP a la página web
-response = requests.get(url)
+# Configurar el encabezado "User-Agent" para simular un navegador web real
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+}
+
+# Hacer una solicitud HTTP a la página web con el encabezado definido
+response = requests.get(url, headers=headers)
 
 # Crear un objeto BeautifulSoup con el contenido de la página web
-soup = BeautifulSoup(response.content, 'html.parser')
+soup = BeautifulSoup(response.text, 'lxml')
 
-# Buscar un elemento específico en el HTML
-elemento = soup.find_all('div', {'class': 'sc-fqkvVR byYarT'})
+# Obtener el título de la página web
+titulo = soup.title.text.strip()
+print("Título de la página:", titulo)
 
+# Buscar un elemento específico en el HTML (si es necesario)
+elemento = soup.find_all('h1', {'class': 'sc-4da3a94c-1 iiGKvG'})
 print(elemento)
