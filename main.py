@@ -38,12 +38,23 @@ elementos = soup.find_all('div', {'class': 'sc-fqkvVR LZMLY'})
 # Encontrar el contenedor principal
 contenedor = soup.find('div', class_='sc-fqkvVR eeeBnr sc-d8bc48b6-2 eYMsrH')
 
-# Iterar sobre cada subdivisión dentro del contenedor
+def extraer_datos(subdivision, clase):
+    # Encontrar todas las sub-subdivisiones dentro de la subdivisión actual
+    sub_subdivisiones = subdivision.find_all('div', class_=clase)
+    
+    # Iterar sobre cada sub-subdivisión
+    for sub_subdivision in sub_subdivisiones:
+        # Encontrar cada dato dentro de la sub-subdivisión y extraer su texto
+        datos = [dato.get_text() for dato in sub_subdivision.find_all('p')]
+        
+        # Imprimir los datos
+        print(datos)
+        
+        # Llamar a la función recursivamente para procesar las sub-subdivisiones dentro de esta sub-subdivisión
+        extraer_datos(sub_subdivision)
+
+# Llamar a la función para procesar las subdivisiones dentro del contenedor principal
 for subdivision in contenedor.find_all('div', class_='sc-fqkvVR LZMLY'):
-    # Encontrar cada dato dentro de la subdivisión y extraer su texto
-    datos = [dato.get_text() for dato in subdivision.find_all('p')]
-    
-    # Imprimir los datos
-    print(datos)
-    
+    clase = subdivision.get('class')
+    extraer_datos(subdivision, clase)
     
