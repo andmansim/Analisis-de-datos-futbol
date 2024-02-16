@@ -56,3 +56,7 @@ grafi_barras(equipo_pais.index, equipo_pais.values, 'Equipos por país', 'País'
 df_por = df.set_index('Club')[["porganarpartido", 'poremppartido', 'porperderpartido']]
 grafi_baras_colores(df_por.head(10), 'Porcentaje de ataque, defensa y empate de los 10 mejores equipos', 'Equipo', 'Porcentaje')
 
+
+#Gráfico de barras mostrando el % de goles a favor y en contra de los 10 mejores equipos
+df_goles = df.set_index('Club')[["porgfav/gtot", 'porgenc/gtot']]
+grafi_baras_colores(df_goles.head(10), 'Porcentaje de goles a favor y en contra de los 10 mejores equipos', 'Equipo', 'Porcentaje')
