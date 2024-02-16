@@ -64,7 +64,7 @@ def grafi_baras_colores(dato1, titulo, x, y):
     plt.ylabel(y)
     plt.show()
     
-#Gráficos de barras, 10 que más han ganado la champions
+'''#Gráficos de barras, 10 que más han ganado la champions
 df_ordenado = df.sort_values(by='Titles', ascending=False)
 df_ordenado = df_ordenado.head(10)
 grafi_barras(df_ordenado['Club'], df_ordenado['Titles'], 'Número de veces que ha ganado la champions cada equipo', 'Equipo', 'Número de veces')
@@ -78,3 +78,4 @@ grafi_barras(equipo_pais.index, equipo_pais.values, 'Equipos por país', 'País'
 df_por = df.set_index('Club')[["porganarpartido", 'poremppartido', 'porperderpartido']]
 grafi_baras_colores(df_por.head(10), 'Porcentaje de ataque, defensa y empate de los 10 mejores equipos', 'Equipo', 'Porcentaje')
 
+'''
