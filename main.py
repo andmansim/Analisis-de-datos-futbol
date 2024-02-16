@@ -32,8 +32,7 @@ def grafi_barras(dato1, dato2, titulo, x, y):
     plt.show()
 
 def grafi_baras_colores(dato1, titulo, x, y):
-    plt.figure(figsize=(12,5))
-    dato1.plot(kind='bar', color=['green', 'blue', 'red'], stacked=True)
+    dato1.plot(kind='bar', color=['green', 'blue', 'red'], stacked=False, figsize=(12,5))
     plt.title(titulo)
     plt.xlabel(x)
     plt.xticks(rotation=45)
@@ -52,5 +51,5 @@ grafi_barras(equipo_pais.index, equipo_pais.values, 'Equipos por país', 'País'
 
 #Gráfico de barras mostrando los el % de ataque, defensa de 10 mejores equipos
 df_por = df.set_index('Club')[["porganarpartido", 'poremppartido', 'porperderpartido']]
-#grafi_baras_colores(df_por.head(10), 'Porcentaje de ataque, defensa y empate de los 10 mejores equipos', 'Equipo', 'Porcentaje')
-print(df_por.head(10))
+grafi_baras_colores(df_por.head(10), 'Porcentaje de ataque, defensa y empate de los 10 mejores equipos', 'Equipo', 'Porcentaje')
+
