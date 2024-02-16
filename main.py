@@ -2,10 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-#Regresión logística
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix
+
 
 #leemos el csv
 df = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
@@ -23,25 +20,6 @@ for i in df.columns:
     if 'por' in i:
         df[i] = df[i].astype(float)
 
-#separamos las variables independientes y dependientes
-X = df[['porganarpartido', 'poremppartido', 'porperderpartido']]
-y = df['Club']
-
-#Dividimos los datos en entrenamiento y prueba
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-#Creamos el modelo
-modelo = LogisticRegression()
-modelo.fit(X_train, y_train)
-
-#Hacemos las predicciones
-y_pred = modelo.predict(X_test)
-
-#Calculamos la precisión
-print('Precisión del modelo:', accuracy_score(y_test, y_pred))
-
-#Matriz de confusión
-print(confusion_matrix(y_test, y_pred))
 
 
 #Gráficos
@@ -64,7 +42,7 @@ def grafi_baras_colores(dato1, titulo, x, y):
     plt.ylabel(y)
     plt.show()
     
-'''#Gráficos de barras, 10 que más han ganado la champions
+#Gráficos de barras, 10 que más han ganado la champions
 df_ordenado = df.sort_values(by='Titles', ascending=False)
 df_ordenado = df_ordenado.head(10)
 grafi_barras(df_ordenado['Club'], df_ordenado['Titles'], 'Número de veces que ha ganado la champions cada equipo', 'Equipo', 'Número de veces')
@@ -78,4 +56,3 @@ grafi_barras(equipo_pais.index, equipo_pais.values, 'Equipos por país', 'País'
 df_por = df.set_index('Club')[["porganarpartido", 'poremppartido', 'porperderpartido']]
 grafi_baras_colores(df_por.head(10), 'Porcentaje de ataque, defensa y empate de los 10 mejores equipos', 'Equipo', 'Porcentaje')
 
-'''
