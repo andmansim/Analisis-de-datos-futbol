@@ -1,4 +1,3 @@
-import pandas as pd
 
 '''
 ¿Cómo funciona el fútbol?
@@ -19,8 +18,12 @@ import pandas as pd
   
   -Final: Los dos equipos que han ganado en las semifinales se enfrentan en un partido.
 '''
-columnas = ['fecha', 'local', 'visitante', 'prob_ganar_local', 'porb_empate', 'prob_ganar_visitante']
+import pandas as pd
+#leemos el csv con los datos de cadda equipo
+df_equipos = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
+
 #creamos el dataframe 
+columnas = ['fecha', 'local', 'visitante', 'prob_ganar_local', 'porb_empate', 'prob_ganar_visitante']
 df_partidos = pd.DataFrame(columns=columnas)
 
 #añadimos los datos de los grupos por días
@@ -28,3 +31,20 @@ df_partidos['fecha'] =['19/09/23', '19/09/23','19/09/23', '19/09/23', '19/09/23'
 df_partidos['local'] =['milan', 'young boys', 'psg', 'shakhtar', 'manchester city', 'lazio', 'barcelona', 'feyenoord']
 df_partidos['visitante'] =['newcastle', 'rb leipzig', 'dortmund', 'porto', 'estrella roja', 'altético madrid', 'antwerp', 'celtic fc']
 print(df_partidos.head()) 
+
+def prob_enfrentada(equipo1, equipo2):
+    #Recogemos los datos de cada equipo
+    prob_gana_local = df_equipos[df_equipos['Club'] == equipo1]['porganarpartido'].values[0]
+    prob_gana_visitante = df_equipos[df_equipos['Club'] == equipo2]['porganarpartido'].values[0]
+    prob_empate_local = df_equipos[df_equipos['Club'] == equipo1]['poremppartido'].values[0]
+    prob_empate_visitante = df_equipos[df_equipos['Club'] == equipo2]['poremppartido'].values[0]
+    prob_perder_local = df_equipos[df_equipos['Club'] == equipo1]['porperderpartido'].values[0]
+    prob_perder_visitante = df_equipos[df_equipos['Club'] == equipo2]['porperderpartido'].values[0]
+    
+    #Calculamos las probabilidades enfrentadas
+    prob_gana_local1 = prob_gana_local * prob_perder_visitante
+    prob_gana_visitante1 = prob_gana_visitante * prob_perder_local
+    prob_empate1 = prob_empate_local * prob_empate_visitante
+
+    return prob_gana_local1, prob_empate1, prob_gana_visitante1
+prob_enfrentada
