@@ -20,7 +20,8 @@ for i in df.columns:
     if 'por' in i:
         df[i] = df[i].astype(float)
 
-
+#guardamos los datos en un csv
+df.to_csv('datos_fut.csv', sep=';', index=False, encoding='utf-8')
 
 #Gráficos
 

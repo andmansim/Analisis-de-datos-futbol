@@ -47,4 +47,6 @@ def prob_enfrentada(equipo1, equipo2):
     prob_empate1 = prob_empate_local * prob_empate_visitante
 
     return prob_gana_local1, prob_empate1, prob_gana_visitante1
-prob_enfrentada
+#prob_ganar_local, prob_empate, prob_gana_visitante =prob_enfrentada(df_partidos['local'][0], df_partidos['visitante'][0])
+#print(prob_ganar_local, prob_empate, prob_gana_visitante)
+print(df_equipos[df_equipos['Club'] == 'milan']['porganarpartido'])
