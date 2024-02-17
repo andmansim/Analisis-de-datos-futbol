@@ -57,3 +57,6 @@ for i, fila in df_partidos.iterrows():
     df_partidos.at[i, 'prob_ganar_visitante'] = prob_gana_visitante
 print(df_partidos.head())
 
+#lo pasamos a csv
+df_partidos.to_csv('partidos_fut.csv', sep=';', index=False, encoding='utf-8')
+
