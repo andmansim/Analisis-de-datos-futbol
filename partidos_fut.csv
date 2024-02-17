@@ -1,9 +1,9 @@
-fecha;local;visitante;prob_ganar_local;porb_empate;prob_ganar_visitante
-19/09/23;AC Milan;Newcastle United FC;20.44;3.18;11.67
-19/09/23;BSC Young Boys;RB Leipzig;13.16;3.46;19.11
-19/09/23;Paris Saint-Germain;Borussia Dortmund;17.74;3.67;12.99
-19/09/23;FC Shakhtar Donetsk;FC Porto;12.34;5.37;17.16
-19/09/23;Manchester City FC;FK Crvena zvezda;17.63;4.41;11.3
-19/09/23;SS Lazio;Club Atlético de Madrid;10.5;7.0;15.83
-19/09/23;FC Barcelona;Royal Antwerp FC;58.11;0.0;0.0
-19/09/23;Feyenoord;Celtic FC;14.11;4.54;16.36
+fecha;local;visitante;prob_ganar_local;porb_empate;prob_ganar_visitante;resultado
+19/09/23;AC Milan;Newcastle United FC;20.44;3.18;11.67;
+19/09/23;BSC Young Boys;RB Leipzig;13.16;3.46;19.11;
+19/09/23;Paris Saint-Germain;Borussia Dortmund;17.74;3.67;12.99;
+19/09/23;FC Shakhtar Donetsk;FC Porto;12.34;5.37;17.16;
+19/09/23;Manchester City FC;FK Crvena zvezda;17.63;4.41;11.3;
+19/09/23;SS Lazio;Club Atlético de Madrid;10.5;7.0;15.83;
+19/09/23;FC Barcelona;Royal Antwerp FC;58.11;0.0;0.0;
+19/09/23;Feyenoord;Celtic FC;14.11;4.54;16.36;

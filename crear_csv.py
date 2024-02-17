@@ -23,7 +23,7 @@ import pandas as pd
 df_equipos = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
 
 #creamos el dataframe 
-columnas = ['fecha', 'local', 'visitante', 'prob_ganar_local', 'porb_empate', 'prob_ganar_visitante']
+columnas = ['fecha', 'local', 'visitante', 'prob_ganar_local', 'porb_empate', 'prob_ganar_visitante', 'resultado']
 df_partidos = pd.DataFrame(columns=columnas)
 
 #añadimos los datos de los grupos por días
