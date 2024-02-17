@@ -28,13 +28,15 @@ df_partidos = pd.DataFrame(columns=columnas)
 
 #añadimos los datos de los grupos por días
 df_partidos['fecha'] =['19/09/23', '19/09/23','19/09/23', '19/09/23', '19/09/23', '19/09/23','19/09/23', '19/09/23']
-df_partidos['local'] =['milan', 'young boys', 'psg', 'shakhtar', 'manchester city', 'lazio', 'barcelona', 'feyenoord']
-df_partidos['visitante'] =['newcastle', 'rb leipzig', 'dortmund', 'porto', 'estrella roja', 'altético madrid', 'antwerp', 'celtic fc']
+df_partidos['local'] =['AC Milan', 'young boys', 'psg', 'shakhtar', 'manchester city', 'lazio', 'barcelona', 'feyenoord']
+df_partidos['visitante'] =['Newcastle United FC', 'rb leipzig', 'dortmund', 'porto', 'estrella roja', 'altético madrid', 'antwerp', 'celtic fc']
 print(df_partidos.head()) 
 
 def prob_enfrentada(equipo1, equipo2):
+    
+    
     #Recogemos los datos de cada equipo
-    prob_gana_local = df_equipos[df_equipos['Club'] == equipo1]['porganarpartido'].values[0]
+    prob_gana_local = df_equipos[df_equipos['Club']== equipo1]['porganarpartido'].values[0]
     prob_gana_visitante = df_equipos[df_equipos['Club'] == equipo2]['porganarpartido'].values[0]
     prob_empate_local = df_equipos[df_equipos['Club'] == equipo1]['poremppartido'].values[0]
     prob_empate_visitante = df_equipos[df_equipos['Club'] == equipo2]['poremppartido'].values[0]
@@ -42,11 +44,11 @@ def prob_enfrentada(equipo1, equipo2):
     prob_perder_visitante = df_equipos[df_equipos['Club'] == equipo2]['porperderpartido'].values[0]
     
     #Calculamos las probabilidades enfrentadas
-    prob_gana_local1 = prob_gana_local * prob_perder_visitante
-    prob_gana_visitante1 = prob_gana_visitante * prob_perder_local
-    prob_empate1 = prob_empate_local * prob_empate_visitante
+    prob_gana_local1 = round((prob_gana_local * prob_perder_visitante)/100, 2)
+    prob_gana_visitante1 = round((prob_gana_visitante * prob_perder_local)/100, 2)
+    prob_empate1 = round((prob_empate_local * prob_empate_visitante)/100, 2)
 
     return prob_gana_local1, prob_empate1, prob_gana_visitante1
-#prob_ganar_local, prob_empate, prob_gana_visitante =prob_enfrentada(df_partidos['local'][0], df_partidos['visitante'][0])
-#print(prob_ganar_local, prob_empate, prob_gana_visitante)
-print(df_equipos[df_equipos['Club'] == 'milan']['porganarpartido'])
+prob_ganar_local, prob_empate, prob_gana_visitante = prob_enfrentada(df_partidos['local'][0], df_partidos['visitante'][0])
+print(prob_ganar_local, prob_empate, prob_gana_visitante)
+
