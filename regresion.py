@@ -12,7 +12,8 @@ df_partidos = pd.read_csv('partidos_fut.csv', encoding='utf-8', sep=';')
 X = df_partidos[['prob_ganar_local', 'porb_empate', 'prob_ganar_visitante']]
 y = df_partidos['resultado']
 
-#Comparamos las probabilidades
+#Comparamos las probabilidades, para poder entrenar el modelo en función de estas
+#No pueden ser str tiene que ser int para que se puedan comparar y entrenarlo
 df_partidos.loc[df_partidos['prob_ganar_local'] > df_partidos['prob_ganar_visitante'], 'resultado'] = 1 #local
 df_partidos.loc[df_partidos['prob_ganar_local'] < df_partidos['prob_ganar_visitante'], 'resultado'] = 2 #visitante
 df_partidos.loc[df_partidos['prob_ganar_local'] == df_partidos['prob_ganar_visitante'], 'resultado'] = 3 #empate
@@ -35,3 +36,12 @@ print('Precisión del modelo:', accuracy_score(y_test, y_pred))
 
 #Matriz de confusión
 print(confusion_matrix(y_test, y_pred))
+
+#Mostramos los resultados de cada partido que hemos obtenido de las predicciones
+predicciones = modelo.predict(X)
+for i, fila in df_partidos.iterrows():
+    print(fila['local'], 'vs', fila['visitante'], 'Resultado:', predicciones[i])
+
+#Guardamos el modelo
+
+
