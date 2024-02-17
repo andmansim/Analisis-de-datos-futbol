@@ -1,3 +1,3 @@
 import pandas as pd
 
-df = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
+grupoa = [['nombre', 'fecha', 'local', 'visitante', 'prob_ganar_local', 'porb_empate', 'prob_ganar_visitante'],]
