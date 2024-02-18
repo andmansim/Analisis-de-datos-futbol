@@ -9,7 +9,7 @@ import pandas as pd
 df_partidos = pd.read_csv('partidos_fut.csv', encoding='utf-8', sep=';')
 
 #separamos las variables independientes y dependientes
-X = df_partidos[['prob_ganar_local', 'porb_empate', 'prob_ganar_visitante']]
+X = df_partidos[['prob_ganar_local', 'prob_empate', 'prob_ganar_visitante']]
 y = df_partidos['resultado']
 
 #Comparamos las probabilidades, para poder entrenar el modelo en función de estas
@@ -53,4 +53,7 @@ for i, fila in df_partidos.iterrows():
 df_partidos.to_csv('partidos_fut.csv', index=False, sep=';')
 print('Datos actualizados')
 
-
+#en función de los resultados creamos un nuevo dataframe con los siguientes partidos
+df_partidos_ronda2 = pd.DataFrame(columns=['local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante'])
+df_partidos_ronda2['local']= ['Paris Saint-Germain', 'FC Barcelona', 'Club Atlético de Madrid', 'FC Bayern München', 'Arsenal FC', 'Manchester City FC', 'Borussia Dortmund', 'Real Madrid CF']
+df_partidos_ronda2['visitante'] = ['Arsenal FC', 'Manchester City FC', 'Borussia Dortmund', 'Real Madrid CF', 'Paris Saint-Germain', 'FC Barcelona', 'Club Atlético de Madrid', 'FC Bayern München']
