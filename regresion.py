@@ -8,20 +8,20 @@ from crear_csv import actualizar_probabilidades
 
 def regresion ( df_partidos):
     
+    #Comparamos las probabilidades, para poder entrenar el modelo en función de estas
+    #No pueden ser str tiene que ser int para que se puedan comparar y entrenarlo
+    df_partidos['resultado'] = int(1) #local
+    df_partidos.loc[df_partidos['prob_ganar_local'] < df_partidos['prob_ganar_visitante'], 'resultado'] = int(2) #visitante
+    df_partidos.loc[df_partidos['prob_ganar_local'] == df_partidos['prob_ganar_visitante'], 'resultado'] = int(3) #empate
+    print(df_partidos.head())
+    
     #separamos las variables independientes y dependientes
     X = df_partidos[['prob_ganar_local', 'prob_empate', 'prob_ganar_visitante']]
     y = df_partidos['resultado']
     
-    #Comparamos las probabilidades, para poder entrenar el modelo en función de estas
-    #No pueden ser str tiene que ser int para que se puedan comparar y entrenarlo
-    df_partidos.loc[df_partidos['prob_ganar_local'] > df_partidos['prob_ganar_visitante'], 'resultado'] = 1 #local
-    df_partidos.loc[df_partidos['prob_ganar_local'] < df_partidos['prob_ganar_visitante'], 'resultado'] = 2 #visitante
-    df_partidos.loc[df_partidos['prob_ganar_local'] == df_partidos['prob_ganar_visitante'], 'resultado'] = 3 #empate
-    print(df_partidos.head())
     #Dividimos los datos en entrenamiento y prueba
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    print(df_partidos.describe())
     #Creamos el modelo
     modelo = LogisticRegression()
     #Entrenamos el modelo
@@ -47,6 +47,7 @@ def regresion ( df_partidos):
             resultado = 'Empate'
             
         print('\n' + fila['local'], 'vs', fila['visitante'], 'Resultado:', resultado)
+    
     return df_partidos
 
 #leemos el csv
