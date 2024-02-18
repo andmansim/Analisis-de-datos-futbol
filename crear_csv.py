@@ -11,7 +11,7 @@ df_partidos = pd.DataFrame(columns=columnas)
 df_partidos['fecha'] = ['13/02/24', '13/02/24', '14/02/24', '14/02/24', '20/02/24', '20/02/24', '21/02/24', '21/02/24', '5/03/24', '5/03/24', '6/03/24', '6/03/24', '12/03/24', '12/03/24', '13/03/24', '13/03/24']
 df_partidos['local'] =['B 1903 København','RB Leipzig', 'SS Lazio','Paris Saint-Germain', 'FC Inter Turku' , 'PSV Eindhoven', 'FC Porto', 'SSC Napoli', 'FC Bayern München', 'Real Sociedad de Fútbol', 'Manchester City FC', 'Real Madrid CF', 'Arsenal FC', 'FC Barcelona', 'Club Atlético de Madrid', 'Borussia Dortmund']
 df_partidos['visitante'] =['Manchester City FC', 'Real Madrid CF', 'FC Bayern München', 'Real Sociedad de Fútbol', 'Club Atlético de Madrid', 'Borussia Dortmund', 'Arsenal FC', 'FC Barcelona', 'SS Lazio', 'Paris Saint-Germain', 'B 1903 København', 'RB Leipzig', 'FC Porto', 'SSC Napoli', 'FC Inter Turku', 'PSV Eindhoven'] 
-print(df_partidos.head()) 
+
 
 def prob_enfrentada(equipo1, equipo2):
 
@@ -39,7 +39,7 @@ def actualizar_probabilidades(df_partidos):
         df_partidos.at[i, 'prob_ganar_visitante'] = prob_gana_visitante
     return df_partidos
 df_partidos = actualizar_probabilidades(df_partidos)
-print(df_partidos.head())
+
 
 #lo pasamos a csv
 df_partidos.to_csv('partidos_fut.csv', sep=';', index=False, encoding='utf-8')

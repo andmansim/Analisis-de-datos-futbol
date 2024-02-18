@@ -52,19 +52,40 @@ def regresion ( df_partidos):
 #leemos el csv
 df_partido = pd.read_csv('partidos_fut.csv', encoding='utf-8', sep=';')
 
+print('Ronda 1')
 #llamamos a la función regresión
 df_partido = regresion(df_partido)
-
 #actualizamos los datos del csv con los resultados obtenidos
 df_partido.to_csv('partidos_fut.csv', index=False, sep=';')
-print('Datos actualizados')
+
 
 #en función de los resultados creamos un nuevo dataframe con los siguientes partidos
 df_partidos_ronda2 = pd.DataFrame(columns=['local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante', 'resultado'])
 df_partidos_ronda2['local']= ['Paris Saint-Germain', 'FC Barcelona', 'Club Atlético de Madrid', 'FC Bayern München', 'Arsenal FC', 'Manchester City FC', 'Borussia Dortmund', 'Real Madrid CF']
 df_partidos_ronda2['visitante'] = ['Arsenal FC', 'Manchester City FC', 'Borussia Dortmund', 'Real Madrid CF', 'Paris Saint-Germain', 'FC Barcelona', 'Club Atlético de Madrid', 'FC Bayern München']
 df_partidos_ronda2 = actualizar_probabilidades(df_partidos_ronda2)
-print(df_partidos_ronda2.head())
 
+print('Ronda 2')
 df_partidos_ronda2 = regresion(df_partidos_ronda2)
 df_partidos_ronda2.to_csv('partidos_fut_ronda2.csv', index=False, sep=';')
+
+#Ronda 3
+df_partidos_ronda3 = pd.DataFrame(columns=['local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante', 'resultado'])
+df_partidos_ronda3['local']= ['Paris Saint-Germain', 'Club Atlético de Madrid', 'FC Barcelona', 'FC Bayern München']
+df_partidos_ronda3['visitante'] = ['FC Barcelona', 'FC Bayern München','Paris Saint-Germain',  'Club Atlético de Madrid' ]
+df_partidos_ronda3 = actualizar_probabilidades(df_partidos_ronda3)
+
+print('Ronda 3')
+df_partidos_ronda3 = regresion(df_partidos_ronda3)
+df_partidos_ronda3.to_csv('partidos_fut_ronda3.csv', index=False, sep=';')
+
+#Ronda 4
+df_partidos_ronda4 = pd.DataFrame(columns=['local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante', 'resultado'])
+df_partidos_ronda4['local']= ['FC Barcelona', 'FC Bayern München']
+df_partidos_ronda4['visitante'] = ['FC Bayern München', 'FC Barcelona']
+df_partidos_ronda4 = actualizar_probabilidades(df_partidos_ronda4)
+
+print('Ronda 4')
+df_partidos_ronda4 = regresion(df_partidos_ronda4)
+df_partidos_ronda4.to_csv('partidos_fut_ronda4.csv', index=False, sep=';')
+
