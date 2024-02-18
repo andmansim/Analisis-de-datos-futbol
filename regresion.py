@@ -13,7 +13,6 @@ def regresion ( df_partidos):
     df_partidos['resultado'] = int(1) #local
     df_partidos.loc[df_partidos['prob_ganar_local'] < df_partidos['prob_ganar_visitante'], 'resultado'] = int(2) #visitante
     df_partidos.loc[df_partidos['prob_ganar_local'] == df_partidos['prob_ganar_visitante'], 'resultado'] = int(3) #empate
-    print(df_partidos.head())
     
     #separamos las variables independientes y dependientes
     X = df_partidos[['prob_ganar_local', 'prob_empate', 'prob_ganar_visitante']]
