@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix
 import pandas as pd
+from crear_csv import actualizar_probabilidades
 
 #leemos el csv
 df_partidos = pd.read_csv('partidos_fut.csv', encoding='utf-8', sep=';')
@@ -57,3 +58,5 @@ print('Datos actualizados')
 df_partidos_ronda2 = pd.DataFrame(columns=['local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante'])
 df_partidos_ronda2['local']= ['Paris Saint-Germain', 'FC Barcelona', 'Club Atlético de Madrid', 'FC Bayern München', 'Arsenal FC', 'Manchester City FC', 'Borussia Dortmund', 'Real Madrid CF']
 df_partidos_ronda2['visitante'] = ['Arsenal FC', 'Manchester City FC', 'Borussia Dortmund', 'Real Madrid CF', 'Paris Saint-Germain', 'FC Barcelona', 'Club Atlético de Madrid', 'FC Bayern München']
+df_partidos_ronda2 = actualizar_probabilidades(df_partidos_ronda2)
+print(df_partidos_ronda2.head())

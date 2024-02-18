@@ -4,7 +4,7 @@ import pandas as pd
 df_equipos = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
 
 #creamos el dataframe 
-columnas = ['fecha', 'local', 'visitante', 'prob_ganar_local', 'porb_empate', 'prob_ganar_visitante', 'resultado']
+columnas = ['fecha', 'local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante', 'resultado']
 df_partidos = pd.DataFrame(columns=columnas)
 
 #añadimos los datos de los grupos por días
@@ -31,11 +31,14 @@ def prob_enfrentada(equipo1, equipo2):
     return prob_gana_local1, prob_empate1, prob_gana_visitante1
 
 #Añadimos las probabilidades enfrentadas al dataframe
-for i, fila in df_partidos.iterrows():
-    prob_ganar_local, prob_empate, prob_gana_visitante = prob_enfrentada(fila['local'], fila['visitante'])
-    df_partidos.at[i, 'prob_ganar_local'] = prob_ganar_local
-    df_partidos.at[i, 'porb_empate'] = prob_empate
-    df_partidos.at[i, 'prob_ganar_visitante'] = prob_gana_visitante
+def actualizar_probabilidades(df_partidos):
+    for i, fila in df_partidos.iterrows():
+        prob_ganar_local, prob_empate, prob_gana_visitante = prob_enfrentada(fila['local'], fila['visitante'])
+        df_partidos.at[i, 'prob_ganar_local'] = prob_ganar_local
+        df_partidos.at[i, 'prob_empate'] = prob_empate
+        df_partidos.at[i, 'prob_ganar_visitante'] = prob_gana_visitante
+    return df_partidos
+df_partidos = actualizar_probabilidades(df_partidos)
 print(df_partidos.head())
 
 #lo pasamos a csv
