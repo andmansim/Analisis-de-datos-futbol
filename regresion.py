@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import pandas as pd
 from crear_csv import actualizar_probabilidades
 
-def regresion (X, y, df_partidos):
+def regresion ( df_partidos):
     
     #separamos las variables independientes y dependientes
     X = df_partidos[['prob_ganar_local', 'prob_empate', 'prob_ganar_visitante']]
@@ -17,7 +17,7 @@ def regresion (X, y, df_partidos):
     df_partidos.loc[df_partidos['prob_ganar_local'] > df_partidos['prob_ganar_visitante'], 'resultado'] = 1 #local
     df_partidos.loc[df_partidos['prob_ganar_local'] < df_partidos['prob_ganar_visitante'], 'resultado'] = 2 #visitante
     df_partidos.loc[df_partidos['prob_ganar_local'] == df_partidos['prob_ganar_visitante'], 'resultado'] = 3 #empate
-
+    print(df_partidos.head())
     #Dividimos los datos en entrenamiento y prueba
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -49,13 +49,13 @@ def regresion (X, y, df_partidos):
     return df_partidos
 
 #leemos el csv
-df_partidos = pd.read_csv('partidos_fut.csv', encoding='utf-8', sep=';')
+df_partido = pd.read_csv('partidos_fut.csv', encoding='utf-8', sep=';')
 
 #llamamos a la función regresión
-df_partidos = regresion(df_partidos)
+df_partido = regresion(df_partido)
 
 #actualizamos los datos del csv con los resultados obtenidos
-df_partidos.to_csv('partidos_fut.csv', index=False, sep=';')
+df_partido.to_csv('partidos_fut.csv', index=False, sep=';')
 print('Datos actualizados')
 
 #en función de los resultados creamos un nuevo dataframe con los siguientes partidos
