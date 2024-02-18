@@ -14,13 +14,15 @@ def regresion ( df_partidos):
     df_partidos.loc[df_partidos['prob_ganar_local'] < df_partidos['prob_ganar_visitante'], 'resultado'] = int(2) #visitante
     df_partidos.loc[df_partidos['prob_ganar_local'] == df_partidos['prob_ganar_visitante'], 'resultado'] = int(3) #empate
     
+    print(df_partidos['resultado'])
+    
     #separamos las variables independientes y dependientes
     X = df_partidos[['prob_ganar_local', 'prob_empate', 'prob_ganar_visitante']]
     y = df_partidos['resultado']
     
     #Dividimos los datos en entrenamiento y prueba
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, )
+    print(X_train, X_test, y_train, y_test)
     #Creamos el modelo
     modelo = LogisticRegression()
     #Entrenamos el modelo
@@ -86,6 +88,6 @@ df_partidos_ronda4['visitante'] = ['FC Bayern München', 'FC Barcelona']
 df_partidos_ronda4 = actualizar_probabilidades(df_partidos_ronda4)
 
 print('Ronda 4')
-df_partidos_ronda4 = regresion(df_partidos_ronda4)
-df_partidos_ronda4.to_csv('partidos_fut_ronda4.csv', index=False, sep=';')
+#cogemos la 
+
 
