@@ -40,8 +40,15 @@ print(confusion_matrix(y_test, y_pred))
 #Mostramos los resultados de cada partido que hemos obtenido de las predicciones
 predicciones = modelo.predict(X)
 for i, fila in df_partidos.iterrows():
-    print(fila['local'], 'vs', fila['visitante'], 'Resultado:', predicciones[i])
+    if predicciones[i] == 1:
+        resultado = 'Local'
+    elif predicciones[i] == 2:
+        resultado = 'Visitante'
+    else:
+        resultado = 'Empate'
+        
+    print(fila['local'], 'vs', fila['visitante'], 'Resultado:', resultado)
 
-#Guardamos el modelo
+
 
 
