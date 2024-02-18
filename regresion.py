@@ -47,8 +47,10 @@ for i, fila in df_partidos.iterrows():
     else:
         resultado = 'Empate'
         
-    print(fila['local'], 'vs', fila['visitante'], 'Resultado:', resultado)
+    print('\n' + fila['local'], 'vs', fila['visitante'], 'Resultado:', resultado)
 
-
+#actualizamos los datos del csv con los resultados obtenidos
+df_partidos.to_csv('partidos_fut.csv', index=False, sep=';')
+print('Datos actualizados')
 
 
