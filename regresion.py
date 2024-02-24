@@ -1,4 +1,10 @@
+'''
+Regresion logistica se utiliza cuando la variable de respuesta es binaria. Debe de ser un número entero.
+Se utiliza para clasificar, no para predecir valores continuos. Ejemplo: predecir si un correo es spam o no.
 
+Regresion lineal es para ver la relación entre dos variables.
+Se utiliza para predecir valores continuos, ejemplo: predecir el precio de una casa.
+'''
 #Regresión logística
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression

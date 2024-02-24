@@ -100,6 +100,7 @@ X = None
 y = None
 
 train_data = None #es el csv con los datos de entrenamiento
+test_data = None #es el csv con los datos de prueba
 
 #dividimos los datos en entrenamiento (80) y prueba(20)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
