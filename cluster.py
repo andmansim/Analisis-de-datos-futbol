@@ -45,3 +45,28 @@ minibatchkmeans.fit(data)
 
 #Clusters basados en densidad
 #DBSCAN
+from sklearn.cluster import DBSCAN
+dbscan = DBSCAN(eps=0.5, min_samples=5) 
+#eps es la distancia máxima entre dos muestras para que una sea considerada en el vecindario de la otra
+#min_samples es el número mínimo de muestras en un vecindario para que una muestra sea considerada como un
+#punto central
+#un vecindario es una región de espacio que rodea un punto de datos
+dbscan.fit(data)
+
+#OPTICS
+from sklearn.cluster import OPTICS
+optics = OPTICS() #similar a DBSCAN pero no necesita los parámetros eps y min_samples
+optics.fit(data)
+
+#Clusters basados en distribución
+#GMM
+from sklearn.mixture import GaussianMixture
+gmm = GaussianMixture(n_components=3) #inicializamos el modelo con 3 clusters
+gmm.fit(data) #aplicamos el modelo a los datos para encontrar esos clusters
+
+#Clusters jerárquicos
+#Agglomerative Clustering
+from sklearn.cluster import AgglomerativeClustering
+agglomerative = AgglomerativeClustering(n_clusters=3) #inicializamos el modelo con 3 clusters
+agglomerative.fit(data) #aplicamos el modelo a los datos para encontrar esos clusters
+
