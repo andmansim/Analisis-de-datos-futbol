@@ -70,3 +70,21 @@ from sklearn.cluster import AgglomerativeClustering
 agglomerative = AgglomerativeClustering(n_clusters=3) #inicializamos el modelo con 3 clusters
 agglomerative.fit(data) #aplicamos el modelo a los datos para encontrar esos clusters
 
+
+
+'''
+Serie temporal, es para ver la evolución de los datos a lo largo del tiempo.
+En esta serie los datos estan indexados por su orden cronológico. 
+Se suele visualizar la serie temporal, la descomposición en tendencia, estacionalidad y residuo, la 
+modelización de tendencias y la predicción de futuros valores.
+
+Técnicas de análisis de series temporales:
+    - ARIMA
+    - SARIMA
+    - AR
+    - Exponential Smoothing
+    - Random Forest
+    - Gradient Boosting
+    - Multivariate Forecasting
+    - Esemble modeling
+'''
