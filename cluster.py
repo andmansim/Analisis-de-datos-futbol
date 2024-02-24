@@ -88,3 +88,52 @@ Técnicas de análisis de series temporales:
     - Multivariate Forecasting
     - Esemble modeling
 '''
+#dividimos los datos en entrenamiento y prueba
+from sklearn.model_selection import train_test_split
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+#Establecemos la X, y
+X = None
+y = None
+
+train_data = None #es el csv con los datos de entrenamiento
+
+#dividimos los datos en entrenamiento (80) y prueba(20)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+# Modelo ARIMA
+arima_model = ARIMA(train_data['value'], order=(5,1,0)) #modelo ARIMA con p=5, d=1, q=0. 
+#p es el número de términos autorregresivos
+#d es el número de diferencias no estacionales
+#q es el número de términos de media móvil
+
+arima_result = arima_model.fit()
+
+# Predicciones ARIMA
+arima_forecast = arima_result.predict(start=len(train_data), end=len(train_data)+len(test_data)-1, typ='levels')
+#start es el índice de la primera predicción
+#end es el índice de la última predicción
+#typ='levels' es para indicar que queremos las predicciones originales y no las diferencias
+
+
+# Modelo Random Forest
+rf_model = RandomForestRegressor()
+rf_model.fit(train_data[['feature1', 'feature2']], train_data['value'])
+#feature1 y feature2 son las características que se usan para predecir el valor
+#value es el valor que se quiere predecir
+
+
+# Predicciones Random Forest
+rf_forecast = rf_model.predict(test_data[['feature1', 'feature2']])
+
+
+# Calcular error cuadrático medio, comparar los errores de los dos modelos
+arima_error = mean_squared_error(test_data['value'], arima_forecast)
+rf_error = mean_squared_error(test_data['value'], rf_forecast)
+
+print("ARIMA MSE:", arima_error)
+print("Random Forest MSE:", rf_error)
