@@ -88,6 +88,10 @@ df_partidos_ronda4['visitante'] = ['FC Bayern München', 'FC Barcelona']
 df_partidos_ronda4 = actualizar_probabilidades(df_partidos_ronda4)
 
 print('Ronda 4')
-#cogemos la 
+#cogemos los dos % de ganar de cada equipo y los comparamos
+if df_partidos_ronda4['porb_ganar_local'][0] < df_partidos_ronda4['prob_ganar_visitante'][1]:
+    print('Gana el visitante', df_partidos_ronda4['visitante'][1])
+else:
+    print('Gana el local', df_partidos_ronda4['local'][0])
 
 
