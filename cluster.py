@@ -114,14 +114,14 @@ Técnicas de análisis de series temporales:
     - Multivariate Forecasting
     - Esemble modeling
 '''
-'''#dividimos los datos en entrenamiento y prueba
+#dividimos los datos en entrenamiento y prueba
 from sklearn.model_selection import train_test_split
 from statsmodels.tsa.arima.model import ARIMA
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
-#Establecemos la X, y
+#Establecemos la X(representa el tiempo), y(os datos que cambian respecto a él)
 X = None
 y = None
 
@@ -163,4 +163,4 @@ arima_error = mean_squared_error(test_data['value'], arima_forecast)
 rf_error = mean_squared_error(test_data['value'], rf_forecast)
 
 print("ARIMA MSE:", arima_error)
-print("Random Forest MSE:", rf_error)'''
+print("Random Forest MSE:", rf_error)
