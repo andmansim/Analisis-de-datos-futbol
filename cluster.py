@@ -28,7 +28,15 @@ datos_num = df_equipos.select_dtypes(include=['float64', 'int64'])
 # Función para aplicar un algoritmo de clustering y obtener métricas de desempeño
 def aplicar_clustering(modelo, datos):
     modelo.fit(datos)
-    # Aquí puedes agregar código para evaluar el desempeño del modelo, por ejemplo, calculando la inercia en el caso de KMeans
+    # Etiquetas de los clusters
+    labels = modelo.labels_
+    # Centroides
+    centroids = modelo.cluster_centers_
+    # Número de clusters
+    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+    print("Número de clusters:", n_clusters)
+    print("Centroides:", centroids)
+    print("Etiquetas:", labels)
 
 #Procedemos a hacer clusters con algoritmos centroides
 # Aplicar K-means
