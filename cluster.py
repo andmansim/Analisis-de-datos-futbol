@@ -17,56 +17,55 @@ Todo esto sirve para ayudar a entrenar a la ia y examinar los datos que nos han 
 '''
 
 import pandas as pd
+from sklearn.cluster import KMeans, MeanShift, MiniBatchKMeans, DBSCAN, OPTICS, GaussianMixture, AgglomerativeClustering
 
-#leemos el csv
+# Leemos el csv
 df_equipos = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
 
-#Precedemos a hacer clusters con algoritmos centroides
-#K-means
-from sklearn.cluster import KMeans
-#Solo trabaja con datos numéricos
-datos_num = df_equipos.select_dtypes(include=['float64', 'int64']) #seleccionamos las columnas numéricas
+# Seleccionamos solo las columnas numéricas
+datos_num = df_equipos.select_dtypes(include=['float64', 'int64'])
+
+# Función para aplicar un algoritmo de clustering y obtener métricas de desempeño
+def aplicar_clustering(modelo, datos):
+    modelo.fit(datos)
+    # Aquí puedes agregar código para evaluar el desempeño del modelo, por ejemplo, calculando la inercia en el caso de KMeans
+
+#Procedemos a hacer clusters con algoritmos centroides
+# Aplicar K-means
 kmeans = KMeans(n_clusters=3) #inicializamos el modelo con 3 clusters
-kmeans.fit(datos_num) #aplicamos el modelo a los datos para encontrar esos clusters
+aplicar_clustering(kmeans, datos_num)
 
-#Mean Shift
-from sklearn.cluster import MeanShift
-meanshift = MeanShift() #lo mismo que con k-means
-meanshift.fit(datos_num)
+# Aplicar Mean Shift
+meanshift = MeanShift() #inicializamos el modelo
+aplicar_clustering(meanshift, datos_num)
 
-#Mini Batch K-means
-from sklearn.cluster import MiniBatchKMeans
-#Trabaja con datos numéricos
-minibatchkmeans = MiniBatchKMeans(n_clusters=3) #Es una versión más eficiente que con k-means
-minibatchkmeans.fit(datos_num) 
+# Aplicar Mini Batch K-means
+minibatchkmeans = MiniBatchKMeans(n_clusters=3) #inicializamos el modelo con 3 clusters
+aplicar_clustering(minibatchkmeans, datos_num)
 
 #Clusters basados en densidad
-#DBSCAN
-from sklearn.cluster import DBSCAN
-dbscan = DBSCAN(eps=0.5, min_samples=5) 
+# Aplicar DBSCAN
+dbscan = DBSCAN(eps=0.5, min_samples=5)
 #eps es la distancia máxima entre dos muestras para que una sea considerada en el vecindario de la otra
 #min_samples es el número mínimo de muestras en un vecindario para que una muestra sea considerada como un
 #punto central
 #un vecindario es una región de espacio que rodea un punto de datos
-dbscan.fit(datos_num)
+aplicar_clustering(dbscan, datos_num)
 
-#OPTICS
-from sklearn.cluster import OPTICS
+# Aplicar OPTICS
 optics = OPTICS() #similar a DBSCAN pero no necesita los parámetros eps y min_samples
-optics.fit(datos_num)
+aplicar_clustering(optics, datos_num)
+
 
 #Clusters basados en distribución
-#GMM
-from sklearn.mixture import GaussianMixture
-#Trabaja con datos numéricos y asume que los datos siguen una distribución gaussiana
-gmm = GaussianMixture(n_components=3) #inicializamos el modelo con 3 clusters
-gmm.fit(datos_num) #aplicamos el modelo a los datos para encontrar esos clusters
+# Aplicar GMM
+gmm = GaussianMixture(n_components=3)
+aplicar_clustering(gmm, datos_num)
 
 #Clusters jerárquicos
-#Agglomerative Clustering
-from sklearn.cluster import AgglomerativeClustering
-agglomerative = AgglomerativeClustering(n_clusters=3) #inicializamos el modelo con 3 clusters
-agglomerative.fit(datos_num) #aplicamos el modelo a los datos para encontrar esos clusters
+# Aplicar Agglomerative Clustering
+agglomerative = AgglomerativeClustering(n_clusters=3)
+aplicar_clustering(agglomerative, datos_num)
 
 
 
