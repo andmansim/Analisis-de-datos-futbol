@@ -17,7 +17,8 @@ Todo esto sirve para ayudar a entrenar a la ia y examinar los datos que nos han 
 '''
 
 import pandas as pd
-from sklearn.cluster import KMeans, MeanShift, MiniBatchKMeans, DBSCAN, OPTICS, GaussianMixture, AgglomerativeClustering
+from sklearn.cluster import KMeans, MeanShift, MiniBatchKMeans, DBSCAN, OPTICS, AgglomerativeClustering
+from sklearn.mixture import GaussianMixture
 
 # Leemos el csv
 df_equipos = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
@@ -28,15 +29,33 @@ datos_num = df_equipos.select_dtypes(include=['float64', 'int64'])
 # Función para aplicar un algoritmo de clustering y obtener métricas de desempeño
 def aplicar_clustering(modelo, datos):
     modelo.fit(datos)
-    # Etiquetas de los clusters
-    labels = modelo.labels_
-    # Centroides
-    centroids = modelo.cluster_centers_
-    # Número de clusters
-    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-    print("Número de clusters:", n_clusters)
-    print("Centroides:", centroids)
-    print("Etiquetas:", labels)
+    # Obtener resultados específicos de cada algoritmo de clustering
+    if hasattr(modelo, 'labels_'): #hasattr() es para saber si el objeto tiene un atributo
+        labels = modelo.labels_
+    elif hasattr(modelo, 'predict'):
+        labels = modelo.predict(datos)
+    else:
+        labels = None
+
+    if hasattr(modelo, 'cluster_centers_'):
+        centroids = modelo.cluster_centers_
+    else:
+        centroids = None
+
+    if hasattr(modelo, 'n_clusters'):
+        n_clusters = modelo.n_clusters
+    else:
+        n_clusters = None
+
+    # Mostrar los resultados
+    print("\nModelo:", modelo)
+    if n_clusters is not None:
+        print("\nNúmero de clusters:", n_clusters)
+    if centroids is not None:
+        print("\nCentroides:", centroids)
+    if labels is not None:
+        print("\nEtiquetas:", labels)
+
 
 #Procedemos a hacer clusters con algoritmos centroides
 # Aplicar K-means
