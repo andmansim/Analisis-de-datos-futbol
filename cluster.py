@@ -29,8 +29,10 @@ datos_num = df_equipos.select_dtypes(include=['float64', 'int64'])
 # Función para aplicar un algoritmo de clustering y obtener métricas de desempeño
 def aplicar_clustering(modelo, datos):
     modelo.fit(datos)
-    # Obtener resultados específicos de cada algoritmo de clustering
-    if hasattr(modelo, 'labels_'): #hasattr() es para saber si el objeto tiene un atributo
+    #comprobamos si tiene las etiquetas, centroides y número de clusters
+    #hasattr() es para saber si el objeto tiene un atributo
+    
+    if hasattr(modelo, 'labels_'): 
         labels = modelo.labels_
     elif hasattr(modelo, 'predict'):
         labels = modelo.predict(datos)
