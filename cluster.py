@@ -21,27 +21,24 @@ import pandas as pd
 #leemos el csv
 df_equipos = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
 
-#Examinamos los datos para ver si tenemos que añadir o eliminar columnas
-
-#pensar cómo unir todos los datos de los partidos en uno solo. 
-#¿lo tengo que unir al de los equipos? pq lo veo complicado
-data = None
-
 #Precedemos a hacer clusters con algoritmos centroides
 #K-means
 from sklearn.cluster import KMeans
+#Solo trabaja con datos numéricos
+datos_num = df_equipos.select_dtypes(include=['float64', 'int64']) #seleccionamos las columnas numéricas
 kmeans = KMeans(n_clusters=3) #inicializamos el modelo con 3 clusters
-kmeans.fit(data) #aplicamos el modelo a los datos para encontrar esos clusters
+kmeans.fit(datos_num) #aplicamos el modelo a los datos para encontrar esos clusters
 
 #Mean Shift
 from sklearn.cluster import MeanShift
 meanshift = MeanShift() #lo mismo que con k-means
-meanshift.fit(data)
+meanshift.fit(datos_num)
 
 #Mini Batch K-means
 from sklearn.cluster import MiniBatchKMeans
+#Trabaja con datos numéricos
 minibatchkmeans = MiniBatchKMeans(n_clusters=3) #Es una versión más eficiente que con k-means
-minibatchkmeans.fit(data) 
+minibatchkmeans.fit(datos_num) 
 
 #Clusters basados en densidad
 #DBSCAN
@@ -51,24 +48,25 @@ dbscan = DBSCAN(eps=0.5, min_samples=5)
 #min_samples es el número mínimo de muestras en un vecindario para que una muestra sea considerada como un
 #punto central
 #un vecindario es una región de espacio que rodea un punto de datos
-dbscan.fit(data)
+dbscan.fit(datos_num)
 
 #OPTICS
 from sklearn.cluster import OPTICS
 optics = OPTICS() #similar a DBSCAN pero no necesita los parámetros eps y min_samples
-optics.fit(data)
+optics.fit(datos_num)
 
 #Clusters basados en distribución
 #GMM
 from sklearn.mixture import GaussianMixture
+#Trabaja con datos numéricos y asume que los datos siguen una distribución gaussiana
 gmm = GaussianMixture(n_components=3) #inicializamos el modelo con 3 clusters
-gmm.fit(data) #aplicamos el modelo a los datos para encontrar esos clusters
+gmm.fit(datos_num) #aplicamos el modelo a los datos para encontrar esos clusters
 
 #Clusters jerárquicos
 #Agglomerative Clustering
 from sklearn.cluster import AgglomerativeClustering
 agglomerative = AgglomerativeClustering(n_clusters=3) #inicializamos el modelo con 3 clusters
-agglomerative.fit(data) #aplicamos el modelo a los datos para encontrar esos clusters
+agglomerative.fit(datos_num) #aplicamos el modelo a los datos para encontrar esos clusters
 
 
 
@@ -88,7 +86,7 @@ Técnicas de análisis de series temporales:
     - Multivariate Forecasting
     - Esemble modeling
 '''
-#dividimos los datos en entrenamiento y prueba
+'''#dividimos los datos en entrenamiento y prueba
 from sklearn.model_selection import train_test_split
 from statsmodels.tsa.arima.model import ARIMA
 from sklearn.ensemble import RandomForestRegressor
@@ -137,4 +135,4 @@ arima_error = mean_squared_error(test_data['value'], arima_forecast)
 rf_error = mean_squared_error(test_data['value'], rf_forecast)
 
 print("ARIMA MSE:", arima_error)
-print("Random Forest MSE:", rf_error)
+print("Random Forest MSE:", rf_error)'''
