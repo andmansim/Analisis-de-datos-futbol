@@ -15,6 +15,10 @@ Algoritmos de clusterización:
 
 Todo esto sirve para ayudar a entrenar a la ia y examinar los datos que nos han dado. 
 '''
+import sys
+import os
+env_310_path = os.path.join(os.path.dirname(__file__), 'env_310', 'Lib', 'site-packages')
+sys.path.append(env_310_path)
 
 import pandas as pd
 from sklearn.cluster import KMeans, MeanShift, MiniBatchKMeans, DBSCAN, OPTICS, AgglomerativeClustering
