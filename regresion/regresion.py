@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix
 import pandas as pd
-from crear_csv import actualizar_probabilidades
+from regresion.crear_csv import actualizar_probabilidades
 
 def regresion ( df_partidos):
     
