@@ -19,9 +19,11 @@ Todo esto sirve para ayudar a entrenar a la ia y examinar los datos que nos han 
 import pandas as pd
 from sklearn.cluster import KMeans, MeanShift, MiniBatchKMeans, DBSCAN, OPTICS, AgglomerativeClustering
 from sklearn.mixture import GaussianMixture
+import os
+
 
 # Leemos el csv
-df_equipos = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
+df_equipos = pd.read_csv('csvs/datos_fut.csv', encoding='utf-8', sep=';')
 
 # Seleccionamos solo las columnas numéricas
 datos_num = df_equipos.select_dtypes(include=['float64', 'int64'])

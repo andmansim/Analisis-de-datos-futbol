@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 #leemos el csv
-df = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
+df = pd.read_csv('csvs/datos_fut.csv', encoding='utf-8', sep=';')
 print(df.head())  
 
 #vemos las columnas y los datos
@@ -21,7 +21,7 @@ for i in df.columns:
         df[i] = df[i].astype(float)
 
 #guardamos los datos en un csv
-df.to_csv('datos_fut.csv', sep=';', index=False, encoding='utf-8')
+df.to_csv('csvs/datos_fut.csv', sep=';', index=False, encoding='utf-8')
 
 #Gráficos
 

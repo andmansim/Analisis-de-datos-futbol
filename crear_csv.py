@@ -1,7 +1,7 @@
 
 import pandas as pd
 #leemos el csv con los datos de cadda equipo
-df_equipos = pd.read_csv('datos_fut.csv', encoding='utf-8', sep=';')
+df_equipos = pd.read_csv('csvs/datos_fut.csv', encoding='utf-8', sep=';')
 
 #creamos el dataframe 
 columnas = ['fecha', 'local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante', 'resultado']
@@ -42,5 +42,5 @@ df_partidos = actualizar_probabilidades(df_partidos)
 
 
 #lo pasamos a csv
-df_partidos.to_csv('partidos_fut.csv', sep=';', index=False, encoding='utf-8')
+df_partidos.to_csv('csvs/partidos_fut.csv', sep=';', index=False, encoding='utf-8')
 
