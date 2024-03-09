@@ -20,11 +20,19 @@ from matplotlib import pyplot as plt
 #leemos el archivo
 df_equipos = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
 
+#remplazamos , por . de todas las columnas
+for columna in df_equipos.select_dtypes(include=['object']):
+    if df_equipos[columna].str.contains(',').any():
+        df_equipos[columna] = df_equipos[columna].str.replace(',', '.')
+        df_equipos[columna] = df_equipos[columna].astype(float)
+
+
+
 #clasificamos los equipos
 def clasificar_equipos(row):
-    if row['porgfav/gtot'] > 50:
+    if row['porcapacidad_ofensiva'] > 50:
         return 0 #ataque
-    elif row['porgfav/gtot'] < 50:
+    elif row['porcapacidad_ofensiva'] < 50:
         return 1 #defensa
     else:
         return 2 #neutro
@@ -46,19 +54,26 @@ print('Se han importado las librerías, listo para usar\n', torch.__version__)
 x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
 y = df_equipos['categoria']
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 print('Datos separados en train y test\n')
-print('x_train:', x_train.shape
-      , 'x_test:', x_test.shape
-      , 'y_train:', y_train.shape
-      , 'y_test:', y_test.shape)
+for i in range(10):
+    print(x_train.iloc[i], y_train.iloc[i])
 
+print('TODO BIEN 1\n')
 #preparamos los datos para torch
 #creamos un dataset con los datos de train
-train_x = torch.Tensor(x_train).float()
-train_y = torch.Tensor(y_train).long()
+train_x = torch.Tensor(x_train.values).float()
+train_y = torch.Tensor(y_train.values).long()
 train_ds = td.TensorDataset(train_x, train_y)
 train_loader = td.DataLoader(train_ds, batch_size=20, shuffle=False, num_workers=1)
+
+#creamos un dataset con los datos de test
+test_x = torch.Tensor(x_test.values).float()
+test_y = torch.Tensor(y_test.values).long()
+test_ds = td.TensorDataset(test_x, test_y)
+test_loader = td.DataLoader(test_ds, batch_size=20, shuffle=False, num_workers=1)
+
+print('TODO BIEN 2\n')
 
 #definimos neuronas
 #definimos el número de nodos en cada capa oculta
@@ -92,8 +107,9 @@ class RedNeuronal(nn.Module):
 model = RedNeuronal()
 print('Red Neuronal creada\n', model)
 
-#Entrenamos la red neuronal
+print('TODO BIEN 3\n')
 
+#Entrenamos la red neuronal
 def train(model, data_loader, optimizador):
     #indicamos que la red está en modo de entrenamiento
     model.train()
