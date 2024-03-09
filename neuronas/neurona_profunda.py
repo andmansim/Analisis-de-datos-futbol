@@ -51,12 +51,37 @@ print('x_train:', x_train.shape
       , 'x_test:', x_test.shape
       , 'y_train:', y_train.shape
       , 'y_test:', y_test.shape)
-#preparamos los datos 
+
+#preparamos los datos para torch
 #creamos un dataset con los datos de train
 train_x = torch.Tensor(x_train).float()
 train_y = torch.Tensor(y_train).long()
 train_ds = td.TensorDataset(train_x, train_y)
 train_loader = td.DataLoader(train_ds, batch_size=20, shuffle=False, num_workers=1)
+
+#definimos neuronas
+#definimos el número de capas ocultas
+hl = 10
+
+#definimos la red neuronal
+class RedNeuronal(nn.Module):
+    def __init__(self):
+        super(RedNeuronal, self).__init__()
+        self.fc1 = nn.Linear(5, hl)
+        self.fc2 = nn.Linear(hl, hl)
+        self.fc3 = nn.Linear(hl, 3)
+
+    def forward(self, x):
+        x = torch.sigmoid(self.fc1(x))
+        x = torch.sigmoid(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+#creamos una instancia de la red neuronal
+model = RedNeuronal()
+print('Red Neuronal creada\n', model)
+
+
 
 
 
