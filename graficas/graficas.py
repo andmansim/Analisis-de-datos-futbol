@@ -12,13 +12,13 @@ print(df.head())
 print(df.columns)
 print(df.info())  
 
-#Remplazamos las comas por puntos
-df = df.replace(',', '.', regex=True)
-print(df.head())
-#convertimos las columnas a float
-for i in df.columns:
-    if 'por' in i:
-        df[i] = df[i].astype(float)
+
+#remplazamos , por . de todas las columnas
+for columna in df.select_dtypes(include=['object']):
+    if df[columna].str.contains(',').any():
+        df[columna] = df[columna].str.replace(',', '.')
+        df[columna] = df[columna].astype(float)
+
 
 #guardamos los datos en un csv
 df.to_csv('csvs/datos_fut.csv', sep=';', index=False, encoding='utf-8')
@@ -59,5 +59,5 @@ grafi_baras_colores(df_por.head(10), 'Porcentaje de ataque, defensa y empate de 
 
 
 #Gráfico de barras mostrando el % de goles a favor y en contra de los 10 mejores equipos
-df_goles = df.set_index('Club')[["porgfav/gtot", 'porgenc/gtot']]
+df_goles = df.set_index('Club')[["porcapacidad_ofensiva", 'porcapacidad_defensiva']]
 grafi_baras_colores(df_goles.head(10), 'Porcentaje de goles a favor y en contra de los 10 mejores equipos', 'Equipo', 'Porcentaje')

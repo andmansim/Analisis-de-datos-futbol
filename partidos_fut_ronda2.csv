@@ -1,0 +1,9 @@
+local;visitante;prob_ganar_local;prob_empate;prob_ganar_visitante;resultado
+Paris Saint-Germain;Arsenal FC;15.27;4.04;13.7;1
+FC Barcelona;Manchester City FC;14.16;4.52;10.8;1
+Club Atlético de Madrid;Borussia Dortmund;15.65;5.1;12.51;1
+FC Bayern München;Real Madrid CF;13.85;3.39;12.07;1
+Arsenal FC;Paris Saint-Germain;13.7;4.04;15.27;2
+Manchester City FC;FC Barcelona;10.8;4.52;14.16;2
+Borussia Dortmund;Club Atlético de Madrid;12.51;5.1;15.65;2
+Real Madrid CF;FC Bayern München;12.07;3.39;13.85;2

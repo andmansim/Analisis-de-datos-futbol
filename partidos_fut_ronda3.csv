@@ -1,0 +1,5 @@
+local;visitante;prob_ganar_local;prob_empate;prob_ganar_visitante;resultado
+Paris Saint-Germain;FC Barcelona;10.48;4.23;15.85;2
+Club Atlético de Madrid;FC Bayern München;9.57;5.22;15.74;2
+FC Barcelona;Paris Saint-Germain;15.85;4.23;10.48;1
+FC Bayern München;Club Atlético de Madrid;15.74;5.22;9.57;1
