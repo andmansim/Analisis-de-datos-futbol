@@ -135,7 +135,44 @@ def train(model, data_loader, optimizador):
 
 
 
-
+#definimos los test
+def test(model, data_loader):
+    #indicamos que la red está en modo de evaluación
+    #no hay retropropagación
+    model.eval()
+    
+    #inicializamos el error
+    test_loss = 0
+    #inicializamos el número de predicciones correctas
+    correct = 0
+    
+    with torch.no_grad():
+        #Establecemos un bucle para evaluar los datos 
+        #sin la necesidad de calcular los gradientes
+        batch_count = 0
+        
+        for barch, tensor in enumerate(data_loader):
+            #iteramos a través de los datos para obtener 
+            #lotes de datos
+            
+            batch_count += 1
+            
+            #obtenemos los datos y las etiquetas del lote actual
+            data, target = tensor
+            
+            #hacemos el pase hacia delante (feedforward)
+            output = model(data)
+            
+            #calculamos el error acumulado
+            test_loss += torch.nn.functional.cross_entropy(output, target, reduction='sum').item()
+            
+            #calculamos el número de predicciones correctas
+            _, predicted = torch.max(output.data, 1)
+            correct += torch.sum(target == predicted).item()
+    
+    media_error = test_loss / batch_count
+    print('Prueba: pérdida media: %f, precisión: %f ' % (test_loss, 100. * correct /len(data_loader.dataset)))
+    return media_error
 
 
 
