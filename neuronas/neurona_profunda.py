@@ -60,27 +60,78 @@ train_ds = td.TensorDataset(train_x, train_y)
 train_loader = td.DataLoader(train_ds, batch_size=20, shuffle=False, num_workers=1)
 
 #definimos neuronas
-#definimos el número de capas ocultas
+#definimos el número de nodos en cada capa oculta
 hl = 10
 
 #definimos la red neuronal
 class RedNeuronal(nn.Module):
     def __init__(self):
-        super(RedNeuronal, self).__init__()
-        self.fc1 = nn.Linear(5, hl)
+        super(RedNeuronal, self).__init__()#se inicializa la clase padre
+        
+        #se define la capa de entrada que toma como entrada la cantidad de nodos (los valores de entrada)
+        #y produce una salida de hl nodos
+        self.fc1 = nn.Linear(x_train.shape[1], hl) 
+        
+        #se define la segunda capa oculta con hl nodos y produce una salida de hl nodos
         self.fc2 = nn.Linear(hl, hl)
-        self.fc3 = nn.Linear(hl, 3)
+        
+        #se define la capa de salida con hl nodos y produce una salida de 3 nodos
+        self.fc3 = nn.Linear(hl, x_train.shape[1])
 
     def forward(self, x):
-        x = torch.sigmoid(self.fc1(x))
-        x = torch.sigmoid(self.fc2(x))
-        x = self.fc3(x)
+        #indica cómo van a ser procesados los datos de entrada
+        #en cada x pasamos los datos por la capa oculta y aplicamos la función de activación
+        x = torch.relu(self.fc1(x))
+        x = torch.relu(self.fc2(x))
+        x = torch.relu(self.fc3(x))
+        #nos devuelve la salida final de los datos
         return x
 
 #creamos una instancia de la red neuronal
 model = RedNeuronal()
 print('Red Neuronal creada\n', model)
 
+#Entrenamos la red neuronal
+
+def train(model, data_loader, optimizador):
+    #indicamos que la red está en modo de entrenamiento
+    model.train()
+    
+    #inicializamos el error
+    train_loss = 0
+    
+    for batch, tensor in enumerate(data_loader):
+        #iteramos a través de los datos para obtener lotes de datos y 
+        #realizar un seguimiento del número de lotes con batch
+        
+        #obtenemos los datos y las etiquetas del lote actual
+        data, target = tensor
+        
+        #reiniciamos el optimizador a cero para que no se 
+        #acumulen los gradientes
+        optimizador.zero_grad()
+        
+        #pasamos los datos por la red
+        output = model(data)
+        
+        #calculamos el error (pedida de los datos reales con los 
+        #datos predichos)
+        loss = torch.nn.functional.cross_entropy(output, target)
+        
+        #acumulamos el error
+        train_loss += loss.item()
+        
+        #se realiza la retropropagación (pase hacia atrás) 
+        #para ajustar los pesos
+        loss.backward()
+        
+        #actualizamos los parámetros de la red
+        optimizador.step()
+        
+    #devolvemos la media del error
+    media_error = train_loss / (batch + 1)
+    print('Error medio:', media_error)
+    return media_error
 
 
 
