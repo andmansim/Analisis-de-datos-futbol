@@ -20,13 +20,6 @@ from matplotlib import pyplot as plt
 #leemos el archivo
 df_equipos = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
 
-#remplazamos , por . de todas las columnas
-for columna in df_equipos.select_dtypes(include=['object']):
-    if df_equipos[columna].str.contains(',').any():
-        df_equipos[columna] = df_equipos[columna].str.replace(',', '.')
-        df_equipos[columna] = df_equipos[columna].astype(float)
-
-
 
 #clasificamos los equipos
 def clasificar_equipos(row):
@@ -225,7 +218,7 @@ if __name__ == '__main__':
     
     #evaluamos el modelo
     model.eval()
-    x1 = torch.Tensor(x_test).float()
+    x1 = torch.Tensor(x_test.values).float()
     _, predicted = torch.max(model(x1).data, 1)
     
     #creamos la matriz de confusión
