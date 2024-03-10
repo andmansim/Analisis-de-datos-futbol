@@ -185,19 +185,21 @@ def test(model, data_loader):
     return media_error
 
 loss_criteria = nn.CrossEntropyLoss()
+#Tasa de aprendizaje 
 learning_rate = 0.001
+#acrtualiza los pesos durente el entrenamiento para minimazar la función pérdida
 optimizador = torch.optim.Adam(model.parameters(), lr=learning_rate)
 optimizador.zero_grad()
 
 if __name__ == '__main__':
-        
+    #epoch o épocas son cada pasada completa por el conjunto de datos de entrenamiento
     epoch_nums = []
     training_loss = [] 
     validation_loss = []
 
     #entrenamos la red
     epochs = 50
-    for epoch in range(1, epochs + 1):
+    for epoch in range(1, epochs + 1): #iteramos a través de las épocas
         print('Epoch:', epoch)
         train_loss = train(model, train_loader, optimizador)
         test_loss = test(model, train_loader)
