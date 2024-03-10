@@ -75,7 +75,7 @@ df_partidos_ronda2 = actualizar_probabilidades(df_partidos_ronda2)
 
 print('Ronda 2')
 df_partidos_ronda2 = regresion(df_partidos_ronda2)
-df_partidos_ronda2.to_csv('partidos_fut_ronda2.csv', index=False, sep=';')
+df_partidos_ronda2.to_csv('csvs/partidos_fut_ronda2.csv', index=False, sep=';')
 
 #Ronda 3
 df_partidos_ronda3 = pd.DataFrame(columns=['local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante', 'resultado'])
@@ -85,7 +85,7 @@ df_partidos_ronda3 = actualizar_probabilidades(df_partidos_ronda3)
 
 print('Ronda 3')
 df_partidos_ronda3 = regresion(df_partidos_ronda3)
-df_partidos_ronda3.to_csv('partidos_fut_ronda3.csv', index=False, sep=';')
+df_partidos_ronda3.to_csv('csvs/partidos_fut_ronda3.csv', index=False, sep=';')
 
 #Ronda 4
 df_partidos_ronda4 = pd.DataFrame(columns=['local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante', 'resultado'])
