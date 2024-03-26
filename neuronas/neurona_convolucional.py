@@ -94,4 +94,75 @@ class Net(nn.Module):
         return F.log_softmax(x, dim=1)
     
 print('Red Neuronal creada\n')
-  
+
+#entremaos el modelo
+def train(model, device, train_loader, optimizer, epoch):
+    model.train()
+    train_loss = 0
+    print('Epoch:', epoch)
+    
+    for batch_idx, (data, target) in enumerate(train_loader):
+        data, target = data.to(device), target.to(device)
+        optimizer.zero_grad()
+        output = model(data)
+        loss = loss_criteria(output, target)
+        train_loss += loss.item()
+        loss.backward()
+        optimizer.step()
+
+        if batch_idx % 10 == 0:
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+                epoch, batch_idx * len(data), len(train_loader.dataset),
+                100. * batch_idx / len(train_loader), loss.item()))
+    avg_loss = train_loss / (batch_idx+1)
+    print('Train set: Average loss: {:.6f}'.format(avg_loss))
+    return avg_loss
+
+#definimos la función de test
+def test(model, device, test_loader):
+    #cambiamos el modelo a modo de evaluación
+    model.eval()
+    test_loss = 0
+    correct = 0
+    with torch.no_grad():
+        batch_count = 0
+        for data, target in test_loader:
+            batch_count += 1
+            data, target = data.to(device), target.to(device)
+            
+            output = model(data)
+            
+            test_loss += loss_criteria(output, target, reduction='sum').item() # sum up batch loss
+            _, predicted = torch.max(output.data, 1)
+            correct += torch.sum(target == predicted).item() 
+    avg_loss = test_loss / batch_count
+    print('Test set: Average loss: {:.6f}, Accuracy: {}/{} ({:.0f}%)'.format(
+        avg_loss, correct, len(test_loader.dataset),
+        100. * correct / len(test_loader.dataset)))
+    
+    return avg_loss
+
+#definimos el dispositivo
+device = 'cpu'
+if torch.cuda.is_available():
+    device = 'cuda'
+print('Usando:', device)
+
+#creamos el modelo
+model = Net(num_classes=len(clases)).to(device)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+loss_criteria = nn.CrossEntropyLoss()
+
+epoch_nums = []
+training_loss = []
+validation_loss = []
+
+#entrenamos el modelo
+epochs = 5
+for epoch in range(1, epochs + 1):
+    train_loss = train(model, device, train_loader, optimizer, epoch)
+    test_loss = test(model, device, test_loader)
+    epoch_nums.append(epoch)
+    training_loss.append(train_loss)
+    validation_loss.append(test_loss)
