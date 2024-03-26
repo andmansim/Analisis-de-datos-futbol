@@ -45,13 +45,10 @@ plt.show()
 
 def load_dataset(data_path):
     #funcion que carga las imagenes y las transforma en tensores
-    transformacion = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)) ])
+    transformacion = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)) ])
     
     #cargamos las imagenes y las transformamos
-    full_dataset = torchvision.datasets.ImageFolder( 
-        root=data_path, transform=transformacion)
+    full_dataset = torchvision.datasets.ImageFolder(root=data_path, transform=transformacion)
     
     #70% test y 30% train
     train_size = int(0.7 * len(full_dataset))
@@ -65,4 +62,36 @@ def load_dataset(data_path):
 
 train_loader, test_loader = load_dataset(data_path)
 print('Datos cargados y transformados en tensores\n')
+
+#creamos la red neuronal
+class Net(nn.Module):
+    #constructor
+    def __init__(self, num_classes=3):
+        super(Net, self).__init__()
+        #definimos las capas de la red
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=12, kernel_size=3, stride=1, padding=1)
+        self.pool = nn.MaxPool2d(kernel_size=2)
+        
+        self.conv2 = nn.Conv2d(in_channels=12, out_channels=12, kernel_size=3, stride=1, padding=1)
+        self.conv3 = nn.Conv2d(in_channels=12, out_channels=24, kernel_size=3, stride=1, padding=1)
+        
+        self.drop = nn.Dropout2d(p=0.2)
+        
+        self.fc = nn.Linear(in_features=32*32*24, out_features=num_classes)
     
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        
+        x = F.relu(self.conv2(x))
+        
+        x = F.relu(self.conv3(x))
+
+        x = F.dropout(x, training=self.training)
+        
+        x = x.view(-1, 32*32*24)
+
+        x = self.fc(x)
+        return F.log_softmax(x, dim=1)
+    
+print('Red Neuronal creada\n')
+  
