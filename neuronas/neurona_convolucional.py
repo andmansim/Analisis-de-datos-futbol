@@ -166,3 +166,38 @@ for epoch in range(1, epochs + 1):
     epoch_nums.append(epoch)
     training_loss.append(train_loss)
     validation_loss.append(test_loss)
+    
+#mostramos la gráfica de la pérdida
+plt.plot(epoch_nums, training_loss)
+plt.plot(epoch_nums, validation_loss)
+plt.xlabel('epoch')
+plt.ylabel('loss')
+plt.legend(['training', 'validation'], loc='upper right')
+plt.show()
+
+#evaluamos el modelo
+model.eval()
+print('Mostrando predicciones\n')
+truelabels = []
+predictions = []
+for data, target in test_loader:
+    for label in target.cpu().data.numpy():
+        truelabels.append(label)
+    for prediction in model.cpu()(data).data.numpy().argmax(1):
+        predictions.append(prediction)
+
+cm = confusion_matrix(truelabels, predictions)
+plt.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
+plt.colorbar()
+tick_marks = np.arange(len(clases))
+plt.xticks(tick_marks, clases, rotation=45)
+plt.yticks(tick_marks, clases)
+plt.xlabel('Predicho')
+plt.ylabel('Real')
+plt.show()
+
+#guardamos el modelo
+model_file = 'formas_model.pth'
+torch.save(model.state_dict(), model_file)
+del model
+print('Modelo guardado en', model_file) 
