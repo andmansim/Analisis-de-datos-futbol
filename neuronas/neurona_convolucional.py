@@ -16,6 +16,7 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import sklearn.metrics as confusion_matrix
 
 #ns yo copio y si se cambia pues se cambia después
 #ponemos el directorio de trabajo(donde están las img)ç
@@ -201,3 +202,6 @@ model_file = 'formas_model.pth'
 torch.save(model.state_dict(), model_file)
 del model
 print('Modelo guardado en', model_file) 
+
+#Cargamos el modelo
+#Supongo que aquí lo tengo que hacer para la predicción
