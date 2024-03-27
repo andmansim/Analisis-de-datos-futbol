@@ -41,7 +41,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 train_dataset = td.TensorDataset(X_train, y_train)
 test_dataset = td.TensorDataset(X_test, y_test)
 
-batch_size = 32
+batch_size = 64
 train_loader = td.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = td.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 print('Datos cargados\n')
@@ -49,100 +49,80 @@ print('Datos cargados\n')
 #creamos la red neuronal
 
 class Net(nn.Module):
-    def __init__(self, input_size, num_classes=3):
+    def __init__(self):
         super(Net, self).__init__()
-        
-        # Definir las capas convolucionales y de pooling
-        self.conv1 = nn.Conv1d(in_channels=input_size, out_channels=12, kernel_size=3, stride=1, padding=1)
-        self.pool = nn.MaxPool1d(kernel_size=2)
-        self.conv2 = nn.Conv1d(in_channels=12, out_channels=12, kernel_size=3, stride=1, padding=1)
-        self.conv3 = nn.Conv1d(in_channels=12, out_channels=24, kernel_size=3, stride=1, padding=1)
-        self.drop = nn.Dropout(p=0.2)
-        
-        # Definir la capa fully connected
-        self.fc = nn.Linear(in_features=32 * 24, out_features=num_classes)
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=3, stride=1, padding=1)
+        self.conv2 = nn.Conv2d(16, 32, 3, 1, 1)
+        self.fc1 = nn.Linear(32 * 7 * 7, 128)
+        self.fc2 = nn.Linear(128, 10)  # Suponiendo que tienes 10 clases de salida
 
     def forward(self, x):
-        x = F.relu(self.pool(self.conv1(x)))
-        x = F.relu(self.pool(self.conv2(x)))
-        x = F.relu(self.drop(self.conv3(x)))
-        x = F.dropout(x, training=self.training)
-        
-        x = x.view(-1, 32 * 24)
-        x = self.fc(x)
-        
-        return F.log_softmax(x, dim=1)
+        x = F.relu(self.conv1(x))
+        x = F.max_pool2d(x, 2, 2)
+        x = F.relu(self.conv2(x))
+        x = F.max_pool2d(x, 2, 2)
+        x = x.view(-1, 32 * 7 * 7)
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
     
 print('Red Neuronal creada\n')
 
 model = Net()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
 loss_criteria = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
+
+#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#model.to(device)
 
 #entremaos el modelo
-def train(model, device, train_loader, optimizer, epoch):
+def train(model, loss_criteria, optimizer, train_loader, epoch):
     model.train()
     train_loss = 0.0
     correct = 0
     print('Epoch:', epoch)
-    for data, target in train_loader:
-        data, target = data.to(device), target.to(device)
-        print(data.size())
-        print(target.size())
+    
+    for i, data in enumerate(train_loader, 0):
+        inputs, labels = data
         optimizer.zero_grad()
-        output = model(data.unsqueeze(1))  # Agregar una dimensión de canal
-        print(output.size())
-        loss = loss_criteria(output, target)
+        outputs = model(inputs)
+        loss = loss_criteria(outputs, labels)
         loss.backward()
         optimizer.step()
-        train_loss += loss.item() * data.size(0)
-        pred = output.argmax(dim=1, keepdim=True)
-        correct += pred.eq(target.view_as(pred)).sum().item()
-    accuracy = correct / len(train_loader.dataset)
-    return train_loss / len(train_loader.dataset), accuracy
-    '''for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = data.to(device), target.to(device)
-        optimizer.zero_grad()
-        output = model(data)
-        loss = loss_criteria(output, target)
         train_loss += loss.item()
-        loss.backward()
-        optimizer.step()
-
-        if batch_idx % 10 == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
-    avg_loss = train_loss / (batch_idx+1)
-    print('Train set: Average loss: {:.6f}'.format(avg_loss))
-    return avg_loss'''
+        _, predicted = torch.max(outputs.data, 1)
+        correct += (predicted == labels).sum().item()
+        
+    print('Train set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
+        train_loss / len(train_loader.dataset), correct, len(train_loader.dataset),
+        100. * correct / len(train_loader.dataset)))
+    return train_loss / len(train_loader.dataset), correct / len(train_loader.dataset)    
+    
 
 #definimos la función de test
-def test(model,test_loader,loss_criteria):
+def test(model, loss_criteria, test_loader):
     #cambiamos el modelo a modo de evaluación
     model.eval()
     test_loss = 0.0
     correct = 0
-    with torch.no_grad():
-        batch_count = 0
-        for data, target in test_loader:
-            batch_count += 1
-            data, target = data.to(device), target.to(device)
-            
-            output = model(data.unsqueeze(1)) # Agregar una dimensión de canal
-            
-            test_loss += loss_criteria(output, target, reduction='sum').item() # sum up batch loss
-            _, predicted = torch.max(output.data, 1)
-            correct += torch.sum(target == predicted).item() 
-    avg_loss = test_loss / batch_count
-    print('Test set: Average loss: {:.6f}, Accuracy: {}/{} ({:.0f}%)'.format(
-        avg_loss, correct, len(test_loader.dataset),
-        100. * correct / len(test_loader.dataset)))
+    total = 0
     
-    return avg_loss
+    with torch.no_grad():
+        for data in test_loader:
+            inputs, labels = data
+            outputs = model(inputs)
+            loss = loss_criteria(outputs, labels)
+            test_loss += loss.item()
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+    
+    accuracy = 100 * correct / total
+    print('Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
+        test_loss / len(test_loader.dataset), correct, len(test_loader.dataset), accuracy))
+    return test_loss / len(test_loader.dataset), accuracy
 
 
 
@@ -153,9 +133,13 @@ if __name__ == '__main__':
 
     #entrenamos el modelo
     epochs = 5
+    
     for epoch in range(1, epochs + 1):
-        train_loss, train_acc = train(model, device, train_loader, optimizer, epoch)
-        test_loss, test_acc = test(model, test_loader, loss_criteria)
+        train_loss, train_accuracy = train(model, loss_criteria, optimizer, train_loader, epoch)
+        test_loss, test_accuracy = test(model, loss_criteria, test_loader)
+        epoch_nums.append(epoch)
+        training_loss.append(train_loss)
+        validation_loss.append(test_loss)
         
     #mostramos la gráfica de la pérdida
     plt.plot(epoch_nums, training_loss)
