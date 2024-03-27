@@ -34,19 +34,19 @@ y = df_equipos['categoria']
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 '''
 #Dividimos los datos en x, y
-x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1).values
+X = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1).values
 y = df_equipos['categoria']
 
 # Realizar cualquier preprocesamiento necesario y convertir los datos en tensores PyTorch
-x = torch.tensor(x, dtype=torch.float32)
+X = torch.tensor(X, dtype=torch.float32)
 y = torch.tensor(y, dtype=torch.long)  # Suponiendo que 'categoria' es tu columna de etiquetas
 
 #Dividir los datos en conjuntos de entrenamiento y prueba
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Crear conjuntos de datos y cargadores de datos
-train_dataset = td.TensorDataset(x_train, y_train)
-test_dataset = td.TensorDataset(x_test, y_test)
+train_dataset = td.TensorDataset(X_train, y_train)
+test_dataset = td.TensorDataset(X_test, y_test)
 
 batch_size = 32
 train_loader = td.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
@@ -58,20 +58,36 @@ class Net(nn.Module):
     #constructor
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels=32, out_channels=16, kernel_size=3, stride=1, padding=1)
+        '''self.conv1 = nn.Conv2d(in_channels=32, out_channels=16, kernel_size=3, stride=1, padding=1)
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=1)
-        self.fc1 = nn.Linear(32 * 4 * 4, 128)
+        self.fc1 = nn.Linear(32 * 7 * 7, 128)
         self.fc2 = nn.Linear(128, 10)
+        '''
+        self.conv1 = nn.Conv1d(in_channels=1, out_channels=16, kernel_size=3)
+        self.pool = nn.MaxPool1d(kernel_size=2)
+        self.fc1 = nn.Linear(16 * 4, 64)  # Ajusta el tamaño de entrada a la capa lineal
+        self.fc2 = nn.Linear(64, 1)
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, 2)
+        x = self.pool(x)
+        x = x.view(-1, 16 * 4)  # Aplanar los datos para la capa lineal
+        x = F.relu(self.fc1(x))
+        x = F.sigmoid(self.fc2(x))
+        return x
+
+    '''def forward(self, x):
+        x = F.relu(self.conv1(x))
+        print("Dimensiones de x antes de pooling:", x.size())
+        x = F.max_pool2d(x, kernel_size=2, stride=2)
+        print("Dimensiones de x después de pooling:", x.size())
+        #x = F.max_pool2d(x, kernel_size=2, stride=2, padding=0)
         x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 2)
-        x = x.view(-1, 32 * 4 * 4)
+        x = F.max_pool2d(x, kernel_size=2, stride=2, padding=0)
+        x = x.view(x.size(0), -1)
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
-        return F.log_softmax(x, dim=1)
+        return F.log_softmax(x, dim=1)'''
        
     
 print('Red Neuronal creada\n')
