@@ -31,8 +31,8 @@ X = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], ax
 y = df_equipos['categoria']
 
 # Realizar cualquier preprocesamiento necesario y convertir los datos en tensores PyTorch
-X = torch.tensor(X, dtype=torch.float32)
-y = torch.tensor(y, dtype=torch.long)  # Suponiendo que 'categoria' es tu columna de etiquetas
+X = torch.tensor(X, dtype=torch.float32).unsqueeze(1)  # Agregar una dimensión de canal
+y = torch.tensor(y, dtype=torch.long).unsqueeze(1)
 
 #Dividir los datos en conjuntos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -51,17 +51,19 @@ print('Datos cargados\n')
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=3, stride=1, padding=1)
-        self.conv2 = nn.Conv2d(16, 32, 3, 1, 1)
+        self.conv1 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(1, 1), stride=1, padding=0)
+        self.conv2 = nn.Conv2d(64, 32, 3, 1, 1)
         self.fc1 = nn.Linear(32 * 7 * 7, 128)
         self.fc2 = nn.Linear(128, 10)  # Suponiendo que tienes 10 clases de salida
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, 2, 2)
+        x = F.max_pool2d(x, 1, 1)
+        
         x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 2, 2)
-        x = x.view(-1, 32 * 7 * 7)
+        x = F.max_pool2d(x, 1, 1)
+        
+        x = x.view(-1, 32,7 ,7)
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return x
@@ -141,7 +143,7 @@ if __name__ == '__main__':
         training_loss.append(train_loss)
         validation_loss.append(test_loss)
         
-    #mostramos la gráfica de la pérdida
+    '''  #mostramos la gráfica de la pérdida
     plt.plot(epoch_nums, training_loss)
     plt.plot(epoch_nums, validation_loss)
     plt.xlabel('epoch')
@@ -178,4 +180,4 @@ if __name__ == '__main__':
     del model
     print('Modelo guardado en', model_file) 
 
-    #Cargamos el modelo
+    #Cargamos el modelo'''
