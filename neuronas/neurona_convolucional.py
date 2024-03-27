@@ -47,42 +47,31 @@ test_loader = td.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 print('Datos cargados\n')
 
 #creamos la red neuronal
+
 class Net(nn.Module):
-    #constructor
-    def __init__(self):
+    def __init__(self, input_size, num_classes=3):
         super(Net, self).__init__()
-        '''self.conv1 = nn.Conv2d(in_channels=32, out_channels=16, kernel_size=3, stride=1, padding=1)
-        self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=1)
-        self.fc1 = nn.Linear(32 * 7 * 7, 128)
-        self.fc2 = nn.Linear(128, 10)
-        '''
-        self.conv1 = nn.Conv1d(in_channels=1, out_channels=16, kernel_size=3)
+        
+        # Definir las capas convolucionales y de pooling
+        self.conv1 = nn.Conv1d(in_channels=input_size, out_channels=12, kernel_size=3, stride=1, padding=1)
         self.pool = nn.MaxPool1d(kernel_size=2)
-        self.fc1 = nn.Linear(16 * 8, 48)  # Ajusta el tamaño de entrada a la capa lineal
-        self.fc2 = nn.Linear(48, 15)
+        self.conv2 = nn.Conv1d(in_channels=12, out_channels=12, kernel_size=3, stride=1, padding=1)
+        self.conv3 = nn.Conv1d(in_channels=12, out_channels=24, kernel_size=3, stride=1, padding=1)
+        self.drop = nn.Dropout(p=0.2)
+        
+        # Definir la capa fully connected
+        self.fc = nn.Linear(in_features=32 * 24, out_features=num_classes)
 
     def forward(self, x):
-        x = F.relu(self.conv1(x))
-        x = self.pool(x)
-        x = x.view(-1, 16 * 4)  # Aplanar los datos para la capa lineal
-        print(x.size() )
-        x = F.relu(self.fc1(x))
-        x = self.fc2(x)
-        return x
-
-    '''def forward(self, x):
-        x = F.relu(self.conv1(x))
-        print("Dimensiones de x antes de pooling:", x.size())
-        x = F.max_pool2d(x, kernel_size=2, stride=2)
-        print("Dimensiones de x después de pooling:", x.size())
-        #x = F.max_pool2d(x, kernel_size=2, stride=2, padding=0)
-        x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, kernel_size=2, stride=2, padding=0)
-        x = x.view(x.size(0), -1)
-        x = F.relu(self.fc1(x))
-        x = self.fc2(x)
-        return F.log_softmax(x, dim=1)'''
-       
+        x = F.relu(self.pool(self.conv1(x)))
+        x = F.relu(self.pool(self.conv2(x)))
+        x = F.relu(self.drop(self.conv3(x)))
+        x = F.dropout(x, training=self.training)
+        
+        x = x.view(-1, 32 * 24)
+        x = self.fc(x)
+        
+        return F.log_softmax(x, dim=1)
     
 print('Red Neuronal creada\n')
 
