@@ -53,7 +53,7 @@ class Net(nn.Module):
         super(Net, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(1, 1), stride=1, padding=0)
         self.conv2 = nn.Conv2d(64, 32, 3, 1, 1)
-        self.fc1 = nn.Linear(32 * 7 * 7, 128)
+        self.fc1 = nn.Linear(480, 128)
         self.fc2 = nn.Linear(128, 10)  # Suponiendo que tienes 10 clases de salida
 
     def forward(self, x):
@@ -63,7 +63,7 @@ class Net(nn.Module):
         x = F.relu(self.conv2(x))
         x = F.max_pool2d(x, 1, 1)
         
-        x = x.view(-1, 32,7 ,7)
+        x = x.view(-1, 480)
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return x
@@ -90,6 +90,20 @@ def train(model, loss_criteria, optimizer, train_loader, epoch):
         inputs, labels = data
         optimizer.zero_grad()
         outputs = model(inputs)
+        
+        print('outputs', outputs.size())
+        print('labels', labels.size())
+        
+        #Da error, el label y el output no tienen la misma dimensión --> Ajustar dimensiones
+        batch_size = inputs.size(0)
+        labels = labels[:batch_size].squeeze()  # Ajustar dimensiones de labels
+        outputs = outputs.squeeze()
+        
+        labels = labels.squeeze()
+        outputs = outputs[:batch_size].squeeze()
+        
+        print('outputs', outputs.size())
+        print('labels', labels.size())
         loss = loss_criteria(outputs, labels)
         loss.backward()
         optimizer.step()
