@@ -58,9 +58,9 @@ class Net(nn.Module):
     #constructor
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=3, stride=1, padding=1)
+        self.conv1 = nn.Conv2d(in_channels=32, out_channels=16, kernel_size=3, stride=1, padding=1)
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=1)
-        self.fc1 = nn.Linear(32 * 7 * 7, 128)
+        self.fc1 = nn.Linear(32 * 4 * 4, 128)
         self.fc2 = nn.Linear(128, 10)
 
     def forward(self, x):
@@ -68,7 +68,7 @@ class Net(nn.Module):
         x = F.max_pool2d(x, 2)
         x = F.relu(self.conv2(x))
         x = F.max_pool2d(x, 2)
-        x = x.view(-1, 32 * 7 * 7)
+        x = x.view(-1, 32 * 4 * 4)
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
@@ -151,7 +151,7 @@ if __name__ == '__main__':
     #entrenamos el modelo
     epochs = 5
     for epoch in range(1, epochs + 1):
-        train_loss, train_acc = train(model, train_loader, optimizer, loss_criteria, epoch)
+        train_loss, train_acc = train(model, device, train_loader, optimizer, epoch)
         test_loss, test_acc = test(model, test_loader, loss_criteria)
         
     #mostramos la gráfica de la pérdida
