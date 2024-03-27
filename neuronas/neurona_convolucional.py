@@ -34,7 +34,7 @@ y = df_equipos['categoria']
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 '''
 #Dividimos los datos en x, y
-x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
+x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1).values
 y = df_equipos['categoria']
 
 # Realizar cualquier preprocesamiento necesario y convertir los datos en tensores PyTorch
@@ -87,9 +87,20 @@ model.to(device)
 def train(model, device, train_loader, optimizer, epoch):
     model.train()
     train_loss = 0.0
+    correct = 0
     print('Epoch:', epoch)
-    
-    for batch_idx, (data, target) in enumerate(train_loader):
+    for data, target in train_loader:
+        data, target = data.to(device), target.to(device)
+        optimizer.zero_grad()
+        output = model(data.unsqueeze(1))  # Agregar una dimensión de canal
+        loss = loss_criteria(output, target)
+        loss.backward()
+        optimizer.step()
+        train_loss += loss.item() * data.size(0)
+        pred = output.argmax(dim=1, keepdim=True)
+        correct += pred.eq(target.view_as(pred)).sum().item()
+    return train_loss / len(train_loader.dataset), correct / len(train_loader.dataset)
+    '''for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(data)
@@ -104,13 +115,13 @@ def train(model, device, train_loader, optimizer, epoch):
                 100. * batch_idx / len(train_loader), loss.item()))
     avg_loss = train_loss / (batch_idx+1)
     print('Train set: Average loss: {:.6f}'.format(avg_loss))
-    return avg_loss
+    return avg_loss'''
 
 #definimos la función de test
-def test(model, device, test_loader):
+def test(model,test_loader,loss_criteria):
     #cambiamos el modelo a modo de evaluación
     model.eval()
-    test_loss = 0
+    test_loss = 0.0
     correct = 0
     with torch.no_grad():
         batch_count = 0
@@ -118,7 +129,7 @@ def test(model, device, test_loader):
             batch_count += 1
             data, target = data.to(device), target.to(device)
             
-            output = model(data)
+            output = model(data.unsqueeze(1)) # Agregar una dimensión de canal
             
             test_loss += loss_criteria(output, target, reduction='sum').item() # sum up batch loss
             _, predicted = torch.max(output.data, 1)
@@ -140,11 +151,8 @@ if __name__ == '__main__':
     #entrenamos el modelo
     epochs = 5
     for epoch in range(1, epochs + 1):
-        train_loss = train(model, device, train_loader, optimizer, epoch)
-        test_loss = test(model, device, test_loader)
-        epoch_nums.append(epoch)
-        training_loss.append(train_loss)
-        validation_loss.append(test_loss)
+        train_loss, train_acc = train(model, train_loader, optimizer, loss_criteria, epoch)
+        test_loss, test_acc = test(model, test_loader, loss_criteria)
         
     #mostramos la gráfica de la pérdida
     plt.plot(epoch_nums, training_loss)
