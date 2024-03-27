@@ -12,3 +12,5 @@ Pasos:
 4. Series temporales, es para ver la evolución de algunas variables a lo largo del tiempo en algunos grupos (clusters) identificados. 
 5. Entrenamiento redes neuronales profundas, es un proceso de aprendizaje automático compuesto por múltiples capas de neuronas. Consiste en ajustar pesos y sesgos de las conexiones entre las neuronas para que el modelo pueda aprender a realizar tareas específicas.  
 6. Entrenamiento redes neuronales convolucionales, es un proceso de aprendizaje automático que se utiliza para aplicar filtros en regiones locales y detectar texturas, patrones, formas, etc. en datos que tienen forma de cuadrícula como las imágenes y reconocimiento de patrones. Al igual que en la anterior tienen pesos y sesgos que se van ajustando según avanzamos en la red, donde las características más complejas se van fromando de las más sencillas de las capas anteriores. 
+
+El 5. y 6. son practicamente igueles, 5. (DNN) donde hace operaciones metemáticas en los datos para pasarlos entre capas y 6. (CNN) se basa en patrones espaciales. 
