@@ -17,6 +17,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
+
 import pandas as pd
 
 #Cargamos los datos
@@ -25,64 +26,67 @@ df_equipos = pd.read_csv('csvs/datos_fut_clasificados.csv', encoding='utf-8', de
 #Eliminamos las variables categóricas
 df_equipos = df_equipos.drop(['Club', 'Country'], axis=1)
 
-#Dividimos los datos en x, y
+'''#Dividimos los datos en x, y
 x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
 y = df_equipos['categoria']
 
 #dividimos los datos en train y test
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
+'''
+#Dividimos los datos en x, y
+x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
+y = df_equipos['categoria']
 
-#creamos un dataset con los datos de train
-train_x = torch.Tensor(x_train.values).float()
-train_y = torch.Tensor(y_train.values).long()
-train_ds = td.TensorDataset(train_x, train_y)
-train_loader = td.DataLoader(train_ds, batch_size=20, shuffle=False, num_workers=1)
+# Realizar cualquier preprocesamiento necesario y convertir los datos en tensores PyTorch
+x = torch.tensor(x, dtype=torch.float32)
+y = torch.tensor(y, dtype=torch.long)  # Suponiendo que 'categoria' es tu columna de etiquetas
 
-#creamos un dataset con los datos de test
-test_x = torch.Tensor(x_test.values).float()
-test_y = torch.Tensor(y_test.values).long()
-test_ds = td.TensorDataset(test_x, test_y)
-test_loader = td.DataLoader(test_ds, batch_size=20, shuffle=False, num_workers=1)
+#Dividir los datos en conjuntos de entrenamiento y prueba
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+# Crear conjuntos de datos y cargadores de datos
+train_dataset = td.TensorDataset(x_train, y_train)
+test_dataset = td.TensorDataset(x_test, y_test)
+
+batch_size = 32
+train_loader = td.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+test_loader = td.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 print('Datos cargados\n')
 
 #creamos la red neuronal
 class Net(nn.Module):
     #constructor
-    def __init__(self, input_dim, num_classes):
+    def __init__(self):
         super(Net, self).__init__()
-        #definimos las capas de la red
-        self.conv1 = nn.Conv2d(in_channels=input_dim, out_channels=16, kernel_size=3, stride=1, padding=1)
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=3, stride=1, padding=1)
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=1)
-        self.conv3 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1)
-    
-        self.fc1 = nn.Linear(64*input_dim, 128)
-        self.fc2 = nn.Linear(128, num_classes)
-    
+        self.fc1 = nn.Linear(32 * 7 * 7, 128)
+        self.fc2 = nn.Linear(128, 10)
+
     def forward(self, x):
         x = F.relu(self.conv1(x))
-        x = F.max_pool1d(x, 2)
+        x = F.max_pool2d(x, 2)
         x = F.relu(self.conv2(x))
-        x= F.max_pool1d(x, 2)
-        x = F.relu(self.conv3(x))
-        x = F.max_pool1d(x, 2)
-        x = x.view(-1, self.num_flat_features(x))   
+        x = F.max_pool2d(x, 2)
+        x = x.view(-1, 32 * 7 * 7)
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
-
-    def num_flat_features(self, x):
-        size = x.size()[1:]
-        num_features = 1
-        for s in size:
-            num_features *= s
-        return num_features
+       
     
 print('Red Neuronal creada\n')
+
+model = Net()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+loss_criteria = nn.CrossEntropyLoss()
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
 
 #entremaos el modelo
 def train(model, device, train_loader, optimizer, epoch):
     model.train()
-    train_loss = 0
+    train_loss = 0.0
     print('Epoch:', epoch)
     
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -126,18 +130,8 @@ def test(model, device, test_loader):
     
     return avg_loss
 
-#definimos el dispositivo
-device = 'cpu'
-if torch.cuda.is_available():
-    device = 'cuda'
-print('Usando:', device)
 
-#creamos el modelo
-input_dim = len(x_train.columns)
-model = Net(input_dim, 3).to(device)
-optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-loss_criteria = nn.CrossEntropyLoss()
 if __name__ == '__main__':
     epoch_nums = []
     training_loss = []
