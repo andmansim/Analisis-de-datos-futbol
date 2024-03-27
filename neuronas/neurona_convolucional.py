@@ -26,13 +26,6 @@ df_equipos = pd.read_csv('csvs/datos_fut_clasificados.csv', encoding='utf-8', de
 #Eliminamos las variables categóricas
 df_equipos = df_equipos.drop(['Club', 'Country'], axis=1)
 
-'''#Dividimos los datos en x, y
-x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
-y = df_equipos['categoria']
-
-#dividimos los datos en train y test
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
-'''
 #Dividimos los datos en x, y
 X = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1).values
 y = df_equipos['categoria']
@@ -65,15 +58,16 @@ class Net(nn.Module):
         '''
         self.conv1 = nn.Conv1d(in_channels=1, out_channels=16, kernel_size=3)
         self.pool = nn.MaxPool1d(kernel_size=2)
-        self.fc1 = nn.Linear(16 * 4, 64)  # Ajusta el tamaño de entrada a la capa lineal
-        self.fc2 = nn.Linear(64, 1)
+        self.fc1 = nn.Linear(16 * 8, 48)  # Ajusta el tamaño de entrada a la capa lineal
+        self.fc2 = nn.Linear(48, 15)
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
         x = self.pool(x)
         x = x.view(-1, 16 * 4)  # Aplanar los datos para la capa lineal
+        print(x.size() )
         x = F.relu(self.fc1(x))
-        x = F.sigmoid(self.fc2(x))
+        x = self.fc2(x)
         return x
 
     '''def forward(self, x):
@@ -107,15 +101,19 @@ def train(model, device, train_loader, optimizer, epoch):
     print('Epoch:', epoch)
     for data, target in train_loader:
         data, target = data.to(device), target.to(device)
+        print(data.size())
+        print(target.size())
         optimizer.zero_grad()
         output = model(data.unsqueeze(1))  # Agregar una dimensión de canal
+        print(output.size())
         loss = loss_criteria(output, target)
         loss.backward()
         optimizer.step()
         train_loss += loss.item() * data.size(0)
         pred = output.argmax(dim=1, keepdim=True)
         correct += pred.eq(target.view_as(pred)).sum().item()
-    return train_loss / len(train_loader.dataset), correct / len(train_loader.dataset)
+    accuracy = correct / len(train_loader.dataset)
+    return train_loss / len(train_loader.dataset), accuracy
     '''for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
