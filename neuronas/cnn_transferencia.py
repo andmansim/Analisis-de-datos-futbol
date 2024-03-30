@@ -50,3 +50,126 @@ batch_size = 64 #indica el num de muestras de cada lote
 train_loader = td.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = td.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
+'''
+para la cnn de transferencia adaptada  un csv tengo que crear la capa de predicción, donde una capa de predicción para el cnn de transferencia normal, es decir se procesan imagenes haría esto:
+# Set the existing feature extraction layers to read-only
+for param in model.parameters():
+    param.requires_grad = False
+
+# Replace the prediction layer
+num_ftrs = model.fc.in_features
+model.fc = nn.Linear(num_ftrs, len(classes))
+
+Cómo lo adapto yo para que funcione en los datos del csv?
+
+'''
+for param in model.parameters():
+    param.requires_grad = False
+
+#Remplazamos la capa de predicción
+num_ftrs = model.fc.in_features
+num_classes = 3
+model.fc = nn.Linear(num_ftrs, num_classes)
+
+'''
+posteriromente hacemos la función train, donde le modelo de imagenes usa la siguiente.  
+Me puedes ayudar a adaptarla para que funcione con los datos del csv?
+
+def train(model, device, train_loader, optimizer, epoch):
+    # Set the model to training mode
+    model.train()
+    train_loss = 0
+    print("Epoch:", epoch)
+    # Process the images in batches
+    for batch_idx, (data, target) in enumerate(train_loader):
+        # Use the CPU or GPU as appropriate
+        data, target = data.to(device), target.to(device)
+        
+        # Reset the optimizer
+        optimizer.zero_grad()
+        
+        # Push the data forward through the model layers
+        output = model(data)
+        
+        # Get the loss
+        loss = loss_criteria(output, target)
+        
+        # Keep a running total
+        train_loss += loss.item()
+        
+        # Backpropagate
+        loss.backward()
+        optimizer.step()
+        
+        # Print metrics for every 10 batches so we see some progress
+        if batch_idx % 10 == 0:
+            print('Training set [{}/{} ({:.0f}%)] Loss: {:.6f}'.format(
+                batch_idx * len(data), len(train_loader.dataset),
+                100. * batch_idx / len(train_loader), loss.item()))
+            
+    # return average loss for the epoch
+    avg_loss = train_loss / (batch_idx+1)
+    print('Training set: Average loss: {:.6f}'.format(avg_loss))
+    return avg_loss
+            
+'''
+def train(model, device, train_loader, optimizer, loss_criteria, epoch):
+    # Establecer el modelo en modo de entrenamiento
+    model.train()
+    train_loss = 0
+    print("Epoch:", epoch)
+    
+    # Procesar los datos en lotes
+    for batch_idx, (data, target) in enumerate(train_loader):
+        # Utilizar la CPU o GPU según corresponda
+        data, target = data.to(device), target.to(device)
+        
+        # Restablecer el optimizador
+        optimizer.zero_grad()
+        
+        # Hacer pasar los datos a través de las capas del modelo
+        output = model(data)
+        
+        # Calcular la pérdida
+        loss = loss_criteria(output, target)
+        
+        # Mantener un total de pérdida
+        train_loss += loss.item()
+        
+        # Retropropagar
+        loss.backward()
+        optimizer.step()
+        
+        # Imprimir métricas para cada 10 lotes para ver el progreso
+        if batch_idx % 10 == 0:
+            print('Conjunto de entrenamiento [{}/{} ({:.0f}%)] Pérdida: {:.6f}'.format(
+                batch_idx * len(data), len(train_loader.dataset),
+                100. * batch_idx / len(train_loader), loss.item()))
+    
+    # Calcular la pérdida promedio para la época
+    avg_loss = train_loss / (batch_idx + 1)
+    print('Conjunto de entrenamiento: Pérdida promedio: {:.6f}'.format(avg_loss))
+    
+    return avg_loss
+
+
+loss_criteria = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+if __name__ == '__main__':
+    #inicializamos las listas para almacenar los resultados
+    epoch_nums = []
+    training_loss = []
+    validation_loss = []
+
+    #entrenamos el modelo
+    epochs = 5
+    
+    #iteramos sobre el número de épocas y mostramos los resultados
+    for epoch in range(1, epochs + 1):
+        print('Epoch:', epoch)
+        train_loss, train_accuracy = train(model, loss_criteria, optimizer, train_loader)
+        test_loss, test_accuracy = test(model, loss_criteria, test_loader)
+        epoch_nums.append(epoch)
+        training_loss.append(train_loss)
+        validation_loss.append(test_loss)
