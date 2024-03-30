@@ -51,7 +51,8 @@ train_loader = td.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = td.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
 '''
-para la cnn de transferencia adaptada  un csv tengo que crear la capa de predicción, donde una capa de predicción para el cnn de transferencia normal, es decir se procesan imagenes haría esto:
+para la cnn de transferencia adaptada  un csv tengo que crear la capa de predicción, 
+donde una capa de predicción para el cnn de transferencia normal, es decir se procesan imagenes haría esto:
 # Set the existing feature extraction layers to read-only
 for param in model.parameters():
     param.requires_grad = False
@@ -187,9 +188,76 @@ def test(model, device, test_loader):
     return avg_loss
 '''
 
+def test(model, device, test_loader, loss_criteria):
+    # Cambiar el modelo al modo de evaluación (para no retropropagar ni aplicar dropout)
+    model.eval()
+    test_loss = 0
+    correct = 0
+    
+    with torch.no_grad():
+        batch_count = 0
+        for data, target in test_loader:
+            batch_count += 1
+            data, target = data.to(device), target.to(device)
+            
+            # Obtener las clases predichas para este lote
+            output = model(data)
+            
+            # Calcular la pérdida para este lote
+            test_loss += loss_criteria(output, target).item()
+            
+            # Calcular la precisión para este lote
+            _, predicted = torch.max(output.data, 1)
+            correct += torch.sum(target == predicted).item()
+
+    # Calcular la pérdida promedio y la precisión total para esta época
+    avg_loss = test_loss / batch_count
+    accuracy = 100. * correct / len(test_loader.dataset)
+    
+    print('Conjunto de validación: Pérdida promedio: {:.6f}, Precisión: {}/{} ({:.0f}%)\n'.format(
+        avg_loss, correct, len(test_loader.dataset), accuracy))
+    
+    return avg_loss, accuracy
+
+'''
+después en cnn de transferencia de imágenes llama a las funciones y declara algunas variables. 
+Para hacer el cnn de transferencia de csv sería igual? Habría que cambiar algo? Añadir algo?
 
 
+device = "cpu"
+if (torch.cuda.is_available()):
+    # if GPU available, use cuda (on a cpu, training will take a considerable length of time!)
+    device = "cuda"
+print('Training on', device)
 
+# Create an instance of the model class and allocate it to the device
+model = model.to(device)
+
+# Use an "Adam" optimizer to adjust weights
+# (see https://pytorch.org/docs/stable/optim.html#algorithms for details of supported algorithms)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+# Specify the loss criteria
+loss_criteria = nn.CrossEntropyLoss()
+
+# Track metrics in these arrays
+epoch_nums = []
+training_loss = []
+validation_loss = []
+
+# Train over 3 epochs (in a real scenario, you'd likely use many more)
+epochs = 3
+for epoch in range(1, epochs + 1):
+        train_loss = train(model, device, train_loader, optimizer, epoch)
+        test_loss = test(model, device, test_loader)
+        epoch_nums.append(epoch)
+        training_loss.append(train_loss)
+        validation_loss.append(test_loss)
+
+'''
+device = "cpu"
+print('Entrenando en', device)
+model = model.to(device)
 loss_criteria = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
@@ -200,13 +268,10 @@ if __name__ == '__main__':
     validation_loss = []
 
     #entrenamos el modelo
-    epochs = 5
-    
-    #iteramos sobre el número de épocas y mostramos los resultados
+    epochs = 3
     for epoch in range(1, epochs + 1):
-        print('Epoch:', epoch)
-        train_loss, train_accuracy = train(model, loss_criteria, optimizer, train_loader)
-        test_loss, test_accuracy = test(model, loss_criteria, test_loader)
+        train_loss = train(model, device, train_loader, optimizer, loss_criteria, epoch)
+        test_loss, accuracy = test(model, device, test_loader, loss_criteria)
         epoch_nums.append(epoch)
         training_loss.append(train_loss)
         validation_loss.append(test_loss)
