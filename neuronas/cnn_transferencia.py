@@ -64,11 +64,12 @@ model.fc = nn.Linear(num_ftrs, len(classes))
 Cómo lo adapto yo para que funcione en los datos del csv?
 
 '''
+num_ftrs = model.fc.in_features
 for param in model.parameters():
     param.requires_grad = False
 
 #Remplazamos la capa de predicción
-num_ftrs = model.fc.in_features
+
 num_classes = 3
 model.fc = nn.Linear(num_ftrs, num_classes)
 
@@ -258,12 +259,13 @@ for epoch in range(1, epochs + 1):
         validation_loss.append(test_loss)
 
 '''
+
+loss_criteria = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
+
 device = "cpu"
 print('Entrenando en', device)
 model = model.to(device)
-loss_criteria = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-
 if __name__ == '__main__':
     #inicializamos las listas para almacenar los resultados
     epoch_nums = []
