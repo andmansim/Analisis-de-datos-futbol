@@ -26,6 +26,9 @@ df_equipos = pd.read_csv('csvs/datos_fut_clasificados.csv', encoding='utf-8', de
 #Eliminamos las variables categóricas
 df_equipos = df_equipos.drop(['Club', 'Country'], axis=1)
 
+#Normalizamos los datos
+df_equipos = (df_equipos - df_equipos.mean()) / df_equipos.std()
+
 #Dividimos los datos en x, y
 X = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1).values
 y = df_equipos['categoria']
@@ -41,22 +44,24 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 train_dataset = td.TensorDataset(X_train, y_train)
 test_dataset = td.TensorDataset(X_test, y_test)
 
-batch_size = 64
+batch_size = 64 #indica el num de muestras de cada lote
 train_loader = td.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = td.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 print('Datos cargados\n')
 
 #creamos la red neuronal
 
-class Net(nn.Module):
+'''class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(1, 1), stride=1, padding=0)
         self.conv2 = nn.Conv2d(64, 32, 3, 1, 1)
         self.fc1 = nn.Linear(480, 128)
         self.fc2 = nn.Linear(128, 10)  # Suponiendo que tienes 10 clases de salida
-
+        
+    
     def forward(self, x):
+        
         x = F.relu(self.conv1(x))
         x = F.max_pool2d(x, 1, 1)
         
@@ -68,10 +73,26 @@ class Net(nn.Module):
         x = self.fc2(x)
         return x
 
+    '''
     
-print('Red Neuronal creada\n')
+class Net(nn.Module):
+    def __init__(self, input_size, num_classes):
+        super(Net, self).__init__()
+        self.fc1 = nn.Linear(input_size, 64)
+        self.fc2 = nn.Linear(64, 32)
+        self.fc3 = nn.Linear(32, num_classes)
 
-model = Net()
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+print('Red Neuronal creada\n')  
+
+input_size = X.shape[1] #número de columnas de X
+num_classes = len(pd.unique(y)) #número de clases diferentes (el número de variables que los queremos clasificar)
+
+model = Net(input_size, num_classes)
 loss_criteria = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
@@ -84,6 +105,7 @@ def train(model, loss_criteria, optimizer, train_loader, epoch):
     model.train()
     train_loss = 0.0
     correct = 0
+    total = 0
     print('Epoch:', epoch)
     
     for i, data in enumerate(train_loader, 0):
@@ -91,35 +113,23 @@ def train(model, loss_criteria, optimizer, train_loader, epoch):
         optimizer.zero_grad()
         outputs = model(inputs)
         
-        print('outputs', outputs.size())
-        print('labels', labels.size())
+        # Ajustar dimensiones de las etiquetas
+        labels = labels.view(-1)
         
-        #Da error, el label y el output no tienen la misma dimensión --> Ajustar dimensiones
-        batch_size = inputs.size(0)
-        labels = labels[:batch_size].squeeze()  # Ajustar dimensiones de labels
-        outputs = outputs.squeeze()
-        
-        labels = labels.squeeze()
-        outputs = outputs[:batch_size].squeeze()
-        
-        print('outputs', outputs.size())
-        print('labels', labels.size())
         loss = loss_criteria(outputs, labels)
         loss.backward()
         optimizer.step()
         train_loss += loss.item()
         _, predicted = torch.max(outputs.data, 1)
         correct += (predicted == labels).sum().item()
+        total += labels.size(0)
         
-    print('Train set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
-        train_loss / len(train_loader.dataset), correct, len(train_loader.dataset),
-        100. * correct / len(train_loader.dataset)))
-    return train_loss / len(train_loader.dataset), correct / len(train_loader.dataset)    
+    print('Train set: Average loss: {:.4f}, Accuracy: {:.2f}%'.format(
+        train_loss / len(train_loader.dataset), 100 * correct / total))
+    return train_loss / len(train_loader.dataset), correct / total
     
 
-#definimos la función de test
 def test(model, loss_criteria, test_loader):
-    #cambiamos el modelo a modo de evaluación
     model.eval()
     test_loss = 0.0
     correct = 0
@@ -128,6 +138,10 @@ def test(model, loss_criteria, test_loader):
     with torch.no_grad():
         for data in test_loader:
             inputs, labels = data
+            
+            # Ajustar dimensiones de las etiquetas
+            labels = labels.view(-1)
+            
             outputs = model(inputs)
             loss = loss_criteria(outputs, labels)
             test_loss += loss.item()
@@ -136,11 +150,9 @@ def test(model, loss_criteria, test_loader):
             correct += (predicted == labels).sum().item()
     
     accuracy = 100 * correct / total
-    print('Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
-        test_loss / len(test_loader.dataset), correct, len(test_loader.dataset), accuracy))
+    print('Test set: Average loss: {:.4f}, Accuracy: {:.2f}%'.format(
+        test_loss / len(test_loader.dataset), accuracy))
     return test_loss / len(test_loader.dataset), accuracy
-
-
 
 if __name__ == '__main__':
     epoch_nums = []
