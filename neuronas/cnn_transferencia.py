@@ -129,6 +129,9 @@ def train(model, device, train_loader, optimizer, loss_criteria, epoch):
         optimizer.zero_grad()
         
         # Hacer pasar los datos a través de las capas del modelo
+        
+        #ERROR, DA ERROR EN LOS DATOS, ESPERA OTROS. 
+        #VER CÓMO MODIFICAR LA RED PARA QUE SE  ADAPTE A LOS DATOS DEL CSV
         output = model(data)
         
         # Calcular la pérdida
