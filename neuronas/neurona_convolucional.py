@@ -26,17 +26,15 @@ df_equipos = pd.read_csv('csvs/datos_fut_clasificados.csv', encoding='utf-8', de
 #Eliminamos las variables categóricas
 df_equipos = df_equipos.drop(['Club', 'Country'], axis=1)
 
-#Normalizamos los datos
-df_equipos = (df_equipos - df_equipos.mean()) / df_equipos.std()
-
 #Dividimos los datos en x, y
 X = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1).values
 y = df_equipos['categoria']
 
 # Realizar cualquier preprocesamiento necesario y convertir los datos en tensores PyTorch
 X = torch.tensor(X, dtype=torch.float32).unsqueeze(1)  # Agregar una dimensión de canal
-y = torch.tensor(y, dtype=torch.long).unsqueeze(1)
+y = torch.tensor(y.values, dtype=torch.long)
 
+print(torch.unique(y))
 #Dividir los datos en conjuntos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -50,55 +48,25 @@ test_loader = td.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 print('Datos cargados\n')
 
 #creamos la red neuronal
-
-'''class Net(nn.Module):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(1, 1), stride=1, padding=0)
-        self.conv2 = nn.Conv2d(64, 32, 3, 1, 1)
-        self.fc1 = nn.Linear(480, 128)
-        self.fc2 = nn.Linear(128, 10)  # Suponiendo que tienes 10 clases de salida
-        
-    
-    def forward(self, x):
-        
-        x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, 1, 1)
-        
-        x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 1, 1)
-        
-        x = x.view(-1, 480)
-        x = F.relu(self.fc1(x))
-        x = self.fc2(x)
-        return x
-
-    '''
-    
 class Net(nn.Module):
     def __init__(self, input_size, num_classes):
         super(Net, self).__init__()
-        self.fc1 = nn.Linear(input_size, 64)
+        self.fc1 = nn.Linear(input_size * 15, 64)
         self.fc2 = nn.Linear(64, 32)
         self.fc3 = nn.Linear(32, num_classes)
 
     def forward(self, x):
+        #fc1 espera una entrada con forma (batch_size, input_size)
+        #batch_size es el número de muestras en el lote
+        #input_size es el número de características en cada muestra
+        x = x.view(x.size(0), -1)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
         return x
 print('Red Neuronal creada\n')  
 
-input_size = X.shape[1] #número de columnas de X
-num_classes = len(pd.unique(y)) #número de clases diferentes (el número de variables que los queremos clasificar)
 
-model = Net(input_size, num_classes)
-loss_criteria = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-
-
-#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-#model.to(device)
 
 #entremaos el modelo
 def train(model, loss_criteria, optimizer, train_loader, epoch):
@@ -106,7 +74,6 @@ def train(model, loss_criteria, optimizer, train_loader, epoch):
     train_loss = 0.0
     correct = 0
     total = 0
-    print('Epoch:', epoch)
     
     for i, data in enumerate(train_loader, 0):
         inputs, labels = data
@@ -115,6 +82,7 @@ def train(model, loss_criteria, optimizer, train_loader, epoch):
         
         # Ajustar dimensiones de las etiquetas
         labels = labels.view(-1)
+        labels = labels - 1
         
         loss = loss_criteria(outputs, labels)
         loss.backward()
@@ -140,7 +108,8 @@ def test(model, loss_criteria, test_loader):
             inputs, labels = data
             
             # Ajustar dimensiones de las etiquetas
-            labels = labels.view(-1)
+            labels = labels.view(-1)            
+            labels = labels - 1
             
             outputs = model(inputs)
             loss = loss_criteria(outputs, labels)
@@ -154,6 +123,14 @@ def test(model, loss_criteria, test_loader):
         test_loss / len(test_loader.dataset), accuracy))
     return test_loss / len(test_loader.dataset), accuracy
 
+input_size = X.shape[1] #número de columnas de X
+num_classes = 3 #número de clases diferentes (el número de variables que los queremos clasificar)
+
+model = Net(input_size, num_classes)
+loss_criteria = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+
 if __name__ == '__main__':
     epoch_nums = []
     training_loss = []
@@ -163,13 +140,14 @@ if __name__ == '__main__':
     epochs = 5
     
     for epoch in range(1, epochs + 1):
+        print('Epoch:', epoch)
         train_loss, train_accuracy = train(model, loss_criteria, optimizer, train_loader, epoch)
         test_loss, test_accuracy = test(model, loss_criteria, test_loader)
         epoch_nums.append(epoch)
         training_loss.append(train_loss)
         validation_loss.append(test_loss)
         
-    '''  #mostramos la gráfica de la pérdida
+    #mostramos la gráfica de la pérdida
     plt.plot(epoch_nums, training_loss)
     plt.plot(epoch_nums, validation_loss)
     plt.xlabel('epoch')
@@ -177,7 +155,7 @@ if __name__ == '__main__':
     plt.legend(['training', 'validation'], loc='upper right')
     plt.show()
 
-    #evaluamos el modelo
+    '''#evaluamos el modelo
     model.eval()
     print('Mostrando predicciones\n')
     truelabels = []
@@ -198,7 +176,7 @@ if __name__ == '__main__':
     plt.yticks(tick_marks, clases)
     plt.xlabel('Predicho')
     plt.ylabel('Real')
-    plt.show()
+    plt.show()'''
 
     #guardamos el modelo
     model_file = 'formas_model.pth'
@@ -206,4 +184,4 @@ if __name__ == '__main__':
     del model
     print('Modelo guardado en', model_file) 
 
-    #Cargamos el modelo'''
+    #Cargamos el modelo

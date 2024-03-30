@@ -24,11 +24,11 @@ df_equipos = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
 #clasificamos los equipos
 def clasificar_equipos(row):
     if row['porcapacidad_ofensiva'] > 50:
-        return 0 #ataque
+        return 1 #ataque
     elif row['porcapacidad_ofensiva'] < 50:
-        return 1 #defensa
+        return 2 #defensa
     else:
-        return 2 #neutro
+        return 3 #neutro
 
 #creamos una nueva columna en el dataframe
 df_equipos['categoria'] = df_equipos.apply(clasificar_equipos, axis=1)
