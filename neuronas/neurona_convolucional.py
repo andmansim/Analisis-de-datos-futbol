@@ -17,7 +17,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
-
+import os
 import pandas as pd
 
 #Cargamos los datos
@@ -225,9 +225,9 @@ if __name__ == '__main__':
     plt.ylabel('Real')
     plt.show()
 
-    #guardamos el modelo
-    model_file = 'formas_model.pth'
-    torch.save(model.state_dict(), model_file)
+   #guardamos el modelo
+    modelo_ruta = os.path.join(os.path.dirname(__file__), 'modelo_red_neuronal_convolu_uefa.pth')
+    torch.save(model.state_dict(), modelo_ruta)
     del model
-    print('Modelo guardado en', model_file) 
+    print('Modelo guardado en', modelo_ruta)
     
