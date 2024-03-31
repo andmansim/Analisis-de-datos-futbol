@@ -173,7 +173,8 @@ if __name__ == '__main__':
         training_loss.append(train_loss)
         validation_loss.append(test_loss)
     
-       
+    #PRECISIÓN Y VALIDACIÓN POBRE 
+    
     #mostramos la gráfica de la pérdida
     plt.plot(epoch_nums, training_loss)
     plt.plot(epoch_nums, validation_loss)
@@ -188,6 +189,8 @@ if __name__ == '__main__':
     
     truelabels = []
     predictions = []
+    
+    #ESTO NO VA
     
     for data, target in test_loader:
         # Convertir tensores a matrices numpy
