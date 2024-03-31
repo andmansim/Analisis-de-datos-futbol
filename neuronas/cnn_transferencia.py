@@ -19,8 +19,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import torchvision.models as models
 
-#preparamos la base del modelo
-model = torchvision.models.resnet18(pretrained=True)
 
 
 #Cargamos los datos
@@ -50,20 +48,13 @@ batch_size = 64 #indica el num de muestras de cada lote
 train_loader = td.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = td.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-'''
-para la cnn de transferencia adaptada  un csv tengo que crear la capa de predicción, 
-donde una capa de predicción para el cnn de transferencia normal, es decir se procesan imagenes haría esto:
-# Set the existing feature extraction layers to read-only
-for param in model.parameters():
-    param.requires_grad = False
+print('Datos cargados\n')
 
-# Replace the prediction layer
-num_ftrs = model.fc.in_features
-model.fc = nn.Linear(num_ftrs, len(classes))
 
-Cómo lo adapto yo para que funcione en los datos del csv?
+#preparamos la base del modelo
+model = torchvision.models.resnet18(pretrained=True)
+model.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
-'''
 num_ftrs = model.fc.in_features
 for param in model.parameters():
     param.requires_grad = False
@@ -73,71 +64,30 @@ for param in model.parameters():
 num_classes = 3
 model.fc = nn.Linear(num_ftrs, num_classes)
 
-'''
-posteriromente hacemos la función train, donde le modelo de imagenes usa la siguiente.  
-Me puedes ayudar a adaptarla para que funcione con los datos del csv?
-
-def train(model, device, train_loader, optimizer, epoch):
-    # Set the model to training mode
-    model.train()
-    train_loss = 0
-    print("Epoch:", epoch)
-    # Process the images in batches
-    for batch_idx, (data, target) in enumerate(train_loader):
-        # Use the CPU or GPU as appropriate
-        data, target = data.to(device), target.to(device)
-        
-        # Reset the optimizer
-        optimizer.zero_grad()
-        
-        # Push the data forward through the model layers
-        output = model(data)
-        
-        # Get the loss
-        loss = loss_criteria(output, target)
-        
-        # Keep a running total
-        train_loss += loss.item()
-        
-        # Backpropagate
-        loss.backward()
-        optimizer.step()
-        
-        # Print metrics for every 10 batches so we see some progress
-        if batch_idx % 10 == 0:
-            print('Training set [{}/{} ({:.0f}%)] Loss: {:.6f}'.format(
-                batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
-            
-    # return average loss for the epoch
-    avg_loss = train_loss / (batch_idx+1)
-    print('Training set: Average loss: {:.6f}'.format(avg_loss))
-    return avg_loss
-            
-'''
-def train(model, device, train_loader, optimizer, loss_criteria, epoch):
+def train(model, train_loader, optimizer, loss_criteria, epoch):
     # Establecer el modelo en modo de entrenamiento
     model.train()
     train_loss = 0
     print("Epoch:", epoch)
     
     # Procesar los datos en lotes
-    for batch_idx, (data, target) in enumerate(train_loader):
-        # Utilizar la CPU o GPU según corresponda
-        data, target = data.to(device), target.to(device)
+    for i, data in enumerate(train_loader, 0):
+        inputs, labels = data
         
         # Restablecer el optimizador
         optimizer.zero_grad()
-        
         # Hacer pasar los datos a través de las capas del modelo
         
-        #ERROR, DA ERROR EN LOS DATOS, ESPERA OTROS. 
-        #VER CÓMO MODIFICAR LA RED PARA QUE SE  ADAPTE A LOS DATOS DEL CSV
-        output = model(data)
+        inputs = inputs.view(inputs.size(0), -1)
+        print('inputs', inputs.size())
+        outputs = model(inputs)
         
-        # Calcular la pérdida
-        loss = loss_criteria(output, target)
+        # Ajustar dimensiones de las etiquetas
+        labels = labels.view(-1)
+        labels = labels - 1
         
+        #calculamos la pérdida
+        loss = loss_criteria(outputs, labels)
         # Mantener un total de pérdida
         train_loss += loss.item()
         
@@ -145,52 +95,15 @@ def train(model, device, train_loader, optimizer, loss_criteria, epoch):
         loss.backward()
         optimizer.step()
         
-        # Imprimir métricas para cada 10 lotes para ver el progreso
-        if batch_idx % 10 == 0:
+        if i % 10 == 0:
             print('Conjunto de entrenamiento [{}/{} ({:.0f}%)] Pérdida: {:.6f}'.format(
-                batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
-    
-    # Calcular la pérdida promedio para la época
-    avg_loss = train_loss / (batch_idx + 1)
+                i * len(data), len(train_loader.dataset),
+                100. * i / len(train_loader), loss.item()))
+    avg_loss = train_loss / (i + 1)
     print('Conjunto de entrenamiento: Pérdida promedio: {:.6f}'.format(avg_loss))
     
     return avg_loss
 
-
-'''
-puedes hacer lo mismo con la función test?
-
-def test(model, device, test_loader):
-    # Switch the model to evaluation mode (so we don't backpropagate or drop)
-    model.eval()
-    test_loss = 0
-    correct = 0
-    with torch.no_grad():
-        batch_count = 0
-        for data, target in test_loader:
-            batch_count += 1
-            data, target = data.to(device), target.to(device)
-            
-            # Get the predicted classes for this batch
-            output = model(data)
-            
-            # Calculate the loss for this batch
-            test_loss += loss_criteria(output, target).item()
-            
-            # Calculate the accuracy for this batch
-            _, predicted = torch.max(output.data, 1)
-            correct += torch.sum(target==predicted).item()
-
-    # Calculate the average loss and total accuracy for this epoch
-    avg_loss = test_loss/batch_count
-    print('Validation set: Average loss: {:.6f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
-        avg_loss, correct, len(test_loader.dataset),
-        100. * correct / len(test_loader.dataset)))
-    
-    # return average loss for the epoch
-    return avg_loss
-'''
 
 def test(model, device, test_loader, loss_criteria):
     # Cambiar el modelo al modo de evaluación (para no retropropagar ni aplicar dropout)
@@ -223,49 +136,12 @@ def test(model, device, test_loader, loss_criteria):
     
     return avg_loss, accuracy
 
-'''
-después en cnn de transferencia de imágenes llama a las funciones y declara algunas variables. 
-Para hacer el cnn de transferencia de csv sería igual? Habría que cambiar algo? Añadir algo?
-
-
-device = "cpu"
-if (torch.cuda.is_available()):
-    # if GPU available, use cuda (on a cpu, training will take a considerable length of time!)
-    device = "cuda"
-print('Training on', device)
-
-# Create an instance of the model class and allocate it to the device
-model = model.to(device)
-
-# Use an "Adam" optimizer to adjust weights
-# (see https://pytorch.org/docs/stable/optim.html#algorithms for details of supported algorithms)
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-
-# Specify the loss criteria
-loss_criteria = nn.CrossEntropyLoss()
-
-# Track metrics in these arrays
-epoch_nums = []
-training_loss = []
-validation_loss = []
-
-# Train over 3 epochs (in a real scenario, you'd likely use many more)
-epochs = 3
-for epoch in range(1, epochs + 1):
-        train_loss = train(model, device, train_loader, optimizer, epoch)
-        test_loss = test(model, device, test_loader)
-        epoch_nums.append(epoch)
-        training_loss.append(train_loss)
-        validation_loss.append(test_loss)
-
-'''
-
 loss_criteria = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
 
 device = "cpu"
 print('Entrenando en', device)
-model = model.to(device)
+#model = model.to(device)
 if __name__ == '__main__':
     #inicializamos las listas para almacenar los resultados
     epoch_nums = []
@@ -275,7 +151,7 @@ if __name__ == '__main__':
     #entrenamos el modelo
     epochs = 3
     for epoch in range(1, epochs + 1):
-        train_loss = train(model, device, train_loader, optimizer, loss_criteria, epoch)
+        train_loss = train(model, train_loader, optimizer, loss_criteria, epoch)
         test_loss, accuracy = test(model, device, test_loader, loss_criteria)
         epoch_nums.append(epoch)
         training_loss.append(train_loss)
