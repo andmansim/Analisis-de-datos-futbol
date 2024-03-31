@@ -172,3 +172,50 @@ if __name__ == '__main__':
         epoch_nums.append(epoch)
         training_loss.append(train_loss)
         validation_loss.append(test_loss)
+    
+       
+    #mostramos la gráfica de la pérdida
+    plt.plot(epoch_nums, training_loss)
+    plt.plot(epoch_nums, validation_loss)
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.legend(['training', 'validation'], loc='upper right')
+    plt.show()
+
+    #evaluamos el modelo
+    model.eval()
+    print('Mostrando predicciones\n')
+    
+    truelabels = []
+    predictions = []
+    
+    for data, target in test_loader:
+        # Convertir tensores a matrices numpy
+        data_np = data.numpy()
+        target_np = target.numpy()
+        
+        # Pasar los datos a través del modelo
+        output = model(data)
+        _, predicted = torch.max(output, 1)
+        
+        # Convertir la salida y la etiqueta a matrices numpy
+        truelabels.extend(target_np)
+        predictions.extend(predicted.numpy()) 
+    
+    # Mostrar matriz de confusión
+    cm = confusion_matrix(truelabels, predictions)
+    plt.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
+    plt.colorbar()
+    clases = ['defensa', 'ataque', 'neutro']
+    tick_marks = np.arange(len(clases))
+    plt.xticks(tick_marks, clases, rotation=45)
+    plt.yticks(tick_marks, clases)
+    plt.xlabel('Predicho')
+    plt.ylabel('Real')
+    plt.show()
+
+   #guardamos el modelo
+    modelo_ruta = os.path.join(os.path.dirname(__file__), 'modelo_cnn_transf_uefa.pth')
+    torch.save(model.state_dict(), modelo_ruta)
+    del model
+    print('Modelo guardado en', modelo_ruta)
