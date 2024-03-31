@@ -53,7 +53,7 @@ print('Datos cargados\n')
 
 #preparamos la base del modelo
 model = torchvision.models.resnet18(pretrained=True)
-model.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
+#model.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
 num_ftrs = model.fc.in_features
 for param in model.parameters():
@@ -64,11 +64,17 @@ for param in model.parameters():
 num_classes = 3
 model.fc = nn.Linear(num_ftrs, num_classes)
 
-def train(model, train_loader, optimizer, loss_criteria, epoch):
+loss_criteria = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
+
+device = "cpu"
+print('Entrenando en', device)
+model = model.to(device)
+
+def train(model, train_loader, optimizer, loss_criteria):
     # Establecer el modelo en modo de entrenamiento
     model.train()
-    train_loss = 0
-    print("Epoch:", epoch)
+    train_loss = 0.0
     
     # Procesar los datos en lotes
     for i, data in enumerate(train_loader, 0):
@@ -76,10 +82,12 @@ def train(model, train_loader, optimizer, loss_criteria, epoch):
         
         # Restablecer el optimizador
         optimizer.zero_grad()
-        # Hacer pasar los datos a través de las capas del modelo
         
-        inputs = inputs.view(inputs.size(0), -1)
-        print('inputs', inputs.size())
+        #Ajustamos los datos para que se adapten a la entrada de la red
+        inputs = inputs.view(inputs.size(0), 1, 1, -1) 
+        inputs = inputs.repeat(1, 3, 1, 1)
+        
+        # Hacer pasar los datos a través de las capas del modelo
         outputs = model(inputs)
         
         # Ajustar dimensiones de las etiquetas
@@ -105,43 +113,50 @@ def train(model, train_loader, optimizer, loss_criteria, epoch):
     return avg_loss
 
 
-def test(model, device, test_loader, loss_criteria):
+def test(model, test_loader, loss_criteria):
     # Cambiar el modelo al modo de evaluación (para no retropropagar ni aplicar dropout)
     model.eval()
-    test_loss = 0
+    test_loss = 0.0
     correct = 0
+    total = 0
     
     with torch.no_grad():
-        batch_count = 0
-        for data, target in test_loader:
-            batch_count += 1
-            data, target = data.to(device), target.to(device)
+        
+        for data in test_loader:
+          
+            inputs, labels = data
+            #Ajustamos los datos para que se adapten a la entrada de la red
+            inputs = inputs.view(inputs.size(0), 1, 1, -1) 
+            inputs = inputs.repeat(1, 3, 1, 1)
+            
+            # Hacer pasar los datos a través de las capas del modelo
+            outputs = model(inputs)
+            
+            # Ajustar dimensiones de las etiquetas
+            labels = labels.view(-1)
+            labels = labels - 1
             
             # Obtener las clases predichas para este lote
-            output = model(data)
+            output = model(inputs)
             
             # Calcular la pérdida para este lote
-            test_loss += loss_criteria(output, target).item()
+            test_loss += loss_criteria(output, labels).item()
             
             # Calcular la precisión para este lote
             _, predicted = torch.max(output.data, 1)
-            correct += torch.sum(target == predicted).item()
+            correct += torch.sum(labels == predicted).item()
+            total += labels.size(0)
 
     # Calcular la pérdida promedio y la precisión total para esta época
-    avg_loss = test_loss / batch_count
-    accuracy = 100. * correct / len(test_loader.dataset)
+    avg_loss = test_loss / len(test_loader.dataset)
+    accuracy = 100. * correct / total
     
     print('Conjunto de validación: Pérdida promedio: {:.6f}, Precisión: {}/{} ({:.0f}%)\n'.format(
         avg_loss, correct, len(test_loader.dataset), accuracy))
     
     return avg_loss, accuracy
 
-loss_criteria = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
 
-device = "cpu"
-print('Entrenando en', device)
-#model = model.to(device)
 if __name__ == '__main__':
     #inicializamos las listas para almacenar los resultados
     epoch_nums = []
@@ -151,8 +166,9 @@ if __name__ == '__main__':
     #entrenamos el modelo
     epochs = 3
     for epoch in range(1, epochs + 1):
-        train_loss = train(model, train_loader, optimizer, loss_criteria, epoch)
-        test_loss, accuracy = test(model, device, test_loader, loss_criteria)
+        print('Epoch:', epoch)
+        train_loss = train(model, train_loader, optimizer, loss_criteria)
+        test_loss, accuracy = test(model, test_loader, loss_criteria)
         epoch_nums.append(epoch)
         training_loss.append(train_loss)
         validation_loss.append(test_loss)
