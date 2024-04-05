@@ -157,6 +157,8 @@ if (torch.cuda.is_available()):
     # Si hay GPU disponible, usamos cuda
     device = "cuda"
 print('Training on', device)
+
+
 model = model.to(device)
 
 #Usamos el optimizador Adam para ajustar los pesos
@@ -213,7 +215,6 @@ plt.show()
 # Guardamos el modelo
 model_file = os.path.join(os.path.dirname(__file__), 'cnn_transf_fut_uefa_img.pth')
 torch.save(model.state_dict(), model_file)
-del model
 print("Modelo guardado:", model_file)
 
 # Función para predecir la clase de una imagen
@@ -224,7 +225,7 @@ def predict_image(classifier, image):
     
     # Aplicar las mismas transformaciones que hicimos para las imágenes de entrenamiento
     transformation = transforms.Compose([
-        transforms.Resize(255),
+        transforms.Resize(256),
         transforms.CenterCrop(224),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
@@ -245,7 +246,7 @@ def predict_image(classifier, image):
     return index
 
 
-# Function to create a random image (of a square, circle, or triangle)
+# Función que crea una imagen de una forma aleatoria
 def create_image(size, shape):
     from random import randint
     import numpy as np
@@ -262,11 +263,11 @@ def create_image(size, shape):
         draw.ellipse([(xy1,xy1), (xy2,xy2)], fill=col)
     elif shape == 'triangle':
         draw.polygon([(xy1,xy1), (xy2,xy2), (xy2,xy1)], fill=col)
-    else: # square
+    else: # cuadrado
         draw.rectangle([(xy1,xy1), (xy2,xy2)], fill=col)
     del draw
     
-    return np.array(img)
+    return img
 
 
 # cogemos los nombres de las clases
@@ -277,7 +278,7 @@ img = create_image ((255,255), shape)
 
 # Mostrar la imagen
 plt.imshow(img)
-
-# Call the predction function
+plt.show()
+# Llamar a la función de predicción
 index = predict_image(model, img)
 print(classes[index])
