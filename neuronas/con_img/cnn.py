@@ -15,7 +15,7 @@ import matplotlib.image as mpimg
 
 
 # The images are in the data/shapes folder
-data_path = 'data/shapes/'
+data_path = 
 
 # Get the class names
 classes = os.listdir(data_path)
