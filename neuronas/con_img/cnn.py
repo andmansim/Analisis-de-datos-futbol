@@ -10,6 +10,8 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+from sklearn.metrics import confusion_matrix
+from random import randint
 
 
 #cogemos la carpeta img
@@ -197,3 +199,108 @@ for epoch in range(1, epochs + 1):
         epoch_nums.append(epoch)
         training_loss.append(train_loss)
         validation_loss.append(test_loss)
+
+
+#Vemos la perdida
+plt.plot(epoch_nums, training_loss)
+plt.plot(epoch_nums, validation_loss)
+plt.xlabel('epoch')
+plt.ylabel('loss')
+plt.legend(['training', 'validation'], loc='upper right')
+plt.show()
+
+model.eval()
+
+# Get predictions for the test data and convert to numpy arrays for use with SciKit-Learn
+print("Getting predictions from test set...")
+truelabels = []
+predictions = []
+for data, target in test_loader:
+    for label in target.cpu().data.numpy():
+        truelabels.append(label)
+    for prediction in model.cpu()(data).data.numpy().argmax(1):
+        predictions.append(prediction) 
+
+# Evaluamos el modelo con la matriz de confusión
+cm = confusion_matrix(truelabels, predictions)
+plt.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
+plt.colorbar()
+tick_marks = np.arange(len(classes))
+plt.xticks(tick_marks, classes, rotation=45)
+plt.yticks(tick_marks, classes)
+plt.xlabel("Predicted Shape")
+plt.ylabel("Actual Shape")
+plt.show()
+
+# Guardamos el modelo
+model_file = os.path.join(os.path.dirname(__file__), 'cnn_fut_uefa_img.pth')
+torch.save(model.state_dict(), model_file)
+print("Modelo guardado:", model_file)
+
+def predecir_imagen(clasificador, imagen):
+    import numpy
+    
+    # Establecer el modelo del clasificador en modo evaluación
+    clasificador.eval()
+    
+    # Aplicar las mismas transformaciones que hicimos para las imágenes de entrenamiento
+    transformacion = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+    ])
+
+    # Preprocesar la imagen
+    imagen_tensor = transformacion(imagen).float()
+
+    # Agregar una dimensión de lote adicional ya que PyTorch trata todas las entradas como lotes
+    imagen_tensor = imagen_tensor.unsqueeze_(0)
+
+    # Convertir la entrada en una Variable
+    características_entrada = Variable(imagen_tensor)
+
+    # Predecir la clase de la imagen
+    salida = clasificador(características_entrada)
+    índice = salida.data.numpy().argmax()
+    return índice
+
+
+# Función para crear una imagen aleatoria (de un cuadrado, círculo o triángulo)
+def crear_imagen(tamaño, forma):
+    from random import randint
+    import numpy as np
+    from PIL import Image, ImageDraw
+    
+    xy1 = randint(10,40)
+    xy2 = randint(60,100)
+    col = (randint(0,200), randint(0,200), randint(0,200))
+
+    img = Image.new("RGB", tamaño, (255, 255, 255))
+    draw = ImageDraw.Draw(img)
+    
+    if forma == 'círculo':
+        draw.ellipse([(xy1,xy1), (xy2,xy2)], fill=col)
+    elif forma == 'triángulo':
+        draw.polygon([(xy1,xy1), (xy2,xy2), (xy2,xy1)], fill=col)
+    else: # cuadrado
+        draw.rectangle([(xy1,xy1), (xy2,xy2)], fill=col)
+    del draw
+    
+    return np.array(img)
+
+# Crear una imagen de prueba aleatoria
+nombres_clases = os.listdir(os.path.join('datos', 'formas'))
+nombres_clases.sort()
+forma = nombres_clases[randint(0, len(nombres_clases)-1)]
+img = crear_imagen((128,128), forma)
+
+# Mostrar la imagen
+plt.axis('off')
+plt.imshow(img)
+
+# Crear una nueva clase de modelo y cargar los pesos guardados
+modelo = Net()
+modelo.load_state_dict(torch.load(model_file))
+
+# Llamar a la función de predicción
+index = predecir_imagen(modelo, img)
+print(classes[index])
