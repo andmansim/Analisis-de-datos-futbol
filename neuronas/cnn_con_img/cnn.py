@@ -28,14 +28,18 @@ fig = plt.figure(figsize=(8, 12))
 i = 0
 for sub_dir in os.listdir(data_path):
     i+=1
-    
-    img_file = os.listdir(os.path.join(data_path,sub_dir))[0]
-    img_path = os.path.join(data_path, sub_dir, img_file)
-    img = mpimg.imread(img_path)
-    a=fig.add_subplot(1, len(classes),i)
-    a.axis('off')
-    imgplot = plt.imshow(img)
-    a.set_title(img_file)
+    path_sub = os.path.join(data_path,sub_dir)
+    if os.path.isdir(path_sub):
+        img_file = [i for i in os.listdir(path_sub) if i.endswith('.jpg') or i.endswith('.png')]
+    if img_file:
+        img_file = img_file[0]
+        img_path = os.path.join(path_sub,img_file)
+        img = mpimg.imread(img_path)
+        a=fig.add_subplot(1, len(classes),i)
+        a.axis('off')
+        imgplot = plt.imshow(img)
+        a.set_title(img_file)
+
 plt.show()
 
 # Función para cargar el conjunto de datos
@@ -94,7 +98,7 @@ class Net(nn.Module):
         
         self.drop = nn.Dropout2d(p=0.2)
 
-        self.fc = nn.Linear(in_features=75264, out_features=num_classes)
+        self.fc = nn.Linear(in_features=874680, out_features=num_classes)
 
     def forward(self, x):
         x = F.relu(self.pool(self.conv1(x)))
@@ -236,8 +240,9 @@ plt.show()
 model_file = os.path.join(os.path.dirname(__file__), 'cnn_fut_uefa_img.pth')
 torch.save(model.state_dict(), model_file)
 print("Modelo guardado:", model_file)
+
+# Función para predecir la clase de una imagen
 def predict_image(classifier, image):
-    import numpy
     
     # Establecer el modelo del clasificador en modo evaluación
     classifier.eval()
@@ -256,9 +261,10 @@ def predict_image(classifier, image):
 
     # Convertir la entrada en una Variable
     input_features = Variable(image_tensor)
-
+    print(input_features.size())
     # Predecir la clase de la imagen
     output = classifier(input_features)
+    
     index = output.data.numpy().argmax()
     return index
 
@@ -286,19 +292,23 @@ def create_image(size, shape):
     
     return np.array(img)
 
-# Crear una imagen de prueba aleatoria
-classnames = os.listdir(os.path.join('data', 'shapes'))
+
+# cogemos los nombres de las clases
+classnames = os.listdir(data_path)
 classnames.sort()
 shape = classnames[randint(0, len(classnames)-1)]
-img = create_image ((128,128), shape)
+img = create_image ((790,741), shape)
 
 # Mostrar la imagen
 plt.axis('off')
 plt.imshow(img)
+plt.show()
 
 # Create a new model class and load the saved weights
 model = Net()
+
 model.load_state_dict(torch.load(model_file))
+print(model.fc.in_features)
 
 # Call the predction function
 index = predict_image(model, img)
