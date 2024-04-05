@@ -247,7 +247,7 @@ def predict_image(classifier, image):
     
     # Aplicar las mismas transformaciones que hicimos para las imágenes de entrenamiento
     transformation = transforms.Compose([
-        transforms.Resize((255,255)),  # Cambia el tamaño de las imágenes a 28x28 píxeles
+        #transforms.Resize((255,255)),  # Cambia el tamaño de las imágenes a 28x28 píxeles
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     ])
