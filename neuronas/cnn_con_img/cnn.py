@@ -299,7 +299,6 @@ shape = classnames[randint(0, len(classnames)-1)]
 img = create_image ((255,255), shape)
 
 # Mostrar la imagen
-plt.axis('off')
 plt.imshow(img)
 plt.show()
 
