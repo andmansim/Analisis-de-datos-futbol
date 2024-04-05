@@ -28,19 +28,15 @@ fig = plt.figure(figsize=(8, 12))
 i = 0
 for sub_dir in os.listdir(data_path):
     i+=1
-    path_sub = os.path.join(data_path,sub_dir)
-    if os.path.isdir(path_sub):
-        img_file = [i for i in os.listdir(path_sub) if i.endswith('.jpg') or i.endswith('.png')]
-    if img_file:
-        img_file = img_file[0]
-        img_path = os.path.join(path_sub,img_file)
-        img = mpimg.imread(img_path)
-        a=fig.add_subplot(1, len(classes),i)
-        a.axis('off')
-        imgplot = plt.imshow(img)
-        a.set_title(img_file)
-
+    img_file = os.listdir(os.path.join(data_path,sub_dir))[0]
+    img_path = os.path.join(data_path, sub_dir, img_file)
+    img = mpimg.imread(img_path)
+    a=fig.add_subplot(1, len(classes),i)
+    a.axis('off')
+    imgplot = plt.imshow(img)
+    a.set_title(img_file)
 plt.show()
+
 
 # Función para cargar el conjunto de datos
 def load_dataset(data_path):
@@ -48,7 +44,7 @@ def load_dataset(data_path):
     # a tensores y normalizándolas con una media y desviación estándar específicas
     #transformation = transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])])
     transformation = transforms.Compose([
-        transforms.Resize((225, 225)),  # Redimensiona todas las imágenes a 225x225
+        transforms.Resize((255,255)),  # Cambia el tamaño de las imágenes a 28x28 píxeles
         transforms.ToTensor(),  # Convierte las imágenes a tensores
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])  # Normaliza las imágenes
     ])
@@ -98,7 +94,7 @@ class Net(nn.Module):
         
         self.drop = nn.Dropout2d(p=0.2)
 
-        self.fc = nn.Linear(in_features=874680, out_features=num_classes)
+        self.fc = nn.Linear(in_features=95256, out_features=num_classes)
 
     def forward(self, x):
         x = F.relu(self.pool(self.conv1(x)))
@@ -118,6 +114,7 @@ def train(model, device, train_loader, optimizer, epoch):
     #Entrenamos el modelo
     model.train()
     train_loss = 0
+    
     print("Epoch:", epoch)
     # Procesamos las imágenes en lotes
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -239,6 +236,7 @@ plt.show()
 # Guardamos el modelo
 model_file = os.path.join(os.path.dirname(__file__), 'cnn_fut_uefa_img.pth')
 torch.save(model.state_dict(), model_file)
+del model
 print("Modelo guardado:", model_file)
 
 # Función para predecir la clase de una imagen
@@ -249,6 +247,7 @@ def predict_image(classifier, image):
     
     # Aplicar las mismas transformaciones que hicimos para las imágenes de entrenamiento
     transformation = transforms.Compose([
+        transforms.Resize((255,255)),  # Cambia el tamaño de las imágenes a 28x28 píxeles
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     ])
@@ -297,7 +296,7 @@ def create_image(size, shape):
 classnames = os.listdir(data_path)
 classnames.sort()
 shape = classnames[randint(0, len(classnames)-1)]
-img = create_image ((790,741), shape)
+img = create_image ((255,255), shape)
 
 # Mostrar la imagen
 plt.axis('off')
