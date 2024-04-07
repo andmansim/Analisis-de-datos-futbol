@@ -1,4 +1,4 @@
-Club,Country,Part,Titles,Pld,W,D,L,F,A,Pts,GD,porganarchampions,porganarpartido,porperderpartido,poremppartido,porcapacidad_ofensiva,porcapacidad_defensiva,pordiferencia_ofen_defend,categoria
+club,pais,participaciones,titulos,totpart,partganad,partempat,partperd,afavor,encontra,puntos,diferengoles,porganarchampions,porganarpartido,porperderpartido,poremppartido,porcapacidad_ofensiva,porcapacidad_defensiva,pordiferencia_ofen_defend,categoria
 Real Madrid CF,ESP,53,14,476,285,81,110,1047,521,651,526,26.41509434,59.87394958,23.1092437,17.01680672,66.77295918,33.22704082,33.54591837,1
 FC Bayern München,GER,39,6,382,229,76,77,804,373,534,431,15.38461538,59.94764398,20.15706806,19.89528796,68.30926083,31.69073917,36.61852167,1
 FC Barcelona,ESP,33,5,339,197,76,66,667,343,470,324,15.15151515,58.1120944,19.46902655,22.41887906,66.03960396,33.96039604,32.07920792,1
