@@ -37,7 +37,7 @@ df_equipos['categoria'] = df_equipos.apply(clasificar_equipos, axis=1)
 df_equipos.to_csv('csvs/datos_fut_clasificados.csv', index=False)
 
 #Quitamos las columnas que no numéricas
-df_equipos = df_equipos.drop(['Club', 'Country'], axis=1)
+df_equipos = df_equipos.drop(['club', 'pais'], axis=1)
 
 #creamos semilla
 torch.manual_seed(0)

@@ -24,7 +24,7 @@ import pandas as pd
 df_equipos = pd.read_csv('csvs/datos_fut_clasificados.csv', encoding='utf-8', delimiter=',')
 
 #Eliminamos las variables categóricas
-df_equipos = df_equipos.drop(['Club', 'Country'], axis=1)
+df_equipos = df_equipos.drop(['club', 'pais'], axis=1)
 
 #Dividimos los datos en x, y
 X = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1).values

@@ -16,12 +16,12 @@ df_partidos['visitante'] =['Manchester City FC', 'Real Madrid CF', 'FC Bayern MÃ
 def prob_enfrentada(equipo1, equipo2):
 
     #Recogemos los datos de cada equipo
-    prob_gana_local = df_equipos[df_equipos['Club']== equipo1]['porganarpartido'].values[0]
-    prob_gana_visitante = df_equipos[df_equipos['Club'] == equipo2]['porganarpartido'].values[0]
-    prob_empate_local = df_equipos[df_equipos['Club'] == equipo1]['poremppartido'].values[0]
-    prob_empate_visitante = df_equipos[df_equipos['Club'] == equipo2]['poremppartido'].values[0]
-    prob_perder_local = df_equipos[df_equipos['Club'] == equipo1]['porperderpartido'].values[0]
-    prob_perder_visitante = df_equipos[df_equipos['Club'] == equipo2]['porperderpartido'].values[0]
+    prob_gana_local = df_equipos[df_equipos['club']== equipo1]['porganarpartido'].values[0]
+    prob_gana_visitante = df_equipos[df_equipos['club'] == equipo2]['porganarpartido'].values[0]
+    prob_empate_local = df_equipos[df_equipos['club'] == equipo1]['poremppartido'].values[0]
+    prob_empate_visitante = df_equipos[df_equipos['club'] == equipo2]['poremppartido'].values[0]
+    prob_perder_local = df_equipos[df_equipos['club'] == equipo1]['porperderpartido'].values[0]
+    prob_perder_visitante = df_equipos[df_equipos['club'] == equipo2]['porperderpartido'].values[0]
     
     #Calculamos las probabilidades enfrentadas
     prob_gana_local1 = round((prob_gana_local * prob_perder_visitante)/100, 2)

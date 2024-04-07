@@ -125,7 +125,7 @@ from sklearn.metrics import mean_squared_error
 #Establecemos la X(representa el tiempo), y(os datos que cambian respecto a él)
 
 # Establecer X (representa el tiempo) e y (los datos que cambian respecto a él)
-X = df_equipos['W'] #Sale error pq aquí debe ir una fecha de verdad --> no es compatible con el modelo arima
+X = df_equipos['partganad'] #Sale error pq aquí debe ir una fecha de verdad --> no es compatible con el modelo arima
 y = df_equipos['porganarpartido']  
 
 # Dividir los datos en entrenamiento y prueba
