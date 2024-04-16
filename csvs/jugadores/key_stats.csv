@@ -1,0 +1,748 @@
+﻿nombre;club;posicion;minutos;partidos_jugados;goles;asistencias;distancia
+Courtois;Real Madrid;Goalkeeper;1230;13;0;0;642
+Vinícius Júnior;Real Madrid;Forward;1199;13;4;6;1330
+Benzema;Real Madrid;Forward;1106;12;15;1;1215
+Modrić;Real Madrid;Midfielder;1077;13;0;4;1245
+Éder Militão;Real Madrid;Defender;1076;12;0;0;1104
+Alaba;Real Madrid;Defender;1040;12;1;0;1123
+Carvajal;Real Madrid;Defender;959;11;0;1;1128
+Casemiro;Real Madrid;Midfielder;914;11;0;0;1076
+Kroos;Real Madrid;Midfielder;902;12;2;0;1165
+Mendy;Real Madrid;Defender;867;10;0;2;963
+Valverde;Real Madrid;Midfielder;804;11;0;1;967
+Nacho;Real Madrid;Defender;574;9;0;0;619
+Rodrygo;Real Madrid;Forward;505;11;5;2;657
+Lucas Vázquez;Real Madrid;Midfielder;349;8;0;1;474
+Camavinga;Real Madrid;Midfielder;296;10;0;1;402
+Asensio;Real Madrid;Forward;207;8;1;2;284
+Jović;Real Madrid;Forward;113;3;0;0;129
+Marcelo;Real Madrid;Defender;93;3;0;0;107
+E. Hazard;Real Madrid;Forward;84;3;0;0;108
+Miguel Gutiérrez;Real Madrid;Defender;66;1;0;0;77
+Ceballos;Real Madrid;Midfielder;37;5;0;0;78
+Mariano Díaz;Real Madrid;Forward;12;1;0;0;16
+Vallejo;Real Madrid;Defender;8;2;0;0;15
+Bale;Real Madrid;Forward;7;2;0;0;22
+Blanco;Real Madrid;Midfielder;6;1;0;0;13
+Alisson Becker;Liverpool;Goalkeeper;1170;13;0;0;688
+Salah;Liverpool;Forward;1008;13;8;2;1120
+Fabinho;Liverpool;Midfielder;849;13;1;0;1055
+Robertson;Liverpool;Defender;826;10;0;2;977
+Mané;Liverpool;Midfielder;822;13;5;1;1003
+Van Dijk;Liverpool;Defender;810;9;0;1;828
+Alexander-Arnold;Liverpool;Defender;794;9;0;4;868
+Konaté;Liverpool;Defender;720;8;2;0;785
+Henderson;Liverpool;Midfielder;666;12;1;2;857
+Matip;Liverpool;Defender;630;7;0;0;662
+Thiago Alcántara;Liverpool;Midfielder;604;10;1;0;779
+Diogo Jota;Liverpool;Forward;578;11;1;1;739
+Keïta;Liverpool;Midfielder;487;10;1;2;615
+Luis Díaz;Liverpool;Forward;385;7;2;1;499
+Tsimikas;Liverpool;Defender;344;5;0;2;427
+Firmino;Liverpool;Midfielder;323;7;5;0;430
+Oxlade-Chamberlain;Liverpool;Midfielder;300;6;0;1;386
+Gomez;Liverpool;Defender;245;7;0;0;304
+Minamino;Liverpool;Forward;215;4;0;0;297
+Milner;Liverpool;Midfielder;211;8;0;1;320
+Origi;Liverpool;Forward;187;7;1;1;238
+Jones;Liverpool;Midfielder;185;4;0;2;271
+N. Williams;Liverpool;Defender;180;3;0;0;235
+Morton;Liverpool;Midfielder;180;2;0;0;235
+Phillips;Liverpool;Defender;91;2;0;0;112
+Elliott;Liverpool;Midfielder;59;1;0;0;79
+Woltman;Liverpool;Midfielder;1;1;0;0;4
+Bradley;Liverpool;Midfielder;1;1;0;0;4
+Pau Torres;Villarreal;Defender;1080;12;1;0;1242
+Rulli;Villarreal;Goalkeeper;1080;12;0;0;612
+Parejo;Villarreal;Midfielder;1055;12;1;3;1309
+Capoue;Villarreal;Midfielder;1046;12;2;4;1309
+Albiol;Villarreal;Defender;1045;12;0;0;1157
+Ederson;Man. City;Goalkeeper;1003;11;0;0;516
+Mahrez;Man. City;Midfielder;986;12;7;2;1201
+Danjuma;Villarreal;Midfielder;906;11;6;2;1078
+Vertonghen;Benfica;Defender;900;10;0;1;979
+Vlachodimos;Benfica;Goalkeeper;900;10;0;0;554
+Oblak;Atlético;Goalkeeper;900;10;0;0;527
+Foyth;Villarreal;Defender;891;10;0;0;987
+Bernardo Silva;Man. City;Midfielder;878;11;3;3;1203
+Lewandowski;Bayern;Forward;876;10;13;3;997
+Grimaldo;Benfica;Defender;863;10;0;3;1077
+Rodri;Man. City;Midfielder;842;10;0;0;1146
+João Cancelo;Man. City;Defender;840;9;2;3;1003
+Rüdiger;Chelsea;Defender;840;9;1;0;884
+Mendy;Chelsea;Goalkeeper;840;9;0;0;574
+Reinildo;LOSC;Defender;816;10;0;0;888
+Neuer;Bayern;Goalkeeper;810;9;0;1;512
+Weigl;Benfica;Midfielder;810;9;0;0;112
+Otamendi;Benfica;Defender;810;9;0;0;912
+Sané;Bayern;Midfielder;798;10;6;6;94
+Laporte;Man. City;Defender;794;9;0;0;909
+Müller;Bayern;Forward;778;10;4;3;985
+Pavard;Bayern;Defender;764;10;0;1;967
+Thiago Silva;Chelsea;Defender;757;9;0;1;717
+De Bruyne;Man. City;Midfielder;734;10;2;4;955
+Škriniar;Inter;Defender;720;8;1;0;851
+Kristensen;Salzburg;Defender;720;8;0;1;855
+Martínez;Ajax;Defender;720;8;0;1;833
+Marquinhos;Paris;Defender;720;8;0;1;785
+Fonte;LOSC;Defender;720;8;0;0;813
+Köhn;Salzburg;Goalkeeper;720;8;0;0;438
+Handanovič;Inter;Goalkeeper;720;8;0;0;32
+Hakimi;Paris;Defender;718;8;0;0;853
+Ulmer;Salzburg;Defender;716;8;0;0;842
+Gilberto;Benfica;Defender;715;9;1;0;857
+Aaronson;Salzburg;Midfielder;715;8;0;2;1035
+Rafa Silva;Benfica;Forward;704;9;1;1;857
+Gravenberch;Ajax;Midfielder;703;8;0;1;891
+Kimmich;Bayern;Midfielder;702;8;0;0;964
+Marcos Llorente;Atlético;Midfielder;700;9;0;0;836
+Azpilicueta;Chelsea;Defender;679;9;1;1;82
+David;LOSC;Forward;679;8;3;0;861
+Mbappé;Paris;Forward;673;8;6;4;652
+Havertz;Chelsea;Midfielder;672;9;3;0;863
+Camara;Salzburg;Midfielder;672;8;0;0;809
+Haller;Ajax;Forward;668;8;11;1;822
+Bastoni;Inter;Defender;666;8;0;0;766
+Koke;Atlético;Midfielder;665;9;0;1;912
+Rúben Dias;Man. City;Defender;664;8;0;0;831
+Mazraoui;Ajax;Defender;661;8;0;2;815
+Gündoğan;Man. City;Midfielder;660;10;0;2;864
+Upamecano;Bayern;Defender;660;8;0;0;823
+Foden;Man. City;Midfielder;658;11;3;2;891
+Seiwald;Salzburg;Midfielder;649;8;0;1;853
+Estupiñán;Villarreal;Defender;645;10;0;0;764
+Stones;Man. City;Defender;637;8;0;0;732
+Brozović;Inter;Midfielder;635;8;1;0;893
+Coman;Bayern;Forward;632;9;2;3;763
+Messi;Paris;Forward;630;7;5;0;587
+Tadić;Ajax;Forward;630;7;2;2;789
+André;LOSC;Midfielder;630;7;0;0;80
+Kimpembe;Paris;Defender;630;7;0;0;644
+Adán;Sporting CP;Goalkeeper;630;7;0;0;363
+Szczęsny;Juventus;Goalkeeper;630;7;0;0;314
+De Gea;Man. United;Goalkeeper;630;7;0;0;264
+Berghuis;Ajax;Forward;628;8;3;1;798
+De Ligt;Juventus;Defender;627;7;0;0;715
+Núñez;Benfica;Forward;613;10;6;0;724
+Matheus Reis;Sporting CP;Defender;611;8;0;0;753
+Ronaldo;Man. United;Forward;611;7;6;0;592
+Adeyemi;Salzburg;Forward;607;8;3;1;692
+Christensen;Chelsea;Defender;603;8;1;1;626
+Zeki Çelik;LOSC;Defender;591;7;0;1;713
+Martínez;Inter;Forward;587;8;1;0;674
+Giménez;Atlético;Defender;585;7;0;0;633
+Paulinho;Sporting CP;Forward;582;8;3;1;682
+Sterling;Man. City;Forward;581;12;3;2;711
+Nuno Mendes;Paris;Defender;581;8;0;0;622
+Bonucci;Juventus;Defender;580;7;0;0;606
+Kondogbia;Atlético;Midfielder;578;9;0;0;713
+De Paul;Atlético;Midfielder;577;9;1;0;745
+Antony;Ajax;Forward;577;7;2;5;651
+Walker;Man. City;Defender;577;7;1;0;641
+João Félix;Atlético;Forward;573;8;1;1;685
+Wöber;Salzburg;Defender;573;7;1;0;665
+Blind;Ajax;Defender;572;8;1;1;709
+L. Hernández;Bayern;Defender;572;8;0;0;694
+J. Timber;Ajax;Midfielder;570;8;0;0;649
+Jorginho;Chelsea;Midfielder;561;8;2;2;687
+Gonçalo Inácio;Sporting CP;Defender;561;7;0;1;607
+Álvarez;Ajax;Midfielder;558;7;0;0;73
+Alex Sandro;Juventus;Defender;553;7;1;0;69
+Alonso;Chelsea;Defender;548;8;0;0;689
+Everton;Benfica;Forward;543;9;0;0;671
+Džeko;Inter;Forward;541;7;3;1;646
+Vanaken;Club Brugge;Midfielder;540;6;3;1;694
+S. Thill;Sheriff;Midfielder;540;6;2;1;768
+Coates;Sporting CP;Defender;540;6;2;0;509
+Arnold;Wolfsburg;Midfielder;540;6;0;3;673
+Cristiano;Sheriff;Defender;540;6;0;3;632
+Zabarnyi;Dynamo Kyiv;Defender;540;6;0;0;671
+Fernando;Sevilla;Midfielder;540;6;0;0;666
+Fernando Costanza;Sheriff;Defender;540;6;0;0;646
+Dodô;Shakhtar Donetsk;Defender;540;6;0;0;645
+Barrios;Zenit;Midfielder;540;6;0;0;615
+Lacroix;Wolfsburg;Defender;540;6;0;0;613
+Hendry;Club Brugge;Defender;540;6;0;0;61
+Arboleda;Sheriff;Defender;540;6;0;0;533
+Dulanto;Sheriff;Defender;540;6;0;0;53
+Bounou;Sevilla;Goalkeeper;540;6;0;0;372
+Kobel;Dortmund;Goalkeeper;540;6;0;0;354
+Mignolet;Club Brugge;Goalkeeper;540;6;0;0;332
+Musso;Atalanta;Goalkeeper;540;6;0;0;327
+Pasveer;Ajax;Goalkeeper;540;6;0;0;327
+Grbić;LOSC;Goalkeeper;540;6;0;0;319
+Diogo Costa;Porto;Goalkeeper;540;6;0;0;317
+Ter Stegen;Barcelona;Goalkeeper;540;6;0;0;29
+Locatelli;Juventus;Midfielder;539;7;0;0;698
+Diego Carlos;Sevilla;Defender;539;6;0;0;587
+Mount;Chelsea;Midfielder;538;7;1;2;603
+Rabiot;Juventus;Midfielder;536;7;0;0;676
+Sydorchuk;Dynamo Kyiv;Midfielder;536;6;0;0;691
+Maguire;Man. United;Defender;534;6;1;0;493
+João Palhinha;Sporting CP;Midfielder;534;6;0;0;664
+Tiago Djaló;LOSC;Defender;533;7;0;0;605
+Moumi Ngamaleu;Young Boys;Midfielder;532;6;1;1;572
+Perišić;Inter;Midfielder;531;8;0;1;655
+Nkunku;Leipzig;Midfielder;531;6;7;0;628
+Traore;Sheriff;Midfielder;530;6;2;1;644
+Burak Yılmaz;LOSC;Forward;529;7;3;0;562
+Pedro Porro;Sporting CP;Defender;529;7;1;0;609
+Lang;Club Brugge;Forward;528;6;0;1;689
+Clinton Mata;Club Brugge;Defender;528;6;0;0;599
+Freuler;Atalanta;Midfielder;526;6;1;1;716
+Depay;Barcelona;Forward;525;6;0;0;644
+Gerard Moreno;Villarreal;Forward;524;7;2;4;657
+Lo Celso;Villarreal;Midfielder;524;6;0;0;684
+F. de Jong;Barcelona;Midfielder;523;6;0;0;69
+Morata;Juventus;Forward;520;7;2;0;602
+Bruno Fernandes;Man. United;Midfielder;520;7;0;7;584
+Griezmann;Atlético;Forward;518;9;4;2;643
+Sučić;Salzburg;Midfielder;516;8;1;0;654
+Süle;Bayern;Defender;515;7;0;0;614
+Yaremchuk;Benfica;Forward;514;10;3;0;665
+Sarabia;Sporting CP;Forward;510;8;2;0;666
+Matheus Nunes;Sporting CP;Midfielder;509;6;0;2;643
+James;Chelsea;Defender;505;6;1;0;546
+Aebischer;Young Boys;Midfielder;504;6;0;1;539
+Bellingham;Dortmund;Midfielder;503;6;1;3;623
+Zinchenko;Man. City;Defender;501;8;0;1;644
+De Ketelaere;Club Brugge;Forward;500;6;0;1;585
+Čolak;Malmö;Forward;500;6;0;0;63
+Reus;Dortmund;Midfielder;499;6;3;1;627
+Rakitskyy;Zenit;Defender;497;6;1;2;523
+Barella;Inter;Midfielder;496;6;0;0;654
+Innocent;Malmö;Midfielder;496;6;0;0;601
+Taremi;Porto;Forward;494;6;1;1;606
+João Mário;Benfica;Midfielder;493;8;0;4;66
+Addo;Sheriff;Midfielder;491;6;0;0;597
+Tsygankov;Dynamo Kyiv;Midfielder;490;6;0;1;658
+Elia;Young Boys;Forward;489;6;1;0;491
+De Vrij;Inter;Defender;487;6;1;0;554
+Sergio Busquets;Barcelona;Midfielder;487;6;0;0;639
+Shaparenko;Dynamo Kyiv;Midfielder;486;6;0;0;687
+Mukiele;Leipzig;Defender;484;6;1;1;57
+Wendel;Zenit;Midfielder;484;6;1;0;591
+Meunier;Dortmund;Defender;484;6;0;1;656
+De Roon;Atalanta;Midfielder;484;6;0;0;621
+Nsoki;Club Brugge;Defender;484;6;0;0;568
+Renan Lodi;Atlético;Defender;478;10;1;2;617
+Davies;Bayern;Midfielder;477;7;0;2;614
+Maycon;Shakhtar Donetsk;Midfielder;473;6;0;0;629
+Carrasco;Atlético;Forward;472;7;0;0;601
+Cuadrado;Juventus;Midfielder;472;7;0;0;562
+Felipe;Atlético;Defender;472;7;0;0;514
+Witsel;Dortmund;Midfielder;471;6;0;0;598
+Neymar;Paris;Forward;468;6;0;1;556
+Bamba;LOSC;Forward;468;6;0;0;582
+Dumfries;Inter;Defender;467;7;0;1;602
+Goretzka;Bayern;Midfielder;466;6;0;0;593
+Zapata;Atalanta;Forward;464;6;3;3;501
+Coquelin;Villarreal;Midfielder;463;8;1;0;576
+Ocampos;Sevilla;Midfielder;463;6;1;1;506
+Lauper;Young Boys;Midfielder;462;6;0;0;421
+Grealish;Man. City;Midfielder;461;7;1;1;571
+Claudinho;Zenit;Midfielder;460;6;2;0;558
+Otávio;Porto;Midfielder;450;6;0;0;538
+Feddal;Sporting CP;Defender;450;6;0;0;492
+Palomino;Atalanta;Defender;450;5;1;1;505
+T. Hernández;Milan;Defender;450;5;0;1;514
+Danilo;Juventus;Defender;450;5;0;1;499
+Mykolenko;Dynamo Kyiv;Defender;450;5;0;0;564
+Syrota;Dynamo Kyiv;Defender;450;5;0;0;54
+Koundé;Sevilla;Defender;450;5;0;0;532
+Savić;Atlético;Defender;450;5;0;0;516
+Akanji;Dortmund;Defender;450;5;0;0;506
+L. Nielsen;Malmö;Defender;450;5;0;0;491
+Marlon;Shakhtar Donetsk;Defender;450;5;0;0;488
+Mbemba;Porto;Defender;450;5;0;0;465
+Casteels;Wolfsburg;Goalkeeper;450;5;0;0;308
+Ersin Destanoğlu;Beşiktaş;Goalkeeper;450;5;0;0;293
+Donnarumma;Paris;Goalkeeper;450;5;0;0;275
+Gulácsi;Leipzig;Goalkeeper;450;5;0;0;272
+Bushchan;Dynamo Kyiv;Goalkeeper;450;5;0;0;256
+Athanasiadis;Sheriff;Goalkeeper;450;5;0;0;227
+Musiala;Bayern;Midfielder;448;8;1;1;59
+Brorsson;Malmö;Defender;448;5;0;0;499
+Ziyech;Chelsea;Midfielder;446;9;1;2;535
+Saelemaekers;Milan;Midfielder;444;6;0;0;573
+Douglas Santos;Zenit;Defender;444;5;0;2;505
+Chistiakov;Zenit;Defender;444;5;0;0;508
+Souza;Beşiktaş;Midfielder;442;5;0;0;555
+Berget;Malmö;Midfielder;438;5;0;0;53
+Onguéné;Salzburg;Defender;437;5;0;0;483
+Buyalskiy;Dynamo Kyiv;Midfielder;436;5;0;0;585
+Xeka;LOSC;Midfielder;435;7;0;0;541
+Mæhle;Atalanta;Defender;435;5;0;1;564
+Garcia;Young Boys;Defender;435;5;0;0;402
+Malcom;Zenit;Forward;434;6;0;1;486
+Fred;Man. United;Midfielder;433;6;0;0;434
+Angeliño;Leipzig;Defender;432;5;0;3;507
+Pedraza;Villarreal;Midfielder;431;10;0;1;553
+Pino;Villarreal;Forward;431;7;1;0;547
+Verratti;Paris;Midfielder;431;5;0;0;557
+Guilavogui;Wolfsburg;Midfielder;429;5;0;0;505
+Kanté;Chelsea;Midfielder;427;6;0;1;522
+Kovačić;Chelsea;Midfielder;426;6;0;0;503
+Lindelöf;Man. United;Defender;426;5;0;0;378
+Hermoso;Atlético;Defender;425;6;0;0;477
+C. Martins Pereira;Young Boys;Midfielder;420;5;0;0;445
+Hakan Çalhanoğlu;Inter;Midfielder;419;6;0;0;552
+Wan-Bissaka;Man. United;Defender;419;6;0;0;459
+Tomori;Milan;Defender;418;5;1;0;454
+Botman;LOSC;Defender;418;5;0;0;474
+Rits;Club Brugge;Midfielder;417;6;2;0;539
+Baku;Wolfsburg;Midfielder;413;6;1;0;486
+Ahmedhodžić;Malmö;Defender;413;5;0;0;463
+André Silva;Leipzig;Forward;410;6;3;2;472
+Vidal;Inter;Midfielder;409;7;1;2;532
+Balanta;Club Brugge;Midfielder;407;5;0;0;507
+Renato Sanches;LOSC;Midfielder;407;5;0;0;492
+Zappacosta;Atalanta;Defender;405;6;0;1;51
+Laimer;Leipzig;Midfielder;405;6;0;1;491
+Kolovos;Sheriff;Midfielder;405;6;0;0;493
+Rosier;Beşiktaş;Defender;405;5;0;0;468
+Correa;Atlético;Forward;401;10;1;0;496
+Gueye;Paris;Midfielder;400;7;1;0;481
+McTominay;Man. United;Midfielder;400;5;0;0;538
+Gavi;Barcelona;Midfielder;398;6;0;0;541
+Weghorst;Wolfsburg;Forward;398;5;0;0;494
+Shaw;Man. United;Defender;397;5;0;2;366
+Brandt;Dortmund;Midfielder;395;5;0;0;518
+Sancho;Man. United;Midfielder;393;7;1;0;42
+Piqué;Barcelona;Defender;393;5;1;0;44
+Malen;Dortmund;Forward;392;6;3;0;437
+Romagnoli;Milan;Defender;392;5;0;0;447
+Gnabry;Bayern;Forward;391;8;3;2;467
+Zaidu;Porto;Defender;389;6;0;0;459
+McKennie;Juventus;Midfielder;388;6;0;0;519
+Hefti;Young Boys;Defender;386;6;1;1;388
+Forsberg;Leipzig;Forward;385;6;2;2;482
+Batshuayi;Beşiktaş;Forward;383;5;0;0;435
+Bentancur;Juventus;Midfielder;382;5;0;1;487
+Ricardo Esgaio;Sporting CP;Defender;380;8;0;2;488
+Acuña;Sevilla;Defender;379;5;0;0;432
+Lemar;Atlético;Midfielder;377;8;0;1;489
+Bennacer;Milan;Midfielder;376;6;0;0;471
+De Pena;Dynamo Kyiv;Midfielder;375;6;0;0;49
+Jordi Alba;Barcelona;Defender;375;5;0;1;458
+Tetê;Shakhtar Donetsk;Forward;373;6;0;0;445
+Demiral;Atalanta;Defender;370;6;1;0;422
+Gonçalo Ramos;Benfica;Forward;369;7;1;1;521
+Luís Neto;Sporting CP;Defender;368;6;0;0;386
+Pulišić;Chelsea;Midfielder;367;7;2;1;473
+Ronald Araújo;Barcelona;Defender;367;5;0;0;364
+Kędziora;Dynamo Kyiv;Defender;366;5;0;0;444
+Danilo;Paris;Midfielder;362;7;0;0;406
+Roussillon;Wolfsburg;Defender;362;6;0;0;416
+Tolói;Atalanta;Defender;360;4;0;0;452
+Matviyenko;Shakhtar Donetsk;Defender;360;4;0;0;43
+Kritsyuk;Zenit;Goalkeeper;360;4;0;0;195
+Loftus-Cheek;Chelsea;Forward;358;8;0;1;442
+Hummels;Dortmund;Defender;358;5;0;0;412
+Castañeda;Sheriff;Midfielder;357;5;0;0;455
+Klostermann;Leipzig;Defender;357;5;0;0;422
+Birmančević;Malmö;Midfielder;356;6;0;1;446
+Ismaily;Shakhtar Donetsk;Defender;355;5;0;0;448
+Larin;Beşiktaş;Forward;354;5;1;0;402
+Varane;Man. United;Defender;353;5;0;0;342
+Jesus;Man. City;Forward;352;8;4;1;419
+Brahim Díaz;Milan;Midfielder;351;5;1;1;439
+João Mário;Porto;Forward;351;4;0;0;393
+Fernando;Shakhtar Donetsk;Midfielder;350;5;2;0;348
+Pepe;Porto;Defender;349;5;0;0;398
+Fernandinho;Man. City;Midfielder;347;8;0;2;447
+Luis Suárez;Atlético;Forward;347;7;1;0;387
+Pogba;Man. United;Midfielder;347;6;0;0;309
+Camara;Young Boys;Defender;347;4;0;0;305
+Okafor;Salzburg;Midfielder;345;6;3;0;40
+Ghezzal;Beşiktaş;Midfielder;345;5;1;0;383
+Lenglet;Barcelona;Defender;345;4;0;0;404
+Taarabt;Benfica;Midfielder;343;9;0;0;452
+Pedrinho;Shakhtar Donetsk;Midfielder;343;4;0;0;409
+Siebatcheu;Young Boys;Forward;341;6;2;0;356
+Vranckx;Wolfsburg;Midfielder;337;4;0;0;415
+Chiesa;Juventus;Forward;336;4;2;0;375
+Gvardiol;Leipzig;Defender;334;6;0;0;415
+Tonali;Milan;Midfielder;333;6;0;0;444
+Jesús Navas;Sevilla;Defender;332;4;0;0;40
+Sobol;Club Brugge;Defender;331;4;0;1;391
+Brooks;Wolfsburg;Defender;331;4;0;0;363
+Trigueros;Villarreal;Midfielder;330;9;1;0;429
+Pedro Gonçalves;Sporting CP;Midfielder;329;5;4;2;413
+Mbabu;Wolfsburg;Defender;328;6;0;0;386
+Solet;Salzburg;Defender;328;5;0;0;389
+Christiansen;Malmö;Midfielder;328;4;0;0;419
+Jordán;Sevilla;Midfielder;327;6;1;0;433
+Herrera;Paris;Midfielder;326;6;1;0;443
+Garmash;Dynamo Kyiv;Midfielder;325;6;1;0;427
+Aké;Man. City;Defender;324;6;1;0;369
+L. Nmecha;Wolfsburg;Forward;322;5;2;0;42
+Solomon;Shakhtar Donetsk;Midfielder;322;5;0;0;423
+Gómez;Sevilla;Forward;322;5;0;0;367
+Kessié;Milan;Midfielder;321;5;0;1;412
+Lukaku;Chelsea;Forward;320;6;2;0;315
+Grujić;Porto;Midfielder;320;6;0;1;409
+Paredes;Paris;Midfielder;315;5;0;0;369
+Calabria;Milan;Defender;315;4;0;0;385
+Orbán;Leipzig;Defender;315;4;0;0;356
+Lovren;Zenit;Defender;315;4;0;0;347
+Dahlin;Malmö;Goalkeeper;315;4;0;0;142
+Evanilson;Porto;Forward;313;4;0;0;349
+Welinton;Beşiktaş;Defender;313;4;0;0;33
+Bruno;Sheriff;Midfielder;312;6;0;0;385
+Moreno;Villarreal;Defender;309;7;1;0;417
+Montero;Beşiktaş;Defender;306;4;1;0;346
+Vrsaljko;Atlético;Defender;304;5;0;0;369
+Greenwood;Man. United;Forward;304;4;1;1;381
+Azmoun;Zenit;Forward;303;5;2;1;303
+Malinovskyi;Atalanta;Midfielder;301;5;1;0;385
+Sérgio Oliveira;Porto;Midfielder;300;6;1;0;397
+Karavaev;Zenit;Defender;299;4;0;1;383
+Sowah;Club Brugge;Forward;298;5;0;0;384
+Ikoné;LOSC;Midfielder;297;5;1;2;353
+Simakan;Leipzig;Defender;297;4;0;0;32
+Lukebakio;Wolfsburg;Forward;296;6;0;0;359
+Rafael Leão;Milan;Forward;294;4;1;1;324
+Sutormin;Zenit;Midfielder;293;4;1;0;343
+Alex Telles;Man. United;Defender;293;4;1;0;335
+Bernardeschi;Juventus;Midfielder;292;5;0;2;363
+Adams;Leipzig;Midfielder;292;5;0;0;389
+Hudson-Odoi;Chelsea;Midfielder;289;5;1;2;323
+Uribe;Porto;Midfielder;289;4;0;0;368
+De Sciglio;Juventus;Defender;286;4;0;1;333
+M. Olsson;Malmö;Defender;284;6;0;0;345
+Dimarco;Inter;Defender;283;7;0;0;363
+Capaldo;Salzburg;Midfielder;281;7;0;0;369
+Peña;Malmö;Midfielder;281;5;0;0;325
+Dzyuba;Zenit;Forward;277;6;0;1;312
+Rakitić;Sevilla;Midfielder;276;5;2;1;364
+Larsson;Malmö;Defender;275;4;0;0;32
+Chukwueze;Villarreal;Midfielder;273;9;2;0;37
+Rakip;Malmö;Midfielder;273;6;0;0;359
+Rieder;Young Boys;Midfielder;272;6;1;1;387
+Rafa Mir;Sevilla;Forward;271;6;1;1;364
+Kampl;Leipzig;Midfielder;270;3;0;0;358
+Verissimo;Benfica;Defender;270;3;0;0;302
+N'Sakala;Beşiktaş;Defender;270;3;0;0;301
+Kjær;Milan;Defender;270;3;0;0;286
+Faivre;Young Boys;Goalkeeper;270;3;0;0;205
+Tătăruşanu;Milan;Goalkeeper;270;3;0;0;186
+Maignan;Milan;Goalkeeper;270;3;0;0;183
+Trubin;Shakhtar Donetsk;Goalkeeper;270;3;0;0;155
+Navas;Paris;Goalkeeper;270;3;0;0;137
+Von Ballmoos;Young Boys;Goalkeeper;270;3;0;0;122
+Fassnacht;Young Boys;Midfielder;269;3;0;0;233
+Alan Patrick;Shakhtar Donetsk;Midfielder;268;4;0;1;371
+Pyatov;Shakhtar Donetsk;Goalkeeper;266;3;0;0;142
+Arthur;Juventus;Midfielder;264;6;0;0;352
+Kenan Karaman;Beşiktaş;Forward;264;5;0;0;337
+Wijnaldum;Paris;Midfielder;261;5;2;0;316
+Giroud;Milan;Forward;261;5;0;0;29
+Pjanic;Beşiktaş;Midfielder;261;3;0;2;327
+Mehmet Topal;Beşiktaş;Midfielder;261;3;0;0;296
+Di María;Paris;Forward;260;5;0;1;321
+Djimsiti;Atalanta;Defender;260;5;0;0;315
+Dia;Villarreal;Forward;258;8;1;0;333
+Steffen;Wolfsburg;Midfielder;258;5;2;0;311
+Onana;LOSC;Midfielder;257;8;0;0;349
+Rashford;Man. United;Forward;257;5;1;0;295
+Kuzyaev;Zenit;Midfielder;257;4;1;0;317
+Marcos Antônio;Shakhtar Donetsk;Midfielder;256;5;0;0;361
+Dybala;Juventus;Forward;255;5;3;1;306
+Weah;LOSC;Forward;255;5;0;0;294
+Meraş;Beşiktaş;Defender;253;3;0;0;299
+Krunić;Milan;Midfielder;252;4;0;0;306
+Iličić;Atalanta;Midfielder;249;4;1;1;293
+Nico González;Barcelona;Midfielder;247;4;0;0;336
+Eric García;Barcelona;Defender;247;4;0;0;297
+Werner;Chelsea;Forward;246;5;4;2;298
+Gudmundsson;LOSC;Defender;243;4;0;0;291
+Sierro;Young Boys;Midfielder;240;5;1;0;285
+André Almeida;Benfica;Defender;236;5;0;0;296
+Šeško;Salzburg;Forward;234;6;0;0;321
+Tolisso;Bayern;Midfielder;234;4;0;1;313
+Dalot;Man. United;Defender;233;3;0;0;21
+Klaassen;Ajax;Midfielder;232;7;1;1;336
+Adamu;Salzburg;Forward;231;8;1;0;326
+Dest;Barcelona;Defender;230;4;0;0;302
+Suso;Sevilla;Forward;228;4;0;0;252
+Herrera;Atlético;Midfielder;226;4;0;0;301
+Stepanenko;Shakhtar Donetsk;Midfielder;225;4;0;0;306
+Diawara;Malmö;Goalkeeper;225;3;0;0;111
+Moi Gómez;Villarreal;Midfielder;222;6;0;1;32
+Rieks;Malmö;Midfielder;222;3;1;0;278
+Pašalić;Atalanta;Midfielder;220;5;1;1;30
+Trippier;Atlético;Defender;220;3;0;0;27
+Mingueza;Barcelona;Defender;219;5;0;0;272
+Bozdoğan;Beşiktaş;Midfielder;219;4;0;0;283
+Nuno Santos;Sporting CP;Forward;218;7;1;0;289
+Vitinha;Porto;Midfielder;218;6;0;0;311
+Kalulu;Milan;Defender;216;5;0;1;266
+Dahoud;Dortmund;Midfielder;212;4;0;2;282
+Corona;Porto;Forward;212;4;0;0;28
+Nianzou;Bayern;Midfielder;212;4;0;0;254
+Pessina;Atalanta;Midfielder;211;4;1;0;294
+Koopmeiners;Atalanta;Midfielder;210;5;0;1;289
+Szoboszlai;Leipzig;Midfielder;209;4;2;0;269
+Marlos;Shakhtar Donetsk;Midfielder;206;6;0;0;254
+Ugarte;Sporting CP;Midfielder;205;4;0;0;296
+Yakhshiboev;Sheriff;Forward;205;3;1;0;279
+Munir;Sevilla;Forward;204;4;0;0;264
+Van de Beek;Man. United;Midfielder;204;4;0;0;235
+Bornauw;Wolfsburg;Defender;204;3;0;0;223
+Neres;Ajax;Forward;203;5;1;0;24
+Haaland;Dortmund;Forward;203;3;3;0;223
+Bruno Tabata;Sporting CP;Midfielder;201;4;1;1;283
+Delaney;Sevilla;Midfielder;200;4;0;0;281
+Darmian;Inter;Defender;196;5;0;0;251
+Schulz;Dortmund;Defender;195;4;0;1;245
+Matić;Man. United;Midfielder;194;8;0;0;246
+Gerhardt;Wolfsburg;Midfielder;192;5;0;1;258
+Kryvtsov;Shakhtar Donetsk;Defender;192;3;0;1;235
+Necip Uysal;Beşiktaş;Midfielder;189;3;0;0;198
+Chilwell;Chelsea;Defender;188;4;0;0;233
+Moisander;Malmö;Defender;187;3;0;0;22
+Montiel;Sevilla;Defender;186;4;0;0;249
+Alex Teixeira;Beşiktaş;Midfielder;184;3;0;0;186
+Haidara;Leipzig;Midfielder;182;4;0;0;244
+Guerreiro;Dortmund;Defender;182;3;0;0;231
+Vlahović;Juventus;Forward;180;2;1;0;209
+Morato;Benfica;Defender;180;2;1;0;196
+Bürgy;Young Boys;Defender;180;2;0;0;214
+Vida;Beşiktaş;Defender;180;2;0;0;191
+Bailly;Man. United;Defender;180;2;0;0;188
+Leo Jardim;LOSC;Goalkeeper;180;2;0;0;111
+M. Kerzhakov;Zenit;Goalkeeper;180;2;0;0;106
+Onana;Ajax;Goalkeeper;180;2;0;0;84
+Mudryk;Shakhtar Donetsk;Midfielder;179;6;0;0;242
+L. de Jong;Barcelona;Forward;179;3;0;0;223
+Rugani;Juventus;Defender;177;4;0;0;217
+Chalobah;Chelsea;Defender;175;3;1;0;204
+Elanga;Man. United;Forward;172;3;1;0;23
+Paulo Otávio;Wolfsburg;Defender;171;4;0;0;202
+Wolf;Dortmund;Midfielder;170;5;0;0;243
+Pongračić;Dortmund;Defender;170;5;0;0;206
+Sergi Roberto;Barcelona;Midfielder;169;3;0;0;22
+Kean;Juventus;Forward;168;6;1;0;206
+Gomes;LOSC;Midfielder;168;4;1;1;197
+Óliver Torres;Sevilla;Midfielder;168;4;0;0;258
+Lefort;Young Boys;Defender;167;3;0;0;211
+Diallo;Paris;Defender;165;2;0;0;179
+Ricca;Club Brugge;Defender;164;4;0;0;219
+Tiago Tomás;Sporting CP;Forward;162;5;0;0;221
+Van Der Brempt;Club Brugge;Defender;162;5;0;0;215
+Tymchyk;Dynamo Kyiv;Defender;160;4;0;0;22
+Ibrahimović;Milan;Forward;160;4;0;0;164
+Saúl Ñíguez;Chelsea;Midfielder;159;5;0;0;23
+Pedri;Barcelona;Midfielder;158;2;0;0;207
+Pizzi;Benfica;Midfielder;157;6;0;0;212
+Vormer;Club Brugge;Midfielder;156;4;0;1;209
+Hutchinson;Beşiktaş;Midfielder;156;4;0;0;199
+Yansané;Sheriff;Forward;156;3;1;0;216
+Alexis Sánchez;Inter;Forward;155;6;1;1;19
+Meite;Benfica;Midfielder;155;3;0;0;199
+Fábio Cardoso;Porto;Defender;155;2;0;0;187
+Karavaev;Dynamo Kyiv;Defender;154;6;0;0;216
+Fati;Barcelona;Forward;154;3;1;0;197
+Mostovoy;Zenit;Midfielder;150;5;0;0;209
+Poulsen;Leipzig;Forward;147;4;0;1;188
+D'Ambrosio;Inter;Defender;147;3;0;0;192
+Schuurs;Ajax;Defender;146;3;0;1;144
+Toni Martínez;Porto;Forward;144;6;0;0;196
+Matheus Cunha;Atlético;Forward;142;5;0;0;183
+T. Hazard;Dortmund;Midfielder;142;3;0;0;19
+Tagliafico;Ajax;Defender;139;3;0;1;166
+Draxler;Paris;Forward;136;3;0;0;151
+Rıdvan Yılmaz;Beşiktaş;Defender;135;2;0;0;153
+Sabitzer;Bayern;Midfielder;133;5;0;0;196
+Daniel Bragança;Sporting CP;Midfielder;131;5;0;0;189
+Diogo Gonçalves;Benfica;Midfielder;131;5;0;0;18
+Wendell;Porto;Defender;131;4;0;0;16
+Mechele;Club Brugge;Defender;131;3;0;0;165
+Muriel;Atalanta;Forward;130;5;1;0;169
+Aurier;Villarreal;Defender;129;5;0;1;159
+Reinier;Dortmund;Forward;126;3;0;0;167
+Marcano;Porto;Defender;126;2;0;0;148
+Sarr;Bayern;Defender;125;5;0;0;173
+Rekik;Sevilla;Defender;125;4;0;0;151
+Vecino;Inter;Midfielder;124;4;0;0;189
+Lewicki;Malmö;Midfielder;123;2;0;0;146
+Dembélé;Barcelona;Forward;122;3;0;0;148
+Lamela;Sevilla;Midfielder;119;4;0;0;176
+Waldschmidt;Wolfsburg;Forward;119;3;0;0;156
+Rebić;Milan;Forward;117;2;1;0;13
+Lingard;Man. United;Midfielder;116;4;0;1;14
+Abubakari;Malmö;Forward;116;4;0;0;153
+Brobbey;Leipzig;Forward;115;5;0;0;143
+Messias Junior;Milan;Forward;115;2;1;0;156
+Lázaro;Benfica;Midfielder;114;6;0;0;156
+Maceiras;Young Boys;Defender;113;3;0;0;16
+Salih Uçan;Beşiktaş;Midfielder;109;5;0;0;154
+Coutinho;Barcelona;Forward;109;4;0;0;143
+Correa;Inter;Forward;106;5;0;0;148
+Erokhin;Zenit;Midfielder;104;6;0;0;157
+Shkurin;Dynamo Kyiv;Forward;104;2;0;0;14
+Slimani;Sporting CP;Forward;104;2;0;0;124
+Demir;Barcelona;Midfielder;101;3;0;0;128
+Gosens;Atalanta;Midfielder;101;2;1;0;121
+Traoré;Shakhtar Donetsk;Forward;101;2;0;0;105
+Tigges;Dortmund;Forward;100;2;0;0;134
+Sarr;Chelsea;Defender;100;2;0;0;119
+Ranocchia;Inter;Defender;98;3;0;0;109
+Nikolov;Sheriff;Midfielder;97;5;1;0;146
+Zagadou;Dortmund;Defender;97;2;0;0;123
+Mata;Man. United;Midfielder;96;3;0;0;132
+Barkley;Chelsea;Midfielder;96;3;0;0;127
+Andriyevskiy;Dynamo Kyiv;Midfielder;94;2;0;0;129
+Vitinho;Dynamo Kyiv;Midfielder;93;3;0;0;135
+Mario Gaspar;Villarreal;Defender;93;2;0;0;108
+Verbič;Dynamo Kyiv;Midfielder;91;3;0;0;131
+Ballo;Milan;Defender;91;2;0;0;116
+Philipp;Wolfsburg;Forward;90;2;0;0;111
+Hateboer;Atalanta;Defender;90;1;0;0;118
+N'Koudou;Beşiktaş;Midfielder;90;1;0;0;109
+Egan-Riley;Man. City;Defender;90;1;0;0;108
+Shabanov;Dynamo Kyiv;Defender;90;1;0;0;107
+Bondar;Shakhtar Donetsk;Defender;90;1;0;0;102
+Lustenberger;Young Boys;Defender;90;1;0;0;102
+Serdar Saatçı;Beşiktaş;Defender;90;1;0;0;95
+Vitão;Shakhtar Donetsk;Defender;90;1;0;0;94
+Ulreich;Bayern;Goalkeeper;90;1;0;0;62
+Martínez;Leipzig;Goalkeeper;90;1;0;0;6
+Pervan;Wolfsburg;Goalkeeper;90;1;0;0;57
+Kepa;Chelsea;Goalkeeper;90;1;0;0;56
+João Virginia;Sporting CP;Goalkeeper;90;1;0;0;54
+Günok;Beşiktaş;Goalkeeper;90;1;0;0;48
+Celeadnic;Sheriff;Goalkeeper;90;1;0;0;47
+Boyko;Dynamo Kyiv;Goalkeeper;90;1;0;0;45
+Perin;Juventus;Goalkeeper;90;1;0;0;43
+Steffen;Man. City;Goalkeeper;90;1;0;0;4
+Nanasi;Malmö;Midfielder;89;2;0;0;124
+Florenzi;Milan;Defender;88;4;0;0;126
+Olmo;Leipzig;Forward;88;2;0;1;109
+Fábio Vieira;Porto;Midfielder;85;2;0;1;11
+Bondarenko;Shakhtar Donetsk;Midfielder;84;2;0;0;118
+Piątkowski;Salzburg;Defender;84;2;0;0;98
+Nalić;Malmö;Midfielder;83;5;0;0;136
+Korniienko;Shakhtar Donetsk;Defender;83;2;0;0;112
+En-Nesyri;Sevilla;Forward;83;2;0;0;102
+Supryaha;Dynamo Kyiv;Forward;81;2;0;0;109
+De Winter;Juventus;Defender;81;2;0;0;108
+Kulusevski;Juventus;Midfielder;80;5;1;0;143
+Augustinsson;Sevilla;Defender;80;3;0;0;111
+Radeljić;Sheriff;Defender;79;3;0;0;102
+Jovane Cabral;Sporting CP;Forward;79;3;0;0;98
+Marc Roca;Bayern;Defender;78;4;0;0;116
+Kanga;Young Boys;Forward;75;5;0;0;101
+Cavani;Man. United;Forward;75;4;0;0;117
+Gökhan Töre;Beşiktaş;Midfielder;75;4;0;0;112
+Emre Can;Dortmund;Defender;74;2;0;0;84
+Alcácer;Villarreal;Forward;73;3;1;0;10
+Esteves;Sporting CP;Defender;73;1;0;0;84
+Rensch;Ajax;Defender;71;5;0;0;138
+Ferran Torres;Man. City;Forward;71;1;0;0;81
+Kehrer;Paris;Defender;70;4;0;0;83
+Krugovoi;Zenit;Defender;68;6;0;0;118
+Dost;Club Brugge;Forward;68;3;0;0;86
+Diallo;Man. United;Midfielder;68;1;0;0;83
+Henderson;Man. United;Goalkeeper;68;1;0;0;44
+Martial;Man. United;Forward;67;2;0;0;71
+Gagliardini;Inter;Midfielder;66;5;0;0;116
+Rúben Vinagre;Sporting CP;Defender;63;2;0;0;78
+Mambimbi;Young Boys;Forward;60;4;0;0;94
+Moriba;Leipzig;Midfielder;60;3;0;0;87
+Passlack;Dortmund;Midfielder;60;2;0;0;76
+Bakayoko;Milan;Defender;56;3;0;0;81
+Pezzella;Atalanta;Defender;56;3;0;0;81
+Sudakov;Shakhtar Donetsk;Midfielder;56;2;0;0;83
+Sandra;Club Brugge;Midfielder;56;1;0;0;69
+Mbamba-Muanda;Club Brugge;Defender;55;3;0;0;87
+Shepeliev;Dynamo Kyiv;Midfielder;54;2;0;0;87
+Richards;Bayern;Defender;52;4;0;0;85
+Julien;Sheriff;Defender;52;3;0;0;72
+Oğuzhan Özyakup;Beşiktaş;Midfielder;52;2;0;0;74
+Daramy;Ajax;Forward;52;2;0;0;64
+Henrichs;Leipzig;Defender;51;4;0;0;72
+Choupo-Moting;Bayern;Midfielder;49;4;1;0;67
+Yusuf Yazıcı;LOSC;Midfielder;47;4;0;0;87
+Icardi;Paris;Forward;47;3;0;0;65
+McAtee;Man. City;Midfielder;45;1;0;0;62
+Lovato;Atalanta;Defender;45;1;0;0;53
+Palmer;Man. City;Midfielder;40;3;1;0;7
+Paulo Bernardo;Benfica;Midfielder;39;5;0;0;83
+Kjærgaard;Salzburg;Midfielder;38;4;1;0;79
+Taylor;Ajax;Midfielder;38;3;0;0;66
+Francisco Conceição;Porto;Forward;37;2;0;0;54
+F. Nmecha;Wolfsburg;Midfielder;36;2;0;0;66
+Pepê;Porto;Forward;34;3;0;0;57
+Al. Miranchuk;Atalanta;Forward;33;2;0;1;48
+Edwards;Sporting CP;Forward;32;1;0;0;4
+Radonjić;Benfica;Forward;31;1;0;0;39
+Mengi;Man. United;Defender;29;1;0;0;37
+Wesley;Club Brugge;Forward;26;2;0;0;37
+Mandi;Villarreal;Defender;24;2;0;0;37
+Kudus;Ajax;Midfielder;24;2;0;0;35
+Novoa;Leipzig;Midfielder;24;1;0;1;36
+Lihadji;LOSC;Forward;23;3;0;0;45
+Bernardo;Salzburg;Defender;23;2;0;1;42
+Tijani;Salzburg;Midfielder;23;1;0;0;31
+Ben Arfa;LOSC;Midfielder;22;2;0;0;36
+Óscar Rodríguez;Sevilla;Midfielder;22;1;0;0;38
+Shoretire;Man. United;Midfielder;22;1;0;0;33
+Heaton;Man. United;Goalkeeper;22;1;0;0;19
+Stanišić;Bayern;Defender;21;2;0;1;36
+Knauff;Dortmund;Midfielder;20;3;0;0;51
+Maldini;Milan;Forward;20;3;0;0;42
+Moukoko;Dortmund;Forward;20;1;0;0;32
+Iván Romero;Sevilla;Forward;20;1;0;0;27
+Flávio Nazinho;Sporting CP;Defender;19;2;0;0;4
+Balde;Barcelona;Defender;19;2;0;0;37
+Tillman;Bayern;Midfielder;18;2;0;0;36
+Peña;Villarreal;Defender;18;2;0;0;33
+Ricard Puig;Barcelona;Midfielder;17;1;0;0;24
+Berkay Vardar;Beşiktaş;Midfielder;17;1;0;0;19
+Carson;Man. City;Goalkeeper;17;1;0;0;11
+Eric Ramirez;Dynamo Kyiv;Forward;16;2;0;0;27
+Cojocaru;Sheriff;Midfielder;15;2;0;0;36
+Javi Serrano;Atlético;Midfielder;15;1;0;0;24
+Agüero;Barcelona;Forward;15;1;0;0;19
+Ramsey;Juventus;Midfielder;14;2;0;0;32
+Kravtsov;Zenit;Midfielder;14;2;0;0;3
+Bradarić;LOSC;Defender;13;1;0;0;2
+Ozdoev;Zenit;Midfielder;11;1;1;0;22
+Bruno Costa;Porto;Midfielder;11;1;0;0;2
+Raba;Villarreal;Midfielder;11;1;0;0;17
+Iborra;Villarreal;Midfielder;10;1;0;0;18
+Bonnah;Leipzig;Midfielder;10;1;0;0;16
+Sensi;Inter;Midfielder;9;2;0;0;22
+Lednev;Dynamo Kyiv;Midfielder;9;1;0;0;21
+Zhegrova;LOSC;Midfielder;9;1;0;0;19
+Seferović;Benfica;Forward;9;1;0;0;18
+Zakaria;Juventus;Midfielder;9;1;0;0;18
+Dário Essugo;Sporting CP;Midfielder;9;1;0;0;18
+Spielmann;Young Boys;Midfielder;8;1;0;0;15
+Izquierdo;Club Brugge;Forward;8;1;0;0;13
+Chiellini;Juventus;Defender;7;1;0;0;13
+Dina Ebimbe;Paris;Midfielder;7;1;0;0;12
+Sulejmani;Young Boys;Midfielder;7;1;0;0;
+Delap;Man. City;Forward;6;1;0;0;12
+Mbete;Man. City;Defender;6;1;0;0;11
+Kolarov;Inter;Defender;5;1;0;0;11
+Šimić;Salzburg;Forward;4;1;0;0;13
+Guindo;Salzburg;Defender;4;1;0;0;12
+Dentinho;Shakhtar Donetsk;Midfielder;4;1;0;0;1
+Shevchenko;Shakhtar Donetsk;Goalkeeper;4;1;0;0;5
+Maier;Young Boys;Midfielder;3;1;0;0;13
+Luca Pellegrini;Juventus;Defender;3;1;0;0;1
+Kuznetsov;Zenit;Forward;3;1;0;0;9
+Eile;Malmö;Defender;3;1;0;0;8
+Ginczek;Wolfsburg;Forward;2;1;0;0;11
+Savage;Man. United;Midfielder;1;1;0;0;1
+Iqbal;Man. United;Midfielder;1;1;0;0;1
+Da Graca;Juventus;Forward;1;1;0;0;8
+Miretti;Juventus;Midfielder;1;1;0;0;8
+Gil Dias;Benfica;Midfielder;1;1;0;0;7
+Rodrigo Ribeiro;Sporting CP;Forward;1;1;0;0;7
+Cojocari;Sheriff;Defender;1;1;0;0;5
+Maouassa;Club Brugge;Defender;1;1;0;0;2
+Zesiger;Young Boys;Defender;1;1;0;0;
