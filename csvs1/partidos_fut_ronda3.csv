@@ -1,0 +1,5 @@
+local;visitante;prob_ganar_local;prob_empate;prob_ganar_visitante;resultado;puntos_local;puntos_visitante
+Paris Saint-Germain;FC Barcelona;;;;2;1.0;2.0
+Club Atlético de Madrid;FC Bayern München;;;;2;1.0;2.0
+FC Barcelona;Paris Saint-Germain;;;;1;2.0;1.0
+FC Bayern München;Club Atlético de Madrid;;;;1;2.0;1.0
