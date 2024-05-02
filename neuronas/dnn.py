@@ -244,5 +244,5 @@ if __name__ == '__main__':
     x = torch.Tensor(x_nuevos.values).float()
     _, predicted = torch.max(model(x).data, 1)
     print('Predicciones:\n',predicted.items())
-    '''
+'''
     
