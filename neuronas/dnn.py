@@ -19,24 +19,24 @@ from matplotlib import pyplot as plt
 #dependiendo de ello les asociaremos un número 0, 1 o 2
 
 #leemos el archivo
-df_equipos = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
+df_equipos = pd.read_csv('csvs/partidos22_23.csv', delimiter=',', encoding='utf-8')
 
 
 #Quitamos las columnas que no numéricas
-df_equipos = df_equipos.drop(['pais'], axis=1)
+df_equipos = df_equipos.drop(['ronda'], axis=1)
 
 #creamos semilla
 torch.manual_seed(0)
 print('Se han importado las librerías, listo para usar\n', torch.__version__)
 
 # Aplicar one-hot encoding al nombre del club
-df_equipos = pd.get_dummies(df_equipos, columns=['club'])
+df_equipos = pd.get_dummies(df_equipos, columns=['local', 'visitante'])
 
 
-features = ['porganarpartido', 'porperderpartido', 'poremppartido', 'porcapacidad_ofensiva', 'porcapacidad_defensiva', 'pordiferencia_ofen_defend']
+features = ['porganarpartido_local','porganarpartido_visitante' 'porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
 #Separamos los datos en train y test
 x = df_equipos[features]
-y = df_equipos['categoria']
+y = df_equipos['resultado']
 
 #preparamos los datos para torch
 scaler = StandardScaler()
