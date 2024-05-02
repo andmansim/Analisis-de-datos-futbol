@@ -1,9 +1,9 @@
-local;visitante;prob_ganar_local;prob_empate;prob_ganar_visitante;resultado;puntos_local;puntos_visitante
-Paris Saint-Germain;Arsenal FC;;;;1;2.0;1.0
-FC Barcelona;Manchester City FC;;;;1;2.0;1.0
-Club Atlético de Madrid;Borussia Dortmund;;;;1;2.0;1.0
-FC Bayern München;Real Madrid CF;;;;1;2.0;1.0
-Arsenal FC;Paris Saint-Germain;;;;2;1.0;2.0
-Manchester City FC;FC Barcelona;;;;2;1.0;2.0
-Borussia Dortmund;Club Atlético de Madrid;;;;2;1.0;2.0
-Real Madrid CF;FC Bayern München;;;;2;1.0;2.0
+local;visitante;puntos_local;puntos_visitante;resultado
+Paris Saint-Germain;Arsenal FC;2;1;1
+FC Barcelona;Manchester City FC;2;1;1
+Club Atlético de Madrid;Borussia Dortmund;2;1;1
+FC Bayern München;Real Madrid CF;2;1;1
+Arsenal FC;Paris Saint-Germain;1;2;2
+Manchester City FC;FC Barcelona;1;2;2
+Borussia Dortmund;Club Atlético de Madrid;1;2;2
+Real Madrid CF;FC Bayern München;1;2;2
