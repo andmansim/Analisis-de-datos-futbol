@@ -19,7 +19,7 @@ from matplotlib import pyplot as plt
 #dependiendo de ello les asociaremos un número 0, 1 o 2
 
 #leemos el archivo
-df_equipos = pd.read_csv('csvs/partidos22_23.csv', delimiter=',', encoding='utf-8')
+df_equipos = pd.read_csv('csvs/partidos22_23.csv', delimiter=';', encoding='utf-8')
 
 
 #Quitamos las columnas que no numéricas
@@ -33,7 +33,7 @@ print('Se han importado las librerías, listo para usar\n', torch.__version__)
 df_equipos = pd.get_dummies(df_equipos, columns=['local', 'visitante'])
 
 
-features = ['porganarpartido_local','porganarpartido_visitante' 'porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
+features = ['porganarpartido_local','porganarpartido_visitante','porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
 #Separamos los datos en train y test
 x = df_equipos[features]
 y = df_equipos['resultado']
