@@ -32,7 +32,7 @@ print('Se han importado las librerías, listo para usar\n', torch.__version__)
 # Aplicar one-hot encoding al nombre del club
 df_equipos = pd.get_dummies(df_equipos, columns=['local', 'visitante'])
 
-
+tipo_resultados = [1,2,3] #1 gana local, 2 gana visitante y 3 empatan
 features = ['porganarpartido_local','porganarpartido_visitante','porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
 #Separamos los datos en train y test
 x = df_equipos[features]
@@ -42,23 +42,23 @@ y = df_equipos['resultado']
 '''scaler = StandardScaler()
 x = scaler.fit_transform(x)'''
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=0.2, random_state=42)
 
 print('Datos separados en train y test\n')
 for i in range(10):
-    print(x_train.iloc[i], y_train.iloc[i])
+    print(x_train[i], y_train[i])
 
 print('TODO BIEN 1\n')
 #preparamos los datos para torch
 #creamos un dataset con los datos de train
-train_x = torch.Tensor(x_train.values).float()
-train_y = torch.Tensor(y_train.values).long()
+train_x = torch.Tensor(x_train).float()
+train_y = torch.Tensor(y_train).long()
 train_ds = td.TensorDataset(train_x, train_y)
 train_loader = td.DataLoader(train_ds, batch_size=20, shuffle=False, num_workers=1)
 
 #creamos un dataset con los datos de test
-test_x = torch.Tensor(x_test.values).float()
-test_y = torch.Tensor(y_test.values).long()
+test_x = torch.Tensor(x_test).float()
+test_y = torch.Tensor(y_test).long()
 test_ds = td.TensorDataset(test_x, test_y)
 test_loader = td.DataLoader(test_ds, batch_size=20, shuffle=False, num_workers=1)
 
@@ -75,13 +75,13 @@ class RedNeuronal(nn.Module):
         
         #se define la capa de entrada que toma como entrada la cantidad de nodos (los valores de entrada)
         #y produce una salida de hl nodos
-        self.fc1 = nn.Linear(x_train.shape[1], hl) 
+        self.fc1 = nn.Linear(len(features), hl) 
         
         #se define la segunda capa oculta con hl nodos y produce una salida de hl nodos
         self.fc2 = nn.Linear(hl, hl)
         
         #se define la capa de salida con hl nodos y produce una salida de 3 nodos
-        self.fc3 = nn.Linear(hl, x_train.shape[1])
+        self.fc3 = nn.Linear(hl, len(tipo_resultados))
 
     def forward(self, x):
         #indica cómo van a ser procesados los datos de entrada
