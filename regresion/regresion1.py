@@ -68,14 +68,14 @@ df_partido.to_csv('csvs1/partidos_fut.csv', index=False, sep=';')
 
 #en función de los resultados creamos un nuevo dataframe con los siguientes partidos
 df_partidos_ronda2 = pd.DataFrame(columns = ['local', 'visitante','puntos_local', 'puntos_visitante', 'resultado'])
-df_partidos_ronda2['local']= ['Paris Saint-Germain', 'FC Barcelona', 'Club Atlético de Madrid', 'FC Bayern München', 'Arsenal FC', 'Manchester City FC', 'Borussia Dortmund', 'Real Madrid CF']
-df_partidos_ronda2['visitante'] = ['Arsenal FC', 'Manchester City FC', 'Borussia Dortmund', 'Real Madrid CF', 'Paris Saint-Germain', 'FC Barcelona', 'Club Atlético de Madrid', 'FC Bayern München']
+df_partidos_ronda2['local'] = ['Manchester City FC', 'FC Bayern München', 'Paris Saint-Germain', 'Club Atlético de Madrid', 'Real Madrid CF', 'Arsenal FC', 'FC Barcelona', 'Borussia Dortmund']
+df_partidos_ronda2['visitante'] = ['Real Madrid CF', 'Arsenal FC', 'FC Barcelona', 'Borussia Dortmund', 'Manchester City FC', 'FC Bayern München', 'Paris Saint-Germain', 'Club Atlético de Madrid']
 df_partidos_ronda2 = actualizar_datos(df_partidos_ronda2)
 
 print('Ronda 2')
 df_partidos_ronda2 = regresion(df_partidos_ronda2)
 df_partidos_ronda2.to_csv('csvs1/partidos_fut_ronda2.csv', index=False, sep=';')
-
+'''
 #Ronda 3
 df_partidos_ronda3 = pd.DataFrame(columns = ['local', 'visitante','puntos_local', 'puntos_visitante', 'resultado'])
 df_partidos_ronda3['local']= ['Paris Saint-Germain', 'Club Atlético de Madrid', 'FC Barcelona', 'FC Bayern München']
@@ -99,3 +99,4 @@ if df_partidos_ronda4['puntos_local'][0] < df_partidos_ronda4['puntos_visitante'
 else:
     print('Gana el local', df_partidos_ronda4['local'][0])
 
+'''
