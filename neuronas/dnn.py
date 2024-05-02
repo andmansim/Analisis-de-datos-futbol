@@ -39,8 +39,8 @@ x = df_equipos[features]
 y = df_equipos['resultado']
 
 #preparamos los datos para torch
-scaler = StandardScaler()
-x = scaler.fit_transform(x)
+'''scaler = StandardScaler()
+x = scaler.fit_transform(x)'''
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
