@@ -75,6 +75,8 @@ df_partidos_ronda2 = actualizar_datos(df_partidos_ronda2)
 print('Ronda 2')
 df_partidos_ronda2 = regresion(df_partidos_ronda2)
 df_partidos_ronda2.to_csv('csvs1/partidos_fut_ronda2.csv', index=False, sep=';')
+
+#SALE DISTINTO A LA REALIDAD
 '''
 #Ronda 3
 df_partidos_ronda3 = pd.DataFrame(columns = ['local', 'visitante','puntos_local', 'puntos_visitante', 'resultado'])

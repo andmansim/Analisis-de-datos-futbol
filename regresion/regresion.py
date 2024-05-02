@@ -77,7 +77,8 @@ print('Ronda 2')
 df_partidos_ronda2 = regresion(df_partidos_ronda2)
 df_partidos_ronda2.to_csv('csvs/partidos_fut_ronda2.csv', index=False, sep=';')
 
-#Ronda 3
+#SALE DISTINTO A LA REALIDAD
+'''#Ronda 3
 df_partidos_ronda3 = pd.DataFrame(columns=['local', 'visitante', 'prob_ganar_local', 'prob_empate', 'prob_ganar_visitante', 'resultado'])
 df_partidos_ronda3['local']= ['Paris Saint-Germain', 'Club Atlético de Madrid', 'FC Barcelona', 'FC Bayern München']
 df_partidos_ronda3['visitante'] = ['FC Barcelona', 'FC Bayern München','Paris Saint-Germain',  'Club Atlético de Madrid' ]
@@ -101,3 +102,4 @@ else:
     print('Gana el local', df_partidos_ronda4['local'][0])
 
 
+'''
