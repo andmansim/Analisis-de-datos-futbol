@@ -5,16 +5,39 @@ import pandas as pd
 
 #columnas
 columnas = ['local', 'visitante', 'porganarpartido_local','porganarpartido_visitante','porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante', 'resultado']
+#cogemos los datos de datos_fut.csv
+df_equipos = pd.read_csv('csvs/datos_fut.csv', encoding='utf-8', sep=';')
 
+#creamos un dataframe con las columnas que hemos creado
+df = pd.DataFrame(columns = columnas)
 #función que se encarga de recoger los datos de datos_fut.csv y añadirlo a la columna que corresponda
-def recoger_datos(data, equipos, ronda):
-    pass
+def recoger_datos(df, equipos_local, equipos_visitante, resultados):
+    #asiganmos los valores a las columnas
+    for i in range(len(equipos_local)):
+        df['local'] = equipos_local[i]
+        df['visitante'] = equipos_visitante[i]
+        df['porganarpartido_local'] = df_equipos[df_equipos['club'] == equipos_local[i]]['porganarpartido'].values[0]
+        df['porganarpartido_visitante'] = df_equipos[df_equipos['club'] == equipos_visitante[i]]['porganarpartido'].values[0]
+        df['porperderpartido_local'] = df_equipos[df_equipos['club'] == equipos_local[i]]['porperderpartido'].values[0]
+        df['porperderpartido_visitante'] = df_equipos[df_equipos['club'] == equipos_visitante[i]]['porperderpartido'].values[0]
+        df['porcapacidad_ofensiva_local'] = df_equipos[df_equipos['club'] == equipos_local[i]]['porcapacidad_ofensiva'].values[0]
+        df['porcapacidad_ofensiva_visitante'] = df_equipos[df_equipos['club'] == equipos_visitante[i]]['porcapacidad_ofensiva'].values[0]
+        df['porcapacidad_defensiva_local'] = df_equipos[df_equipos['club'] == equipos_local[i]]['porcapacidad_defensiva'].values[0]
+        df['porcapacidad_defensiva_visitante'] = df_equipos[df_equipos['club'] == equipos_visitante[i]]['porcapacidad_defensiva'].values[0]
+        df['resultado'] = resultados[i]
+        #añadimos la fila al dataframe
+        df = df.append(df, ignore_index=True)
+    #lo pasamos a csv
+    df.to_csv('csvs/partidos_fut.csv', sep=';', index=False, encoding='utf-8')
+    
 
 #dividimos los equpos en dos listas, local y visitante 
 #22-23
 equipos_local = ['Eintracht Frankfurt', 'AC Milan','FC Internazionale Milano','Club Brugge','Liverpool FC', 'Borussia Dortmund', 'Paris Saint-Germain', 'RB Leipzig', 'SS Napoli', 'FC Internazionale Milano', 'Real Madrid CF','FC Bayern MÃ¼nchen','AC Milan','Real Madrid CF','FC Internazionale Milano']
 equipos_visitante = ['SSC Napoli', 'Tottenham Hotspur', 'FC Porto', 'SL Benfica', 'Real Madrid CF', 'Chelsea FC', 'FC Bayern MÃ¼nchen', 'Manchester City FC', 'AC Milan','SL Benfica','Chelsea FC','Manchester City FC','FC Internazionale Milano','Manchester City FC','Manchester City FC']
 resultados = [2,1,1,2,2,2,2,2,2,1,1,2,2,2,2]
+recoger_datos(df_equipos, equipos_local, equipos_visitante, resultados)
+
 #21-22
 equipos_local = ['SL Benfica', 'FC Internazionale Milano', 'Villarreal CF', 'FC Salzburg', 'Manchester City FC', 'Club AtlÃ©tico de Madrid', 'Chelsea FC', 'Paris Saint-Germain','SL Benfica','Villarreal CF','Manchester City FC','Chelsea FC','Liverpool FC', 'Manchester City FC','Liverpool FC']
 equipos_visitante = ['Rabat Ajax FC', 'Liverpool FC', 'Juventus', 'FC Bayern MÃ¼nchen','Sporting Clube de Portugal', 'Manchester United', 'LOSC Lille','Real Madrid CF','Liverpool FC','FC Bayern MÃ¼nchen','Club AtlÃ©tico de Madrid','Real Madrid CF','Villarreal CF','Real Madrid CF','Real Madrid CF']
