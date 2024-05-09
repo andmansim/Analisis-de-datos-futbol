@@ -187,62 +187,61 @@ learning_rate = 0.001
 optimizador = torch.optim.Adam(model.parameters(), lr=learning_rate)
 optimizador.zero_grad()
 
-if __name__ == '__main__':
-    #epoch o épocas son cada pasada completa por el conjunto de datos de entrenamiento
-    epoch_nums = []
-    training_loss = [] 
-    validation_loss = []
 
-    #entrenamos la red
-    epochs = 50
-    for epoch in range(1, epochs + 1): #iteramos a través de las épocas
-        print('Epoch:', epoch)
-        train_loss = train(model, train_loader, optimizador)
-        test_loss = test(model, train_loader)
-        epoch_nums.append(epoch)
-        training_loss.append(train_loss)
-        validation_loss.append(test_loss)
-    
-    #graficamos el error
-    plt.plot(epoch_nums, training_loss)
-    plt.plot(epoch_nums, validation_loss)
-    plt.xlabel('epoch')
-    plt.ylabel('loss')
-    plt.legend(['training', 'validation'], loc='upper right')
-    plt.show()
-    
-    for param_tensor in model.state_dict():
-        print(param_tensor, "\n", model.state_dict()[param_tensor].size(), '\n', model.state_dict()[param_tensor])
-    
-    #evaluamos el modelo
-    model.eval()
-    x1 = torch.Tensor(x_test.values).float()
-    _, predicted = torch.max(model(x1).data, 1)
-    
-    #creamos la matriz de confusión
-    matriz = confusion_matrix(y_test, predicted.numpy())
-    plt.imshow(matriz, interpolation='nearest', cmap=plt.cm.Blues)
-    plt.colorbar()
-    tick_marks = np.arange(x_train.shape[1])
-    plt.xticks(tick_marks, x_train.columns, rotation=45)
-    plt.yticks(tick_marks, x_train.columns)
-    plt.xlabel('Predicho')
-    plt.ylabel('Real')
-    plt.show()
-    
-    #guardamos el modelo
-    modelo_ruta = os.path.join(os.path.dirname(__file__), 'modelo_dnn_uefa.pth')
-    torch.save(model.state_dict(), modelo_ruta)
-    del model
-    print('Modelo guardado en', modelo_ruta)
-    
+#epoch o épocas son cada pasada completa por el conjunto de datos de entrenamiento
+epoch_nums = []
+training_loss = [] 
+validation_loss = []
+
+#entrenamos la red
+epochs = 50
+for epoch in range(1, epochs + 1): #iteramos a través de las épocas
+    print('Epoch:', epoch)
+    train_loss = train(model, train_loader, optimizador)
+    test_loss = test(model, train_loader)
+    epoch_nums.append(epoch)
+    training_loss.append(train_loss)
+    validation_loss.append(test_loss)
+
+#graficamos el error
+plt.plot(epoch_nums, training_loss)
+plt.plot(epoch_nums, validation_loss)
+plt.xlabel('epoch')
+plt.ylabel('loss')
+plt.legend(['training', 'validation'], loc='upper right')
+plt.show()
+
+for param_tensor in model.state_dict():
+    print(param_tensor, "\n", model.state_dict()[param_tensor].size(), '\n', model.state_dict()[param_tensor])
+
+#evaluamos el modelo
+model.eval()
+x1 = torch.Tensor(x_test.values).float()
+_, predicted = torch.max(model(x1).data, 1)
+
+#creamos la matriz de confusión
+matriz = confusion_matrix(y_test, predicted.numpy())
+plt.imshow(matriz, interpolation='nearest', cmap=plt.cm.Blues)
+plt.colorbar()
+tick_marks = np.arange(x_train.shape[1])
+plt.xticks(tick_marks, x_train.columns, rotation=45)
+plt.yticks(tick_marks, x_train.columns)
+plt.xlabel('Predicho')
+plt.ylabel('Real')
+plt.show()
+
+#guardamos el modelo
+modelo_ruta = os.path.join(os.path.dirname(__file__), 'modelo_dnn_uefa.pth')
+torch.save(model.state_dict(), modelo_ruta)
+del model
+print('Modelo guardado en', modelo_ruta)
+
 ''' #cargamos el modelo
-    model = RedNeuronal()
-    model.load_state_dict(torch.load(modelo_ruta))
-    model.eval()
-    x_nuevos = None
-    x = torch.Tensor(x_nuevos.values).float()
-    _, predicted = torch.max(model(x).data, 1)
-    print('Predicciones:\n',predicted.items())
+model = RedNeuronal()
+model.load_state_dict(torch.load(modelo_ruta))
+model.eval()
+x_nuevos = None
+x = torch.Tensor(x_nuevos.values).float()
+_, predicted = torch.max(model(x).data, 1)
+print('Predicciones:\n',predicted.items())
 '''
-    
