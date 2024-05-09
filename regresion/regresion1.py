@@ -65,7 +65,7 @@ df_partido = regresion(df_partido)
 #actualizamos los datos del csv con los resultados obtenidos
 df_partido.to_csv('csvs1/partidos_fut.csv', index=False, sep=';')
 
-
+#Ronda2
 #en función de los resultados creamos un nuevo dataframe con los siguientes partidos
 df_partidos_ronda2 = pd.DataFrame(columns = ['local', 'visitante','puntos_local', 'puntos_visitante', 'resultado'])
 df_partidos_ronda2['local'] = ['Manchester City FC', 'FC Bayern München', 'Paris Saint-Germain', 'Club Atlético de Madrid', 'Real Madrid CF', 'Arsenal FC', 'FC Barcelona', 'Borussia Dortmund']
@@ -76,12 +76,11 @@ print('Ronda 2')
 df_partidos_ronda2 = regresion(df_partidos_ronda2)
 df_partidos_ronda2.to_csv('csvs1/partidos_fut_ronda2.csv', index=False, sep=';')
 
-#SALE DISTINTO A LA REALIDAD
-'''
+
 #Ronda 3
 df_partidos_ronda3 = pd.DataFrame(columns = ['local', 'visitante','puntos_local', 'puntos_visitante', 'resultado'])
-df_partidos_ronda3['local']= ['Paris Saint-Germain', 'Club Atlético de Madrid', 'FC Barcelona', 'FC Bayern München']
-df_partidos_ronda3['visitante'] = ['FC Barcelona', 'FC Bayern München','Paris Saint-Germain',  'Club Atlético de Madrid' ]
+df_partidos_ronda3['local']= ['Paris Saint-Germain','Real Madrid CF', 'Borussia Dortmund', 'FC Bayern München']
+df_partidos_ronda3['visitante'] = ['Borussia Dortmund', 'FC Bayern München','Paris Saint-Germain',  'Real Madrid CF' ]
 df_partidos_ronda3 = actualizar_datos(df_partidos_ronda3)
 
 print('Ronda 3')
@@ -90,15 +89,18 @@ df_partidos_ronda3.to_csv('csvs1/partidos_fut_ronda3.csv', index=False, sep=';')
 
 #Ronda 4
 df_partidos_ronda4 = pd.DataFrame(columns = ['local', 'visitante','puntos_local', 'puntos_visitante', 'resultado'])
-df_partidos_ronda4['local']= ['FC Barcelona', 'FC Bayern München']
-df_partidos_ronda4['visitante'] = ['FC Bayern München', 'FC Barcelona']
+df_partidos_ronda4['local']= ['Real Madrid CF', 'Borussia Dortmund']
+df_partidos_ronda4['visitante'] = ['Borussia Dortmund' , 'Real Madrid CF']
 df_partidos_ronda4 = actualizar_datos(df_partidos_ronda4)
 
 print('Ronda 4')
-#cogemos los dos puntos de ganar de cada equipo y los comparamos
-if df_partidos_ronda4['puntos_local'][0] < df_partidos_ronda4['puntos_visitante'][1]:
-    print('Gana el visitante', df_partidos_ronda4['visitante'][1])
-else:
-    print('Gana el local', df_partidos_ronda4['local'][0])
+#cogemos los dos % de ganar de cada equipo y los comparamos
+for i in range(len(df_partidos_ronda4)):
+    if df_partidos_ronda4['puntos_local'][i] < df_partidos_ronda4['puntos_visitante'][i]:
+        print('Gana el visitante', df_partidos_ronda4['visitante'][1])
+        df_partidos_ronda4['resultado'][i] = 2
+    else:
+        print('Gana el local', df_partidos_ronda4['local'][0])
+        df_partidos_ronda4['resultado'][i] = 1
 
-'''
+df_partidos_ronda4.to_csv('csvs1/partidos_fut_ronda4.csv', index=False, sep=';')
