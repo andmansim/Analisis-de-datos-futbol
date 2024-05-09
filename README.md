@@ -16,3 +16,19 @@ Pasos:
 El 5. y 6. son practicamente igueles, 5. (DNN) donde hace operaciones metemáticas en los datos para pasarlos entre capas y 6. (CNN) se basa en patrones espaciales. 
 
 7. Entrenamiento de una CNN mediente transferencia, aprovechamos el conocimiento adquirido por un modelo entrenado en una tarea similar. Por lo general se coge un modelo ya entrenado y se adapta a un nuevo uso más pequeño.
+
+# Regresión logística
+En esta parte presento dos posible enfoques a la hora de predecir el resultado de los partidos.
+En regresion.py hace el análisis con la probabilidad de ganar, donde se realiza su probabilidad enfrenada en crear_csv. Por otro lado, en regresion1.py se realiza mediante la comparación de puntos, estos se asignan dependiendo de las comparaciones de los equipos en sus capacidades ofensivas y defensivas (crear_csv1.py).
+
+Tras ver los resultados vemos que ambos métodos presentan los mismos resultados. 
+
+
+Una regresión lineal o logística para ver la relación entre las variables independientes (X) y las dependientes (Y) o para clasificar las distintas opciones o resultados. 
+
+Diferencia entre regresión logística y lineal:
+Regresion logistica se utiliza cuando la variable de respuesta es binaria. Debe de ser un número entero.
+Se utiliza para clasificar, no para predecir valores continuos. Ejemplo: predecir si un correo es spam o no.
+
+Regresion lineal es para ver la relación entre dos variables.
+Se utiliza para predecir valores continuos, ejemplo: predecir el precio de una casa.
