@@ -64,14 +64,14 @@ equipos_visitante = ['Manchester United', 'Besiktas JK', 'Tottenham Hotspur', 'P
 resultados = [1,1,1,1,2,2,2,2,2,2,1,2,2,1,1]
 
 #16-17
-equipos_local = []
-equipos_visitante = []
-resultados = []
+equipos_local = ['SL Benfica', 'Manchester City FC', 'FC Porto', 'Paris Saint-Germain', 'FC Bayern MÃ¼nchen', 'Real Madrid CF','Bayer 04 Leverkusen', 'Sevilla FC', 'Borussia Dortmund', 'Juventus', 'FC Bayern MÃ¼nchen', 'Club AtlÃ©tico de Madrid', 'AS Monaco FC', 'Club AtlÃ©tico de Madrid', 'Juventus']
+equipos_visitante = ['Borussia Dortmund', 'AS Monaco FC', 'Juventus', 'FC Barcelona','Arsenal FC', 'SSC Napoli', 'Club AtlÃ©tico de Madrid', 'Leicester City FC', 'AS Monaco FC', 'FC Barcelona', 'Real Madrid CF', 'Leicester City FC', 'Juventus', 'Club AtlÃ©tico de Madrid', 'Real Madrid CF']
+resultados = [2,2,2,2,1,1,1,2,2,2,1,2,1,2,1,2]
 
 #15-16
-equipos_local = []
-equipos_visitante = []
-resultados = []
+equipos_local = ['Paris Saint-Germain', 'FC Dynamo Kyiv', 'KAA Gent', 'AS Roma', 'Arsenal FC', 'PSV Eindhoven', 'Juventus', 'SL Benfica','Paris Saint-Germain','VfL Wolfsburg', 'FC Barcelona', 'FC Bayern MÃ¼nchen', 'Manchester City FC', 'Club AtlÃ©tico de Madrid', 'Real Madrid CF']
+equipos_visitante = ['Chelsea FC', 'Manchester City FC', 'VfL Wolfsburg', 'Real Madrid CF', 'FC Barcelona', 'Club AtlÃ©tico de Madrid', 'FC Bayern MÃ¼nchen', 'FC Zenit', 'Manchester City FC', 'Real Madrid CF', 'Club AtlÃ©tico de Madrid', 'SL Benfica', 'Real Madrid CF', 'FC Bayern MÃ¼nchen', 'Club AtlÃ©tico de Madrid']
+resultados = [1,2,2,2,2,2,2,1,2,2,2,1,2,1,1]
 
 #14-15
 equipos_local = []
