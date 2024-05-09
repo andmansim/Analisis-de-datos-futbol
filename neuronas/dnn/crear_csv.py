@@ -25,7 +25,66 @@ equipos_local = ['SS Lazio','Paris Saint-Germain','VfL Borussia MÃ¶nchengladba
 equipos_visitante = ['FC Bayern MÃ¼nchen', 'FC Barcelona', 'Manchester City FC','Sevilla FC','Atalanta BC','RB Leipzig','Juventus','Club AtlÃ©tico de Madrid', 'Paris Saint-Germain','Borussia Dortmund','Liverpool FC','Chelsea FC','Manchester City FC','Chelsea FC','Chelsea FC']
 resultados = [2,1,2,1,1,1,1,1,2,1,1,2,2,2,2]
 
-#
+#19-20
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#18-19
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#17-18
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#16-17
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#15-16
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#14-15
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#13-14
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#12-13
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#11-12
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#10-11
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#09-10
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#08-09
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
 
 
 
