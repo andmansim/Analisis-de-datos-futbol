@@ -137,9 +137,7 @@ if __name__ == '__main__':
     #Quitamos las columnas que no numéricas
     df_equipos = df_equipos.drop(['ronda'], axis=1)
 
-    #creamos semilla
-    torch.manual_seed(0)
-    print('Se han importado las librerías, listo para usar\n', torch.__version__)
+    
 
     # Aplicar one-hot encoding al nombre del club
     df_equipos = pd.get_dummies(df_equipos, columns=['local', 'visitante'])
@@ -154,12 +152,16 @@ if __name__ == '__main__':
     '''scaler = StandardScaler()
     x = scaler.fit_transform(x)'''
 
-    x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=0.30, random_state=0)
 
     print('Datos separados en train y test\n')
     for i in range(10):
         print(x_train[i], y_train[i])
 
+    #creamos semilla
+    torch.manual_seed(0)
+    print('Se han importado las librerías, listo para usar\n', torch.__version__)
+    
     print('TODO BIEN 1\n')
     #preparamos los datos para torch
     #creamos un dataset con los datos de train
