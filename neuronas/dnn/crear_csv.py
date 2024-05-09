@@ -21,9 +21,11 @@ equipos_visitante = ['Rabat Ajax FC', 'Liverpool FC', 'Juventus', 'FC Bayern MÃ
 resultados = [1,2,1,2,1,1,1,2,2,1,1,2,1,2,2]
 
 #20-21
-equipos_local = []
-equipos_visitante = []
-resultados = []
+equipos_local = ['SS Lazio','Paris Saint-Germain','VfL Borussia MÃ¶nchengladbach', 'Borussia Dortmund', 'Real Madrid CF', 'Liverpool FC', 'FC Porto','Chelsea FC','FC Bayern MÃ¼nchen','Manchester City FC','Real Madrid CF','FC Porto','Paris Saint-Germain','Real Madrid CF','Manchester City FC']
+equipos_visitante = ['FC Bayern MÃ¼nchen', 'FC Barcelona', 'Manchester City FC','Sevilla FC','Atalanta BC','RB Leipzig','Juventus','Club AtlÃ©tico de Madrid', 'Paris Saint-Germain','Borussia Dortmund','Liverpool FC','Chelsea FC','Manchester City FC','Chelsea FC','Chelsea FC']
+resultados = [2,1,2,1,1,1,1,1,2,1,1,2,2,2,2]
+
+#
 
 
 
