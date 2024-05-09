@@ -40,5 +40,31 @@ Se utiliza para predecir valores continuos, ejemplo: predecir el precio de una c
 
 # Cluster y serie temporal
 
-Clusterización para ver patrones o tendencias en nuestros datos. 
-Series temporales, para ver la evolución de algunas variables a lo largo del tiempo en algunos grupos (clusters) identificados. 
+Clusterización de datos, es la división de un conjunto de datos en grupos homogéneos para buscar posibles
+patrones o tendencias. Cada cluster es una agrupación. 
+
+Es una técnica de aprendizaje no supervisado, es decir, no se le proporciona al algoritmo de 
+aprendizaje ninguna información sobre las clases de los datos.
+
+Algoritmos de clusterización:
+    - K-means
+    - DBSCAN
+    - Mean Shift
+    - Agglomerative Clustering
+    - GMM 
+    -OPTICS
+
+Serie temporal, es para ver la evolución de los datos a lo largo del tiempo.
+En esta serie los datos estan indexados por su orden cronológico. 
+Se suele visualizar la serie temporal, la descomposición en tendencia, estacionalidad y residuo, la 
+modelización de tendencias y la predicción de futuros valores.
+
+Técnicas de análisis de series temporales:
+    - ARIMA
+    - SARIMA
+    - AR
+    - Exponential Smoothing
+    - Random Forest
+    - Gradient Boosting
+    - Multivariate Forecasting
+    - Esemble modeling
