@@ -15,59 +15,6 @@ from sklearn.preprocessing import StandardScaler
 from matplotlib import pyplot as plt
 
 
-#Aquí vamos a clasificar los equipos en tres categorías, ataque, defensa o neutro
-#dependiendo de ello les asociaremos un número 0, 1 o 2
-
-#leemos el archivo
-df_equipos = pd.read_csv('csvs/partidos22_23.csv', delimiter=';', encoding='utf-8')
-
-
-#Quitamos las columnas que no numéricas
-df_equipos = df_equipos.drop(['ronda'], axis=1)
-
-#creamos semilla
-torch.manual_seed(0)
-print('Se han importado las librerías, listo para usar\n', torch.__version__)
-
-# Aplicar one-hot encoding al nombre del club
-df_equipos = pd.get_dummies(df_equipos, columns=['local', 'visitante'])
-
-tipo_resultados = [1,2,3] #1 gana local, 2 gana visitante y 3 empatan
-features = ['porganarpartido_local','porganarpartido_visitante','porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
-#Separamos los datos en train y test
-x = df_equipos[features]
-y = df_equipos['resultado']
-
-#preparamos los datos para torch
-'''scaler = StandardScaler()
-x = scaler.fit_transform(x)'''
-
-x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=0.2, random_state=42)
-
-print('Datos separados en train y test\n')
-for i in range(10):
-    print(x_train[i], y_train[i])
-
-print('TODO BIEN 1\n')
-#preparamos los datos para torch
-#creamos un dataset con los datos de train
-train_x = torch.Tensor(x_train).float()
-train_y = torch.Tensor(y_train).long()
-train_ds = td.TensorDataset(train_x, train_y)
-train_loader = td.DataLoader(train_ds, batch_size=20, shuffle=False, num_workers=1)
-
-#creamos un dataset con los datos de test
-test_x = torch.Tensor(x_test).float()
-test_y = torch.Tensor(y_test).long()
-test_ds = td.TensorDataset(test_x, test_y)
-test_loader = td.DataLoader(test_ds, batch_size=20, shuffle=False, num_workers=1)
-
-print('TODO BIEN 2\n')
-
-#definimos neuronas
-#definimos el número de nodos en cada capa oculta
-hl = 10
-
 #definimos la red neuronal
 class RedNeuronal(nn.Module):
     def __init__(self):
@@ -92,11 +39,7 @@ class RedNeuronal(nn.Module):
         #nos devuelve la salida final de los datos
         return x
 
-#creamos una instancia de la red neuronal
-model = RedNeuronal()
-print('Red Neuronal creada\n', model)
 
-print('TODO BIEN 3\n')
 
 #Entrenamos la red neuronal
 def train(model, data_loader, optimizador):
@@ -122,7 +65,7 @@ def train(model, data_loader, optimizador):
         
         #calculamos el error (pedida de los datos reales con los 
         #datos predichos)
-        loss = torch.nn.functional.cross_entropy(output, target)
+        loss = loss_criteria(output, target)
         
         #acumulamos el error
         train_loss += loss.item()
@@ -138,7 +81,6 @@ def train(model, data_loader, optimizador):
     media_error = train_loss / (batch + 1)
     print('Error medio:', media_error)
     return media_error
-
 
 
 #definimos los test
@@ -170,78 +112,140 @@ def test(model, data_loader):
             output = model(data)
             
             #calculamos el error acumulado
-            test_loss += torch.nn.functional.cross_entropy(output, target, reduction='sum').item()
+            test_loss += loss_criteria(output, target).item()
             
             #calculamos el número de predicciones correctas
             _, predicted = torch.max(output.data, 1)
             correct += torch.sum(target == predicted).item()
     
     media_error = test_loss / batch_count
-    print('Prueba: pérdida media: %f, precisión: %f ' % (test_loss, 100. * correct /len(data_loader.dataset)))
+    print('Perdida media:', media_error, 'Predicciones correctas:', correct, 'Total de predicciones:', len(data_loader.dataset))
     return media_error
 
-loss_criteria = nn.CrossEntropyLoss()
-#Tasa de aprendizaje 
-learning_rate = 0.001
-#acrtualiza los pesos durente el entrenamiento para minimazar la función pérdida
-optimizador = torch.optim.Adam(model.parameters(), lr=learning_rate)
-optimizador.zero_grad()
 
 
-#epoch o épocas son cada pasada completa por el conjunto de datos de entrenamiento
-epoch_nums = []
-training_loss = [] 
-validation_loss = []
 
-#entrenamos la red
-epochs = 50
-for epoch in range(1, epochs + 1): #iteramos a través de las épocas
-    print('Epoch:', epoch)
-    train_loss = train(model, train_loader, optimizador)
-    test_loss = test(model, train_loader)
-    epoch_nums.append(epoch)
-    training_loss.append(train_loss)
-    validation_loss.append(test_loss)
+if __name__ == '__main__':
+    
+    #Aquí vamos a clasificar los equipos en tres categorías, ataque, defensa o neutro
+    #dependiendo de ello les asociaremos un número 0, 1 o 2
 
-#graficamos el error
-plt.plot(epoch_nums, training_loss)
-plt.plot(epoch_nums, validation_loss)
-plt.xlabel('epoch')
-plt.ylabel('loss')
-plt.legend(['training', 'validation'], loc='upper right')
-plt.show()
+    #leemos el archivo
+    df_equipos = pd.read_csv('csvs/partidos22_23.csv', delimiter=';', encoding='utf-8')
 
-for param_tensor in model.state_dict():
-    print(param_tensor, "\n", model.state_dict()[param_tensor].size(), '\n', model.state_dict()[param_tensor])
 
-#evaluamos el modelo
-model.eval()
-x1 = torch.Tensor(x_test.values).float()
-_, predicted = torch.max(model(x1).data, 1)
+    #Quitamos las columnas que no numéricas
+    df_equipos = df_equipos.drop(['ronda'], axis=1)
 
-#creamos la matriz de confusión
-matriz = confusion_matrix(y_test, predicted.numpy())
-plt.imshow(matriz, interpolation='nearest', cmap=plt.cm.Blues)
-plt.colorbar()
-tick_marks = np.arange(x_train.shape[1])
-plt.xticks(tick_marks, x_train.columns, rotation=45)
-plt.yticks(tick_marks, x_train.columns)
-plt.xlabel('Predicho')
-plt.ylabel('Real')
-plt.show()
+    #creamos semilla
+    torch.manual_seed(0)
+    print('Se han importado las librerías, listo para usar\n', torch.__version__)
 
-#guardamos el modelo
-modelo_ruta = os.path.join(os.path.dirname(__file__), 'modelo_dnn_uefa.pth')
-torch.save(model.state_dict(), modelo_ruta)
-del model
-print('Modelo guardado en', modelo_ruta)
+    # Aplicar one-hot encoding al nombre del club
+    df_equipos = pd.get_dummies(df_equipos, columns=['local', 'visitante'])
 
-''' #cargamos el modelo
-model = RedNeuronal()
-model.load_state_dict(torch.load(modelo_ruta))
-model.eval()
-x_nuevos = None
-x = torch.Tensor(x_nuevos.values).float()
-_, predicted = torch.max(model(x).data, 1)
-print('Predicciones:\n',predicted.items())
-'''
+    tipo_resultados = [1,2,3] #1 gana local, 2 gana visitante y 3 empatan
+    features = ['porganarpartido_local','porganarpartido_visitante','porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
+    #Separamos los datos en train y test
+    x = df_equipos[features]
+    y = df_equipos['resultado']
+
+    #preparamos los datos para torch
+    '''scaler = StandardScaler()
+    x = scaler.fit_transform(x)'''
+
+    x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=0.2, random_state=42)
+
+    print('Datos separados en train y test\n')
+    for i in range(10):
+        print(x_train[i], y_train[i])
+
+    print('TODO BIEN 1\n')
+    #preparamos los datos para torch
+    #creamos un dataset con los datos de train
+    train_x = torch.Tensor(x_train).float()
+    train_y = torch.Tensor(y_train).long()
+    train_ds = td.TensorDataset(train_x, train_y)
+    train_loader = td.DataLoader(train_ds, batch_size=20, shuffle=False, num_workers=1)
+
+    #creamos un dataset con los datos de test
+    test_x = torch.Tensor(x_test).float()
+    test_y = torch.Tensor(y_test).long()
+    test_ds = td.TensorDataset(test_x, test_y)
+    test_loader = td.DataLoader(test_ds, batch_size=20, shuffle=False, num_workers=1)
+
+    print('TODO BIEN 2\n')
+
+    #definimos neuronas
+    #definimos el número de nodos en cada capa oculta
+    hl = 10
+    
+    #creamos una instancia de la red neuronal
+    model = RedNeuronal()
+    print('Red Neuronal creada\n', model)
+    print('TODO BIEN 3\n')
+    
+    loss_criteria = nn.CrossEntropyLoss()
+    #Tasa de aprendizaje 
+    learning_rate = 0.001
+    #acrtualiza los pesos durente el entrenamiento para minimazar la función pérdida
+    optimizador = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    optimizador.zero_grad()
+
+
+    #epoch o épocas son cada pasada completa por el conjunto de datos de entrenamiento
+    epoch_nums = []
+    training_loss = [] 
+    validation_loss = []
+    #entrenamos la red
+    epochs = 50
+    for epoch in range(1, epochs + 1): #iteramos a través de las épocas
+        print('Epoch:', epoch)
+        train_loss = train(model, train_loader, optimizador)
+        test_loss = test(model, test_loader)
+        epoch_nums.append(epoch)
+        training_loss.append(train_loss)
+        validation_loss.append(test_loss)
+
+    #graficamos el error
+    plt.plot(epoch_nums, training_loss)
+    plt.plot(epoch_nums, validation_loss)
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.legend(['training', 'validation'], loc='upper right')
+    plt.show()
+
+    for param_tensor in model.state_dict():
+        print(param_tensor, "\n", model.state_dict()[param_tensor].size(), '\n', model.state_dict()[param_tensor])
+
+    #evaluamos el modelo
+    model.eval()
+    x1 = torch.Tensor(x_test).float()
+    _, predicted = torch.max(model(x1).data, 1)
+
+    #creamos la matriz de confusión
+    matriz = confusion_matrix(y_test, predicted.numpy())
+    plt.imshow(matriz, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.colorbar()
+    tick_marks = np.arange(len(tipo_resultados))
+    plt.xticks(tick_marks, tipo_resultados, rotation=45)
+    plt.yticks(tick_marks, tipo_resultados)
+    plt.xlabel('Predicho')
+    plt.ylabel('Real')
+    plt.show()
+
+    #guardamos el modelo
+    modelo_ruta = os.path.join(os.path.dirname(__file__), 'modelo_dnn_uefa.pth')
+    torch.save(model.state_dict(), modelo_ruta)
+    del model
+    print('Modelo guardado en', modelo_ruta)
+
+    ''' #cargamos el modelo
+    model = RedNeuronal()
+    model.load_state_dict(torch.load(modelo_ruta))
+    model.eval()
+    x_nuevos = None
+    x = torch.Tensor(x_nuevos.values).float()
+    _, predicted = torch.max(model(x).data, 1)
+    print('Predicciones:\n',predicted.items())
+    '''
