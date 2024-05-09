@@ -17,7 +17,12 @@ El 5. y 6. son practicamente igueles, 5. (DNN) donde hace operaciones metemátic
 
 7. Entrenamiento de una CNN mediente transferencia, aprovechamos el conocimiento adquirido por un modelo entrenado en una tarea similar. Por lo general se coge un modelo ya entrenado y se adapta a un nuevo uso más pequeño.
 
+# Graficas (graficas.py)
+
+Limpiamos los datos a examinar (daos_fut.csv), los analizamos (ver si hay que quitar, añadir columnas o filas, transformar alguna variable categórica en numérica, etc. ) y los representamos para ver su relación y que información nos proporcionan. 
+
 # Regresión logística
+
 En esta parte presento dos posible enfoques a la hora de predecir el resultado de los partidos.
 En regresion.py hace el análisis con la probabilidad de ganar, donde se realiza su probabilidad enfrenada en crear_csv. Por otro lado, en regresion1.py se realiza mediante la comparación de puntos, estos se asignan dependiendo de las comparaciones de los equipos en sus capacidades ofensivas y defensivas (crear_csv1.py).
 
@@ -32,3 +37,8 @@ Se utiliza para clasificar, no para predecir valores continuos. Ejemplo: predeci
 
 Regresion lineal es para ver la relación entre dos variables.
 Se utiliza para predecir valores continuos, ejemplo: predecir el precio de una casa.
+
+# Cluster y serie temporal
+
+Clusterización para ver patrones o tendencias en nuestros datos. 
+Series temporales, para ver la evolución de algunas variables a lo largo del tiempo en algunos grupos (clusters) identificados. 
