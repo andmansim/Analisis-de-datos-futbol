@@ -24,7 +24,7 @@ En regresion.py hace el análisis con la probabilidad de ganar, donde se realiza
 Tras ver los resultados vemos que ambos métodos presentan los mismos resultados. 
 
 
-Una regresión lineal o logística para ver la relación entre las variables independientes (X) y las dependientes (Y) o para clasificar las distintas opciones o resultados. 
+Una regresión lineal o logística se realiza para ver la relación entre las variables independientes (X) y las dependientes (Y) o para clasificar las distintas opciones o resultados. 
 
 Diferencia entre regresión logística y lineal:
 Regresion logistica se utiliza cuando la variable de respuesta es binaria. Debe de ser un número entero.
