@@ -14,32 +14,6 @@ from sklearn.metrics import confusion_matrix
 from random import randint
 
 
-#cogemos la carpeta img
-data_path = os.path.join(os.path.dirname(__file__), 'img')
-
-# cogemos los nombres de las clases
-classes = os.listdir(data_path)
-classes.sort()
-print(len(classes), 'classes:')
-print(classes)
-
-#Mostremos una imagen de cada clase
-fig = plt.figure(figsize=(8, 12))
-i = 0
-for sub_dir in os.listdir(data_path):
-    i+=1
-    img_file = os.listdir(os.path.join(data_path,sub_dir))[0]
-    img_path = os.path.join(data_path, sub_dir, img_file)
-    img = mpimg.imread(img_path)
-    a=fig.add_subplot(1, len(classes),i)
-    a.axis('off')
-    imgplot = plt.imshow(img)
-    a.set_title(img_file)
-plt.show()
-
-model = torchvision.models.resnet18(pretrained=True)
-print('Modelo ResNet18 cargado\n')
-
 # Función para cargar el conjunto de datos
 def load_dataset(data_path):
     # Cargar todas las imágenes, transformándolas
@@ -77,17 +51,6 @@ def load_dataset(data_path):
         
     return train_loader, test_loader
 
-#Separamos los datos en train y test
-train_loader, test_loader = load_dataset(data_path)
-print('Datos listos para usar\n')
-
-#Creamos la capa de predicción
-for param in model.parameters():
-    param.requires_grad = False
-num_ftrs = model.fc.in_features
-model.fc = nn.Linear(num_ftrs, len(classes))
-    
-print('Clase cnn lista\n')
 
 def train(model, device, train_loader, optimizer, epoch):
     #Entrenamos el modelo
@@ -150,73 +113,6 @@ def test(model, device, test_loader):
     
     return avg_loss
     
-    
-
-device = "cpu"
-if (torch.cuda.is_available()):
-    # Si hay GPU disponible, usamos cuda
-    device = "cuda"
-print('Training on', device)
-
-
-model = model.to(device)
-
-#Usamos el optimizador Adam para ajustar los pesos
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-
-#Especificamos el criterio de pérdida
-loss_criteria = nn.CrossEntropyLoss()
-
-#Listas para almacenar las métricas
-epoch_nums = []
-training_loss = []
-validation_loss = []
-
-#Entrenamos durante 5 épocas (en un escenario real, probablemente usarías muchas más)
-epochs = 3
-for epoch in range(1, epochs + 1):
-        train_loss = train(model, device, train_loader, optimizer, epoch)
-        test_loss = test(model, device, test_loader)
-        epoch_nums.append(epoch)
-        training_loss.append(train_loss)
-        validation_loss.append(test_loss)
-
-
-#Vemos la perdida
-plt.plot(epoch_nums, training_loss)
-plt.plot(epoch_nums, validation_loss)
-plt.xlabel('epoch')
-plt.ylabel('loss')
-plt.legend(['training', 'validation'], loc='upper right')
-plt.show()
-
-# Evaluamos el modelo con la matriz de confusión
-model.eval()
-print("Prediccion de las clases de las imagenes de prueba\n")
-truelabels = []
-predictions = []
-for data, target in test_loader:
-    for label in target.cpu().data.numpy():
-        truelabels.append(label)
-    for prediction in model.cpu()(data).data.numpy().argmax(1):
-        predictions.append(prediction) 
-
-# Evaluamos el modelo con la matriz de confusión
-cm = confusion_matrix(truelabels, predictions)
-plt.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
-plt.colorbar()
-tick_marks = np.arange(len(classes))
-plt.xticks(tick_marks, classes, rotation=45)
-plt.yticks(tick_marks, classes)
-plt.xlabel("Forma predicha")
-plt.ylabel("Forma actual")
-plt.show()
-
-# Guardamos el modelo
-model_file = os.path.join(os.path.dirname(__file__), 'cnn_transf_fut_uefa_img.pth')
-torch.save(model.state_dict(), model_file)
-print("Modelo guardado:", model_file)
-
 # Función para predecir la clase de una imagen
 def predict_image(classifier, image):
     
@@ -267,18 +163,125 @@ def create_image(size, shape):
         draw.rectangle([(xy1,xy1), (xy2,xy2)], fill=col)
     del draw
     
-    return img
+    return img    
+
+if __name__ == '__main__':
+    #cogemos la carpeta img
+    data_path = os.path.join(os.path.dirname(__file__), 'img')
+
+    # cogemos los nombres de las clases
+    classes = os.listdir(data_path)
+    classes.sort()
+    print(len(classes), 'classes:')
+    print(classes)
+
+    #Mostremos una imagen de cada clase
+    fig = plt.figure(figsize=(8, 12))
+    i = 0
+    for sub_dir in os.listdir(data_path):
+        i+=1
+        img_file = os.listdir(os.path.join(data_path,sub_dir))[0]
+        img_path = os.path.join(data_path, sub_dir, img_file)
+        img = mpimg.imread(img_path)
+        a=fig.add_subplot(1, len(classes),i)
+        a.axis('off')
+        imgplot = plt.imshow(img)
+        a.set_title(img_file)
+    plt.show()
+
+    model = torchvision.models.resnet18(pretrained=True)
+    print('Modelo ResNet18 cargado\n')
 
 
-# cogemos los nombres de las clases
-classnames = os.listdir(data_path)
-classnames.sort()
-shape = classnames[randint(0, len(classnames)-1)]
-img = create_image ((255,255), shape)
+    #Separamos los datos en train y test
+    train_loader, test_loader = load_dataset(data_path)
+    print('Datos listos para usar\n')
 
-# Mostrar la imagen
-plt.imshow(img)
-plt.show()
-# Llamar a la función de predicción
-index = predict_image(model, img)
-print(classes[index])
+    #Creamos la capa de predicción
+    for param in model.parameters():
+        param.requires_grad = False
+    num_ftrs = model.fc.in_features
+    model.fc = nn.Linear(num_ftrs, len(classes))
+        
+    print('Clase cnn lista\n')
+
+    device = "cpu"
+    if (torch.cuda.is_available()):
+        # Si hay GPU disponible, usamos cuda
+        device = "cuda"
+    print('Training on', device)
+
+
+    model = model.to(device)
+
+    #Usamos el optimizador Adam para ajustar los pesos
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+    #Especificamos el criterio de pérdida
+    loss_criteria = nn.CrossEntropyLoss()
+
+    #Listas para almacenar las métricas
+    epoch_nums = []
+    training_loss = []
+    validation_loss = []
+
+    #Entrenamos durante 5 épocas (en un escenario real, probablemente usarías muchas más)
+    epochs = 3
+    for epoch in range(1, epochs + 1):
+            train_loss = train(model, device, train_loader, optimizer, epoch)
+            test_loss = test(model, device, test_loader)
+            epoch_nums.append(epoch)
+            training_loss.append(train_loss)
+            validation_loss.append(test_loss)
+
+
+    #Vemos la perdida
+    plt.plot(epoch_nums, training_loss)
+    plt.plot(epoch_nums, validation_loss)
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.legend(['training', 'validation'], loc='upper right')
+    plt.show()
+
+    # Evaluamos el modelo con la matriz de confusión
+    model.eval()
+    print("Prediccion de las clases de las imagenes de prueba\n")
+    truelabels = []
+    predictions = []
+    for data, target in test_loader:
+        for label in target.cpu().data.numpy():
+            truelabels.append(label)
+        for prediction in model.cpu()(data).data.numpy().argmax(1):
+            predictions.append(prediction) 
+
+    # Evaluamos el modelo con la matriz de confusión
+    cm = confusion_matrix(truelabels, predictions)
+    plt.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+    plt.xlabel("Forma predicha")
+    plt.ylabel("Forma actual")
+    plt.show()
+
+    # Guardamos el modelo
+    model_file = os.path.join(os.path.dirname(__file__), 'cnn_transf_fut_uefa_img.pth')
+    torch.save(model.state_dict(), model_file)
+    print("Modelo guardado:", model_file)
+
+
+
+
+    # cogemos los nombres de las clases
+    classnames = os.listdir(data_path)
+    classnames.sort()
+    shape = classnames[randint(0, len(classnames)-1)]
+    img = create_image ((255,255), shape)
+
+    # Mostrar la imagen
+    plt.imshow(img)
+    plt.show()
+    # Llamar a la función de predicción
+    index = predict_image(model, img)
+    print(classes[index])
