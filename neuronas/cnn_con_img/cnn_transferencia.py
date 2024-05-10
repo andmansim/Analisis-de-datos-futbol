@@ -226,7 +226,7 @@ if __name__ == '__main__':
     validation_loss = []
 
     #Entrenamos durante 5 épocas (en un escenario real, probablemente usarías muchas más)
-    epochs = 3
+    epochs = 5
     for epoch in range(1, epochs + 1):
             train_loss = train(model, device, train_loader, optimizer, epoch)
             test_loss = test(model, device, test_loader)
