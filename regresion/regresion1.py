@@ -57,13 +57,13 @@ def regresion ( df_partidos):
     return df_partidos
 
 #leemos el csv
-df_partido = pd.read_csv('csvs1/partidos_fut.csv', encoding='utf-8', sep=';')
+df_partido = pd.read_csv('csvs1/partidos_fut_regresion.csv', encoding='utf-8', sep=';')
 
 print('Ronda 1')
 #llamamos a la función regresión
 df_partido = regresion(df_partido)
 #actualizamos los datos del csv con los resultados obtenidos
-df_partido.to_csv('csvs1/partidos_fut.csv', index=False, sep=';')
+df_partido.to_csv('csvs1/partidos_fut_ronda1.csv', index=False, sep=';')
 
 #Ronda2
 #en función de los resultados creamos un nuevo dataframe con los siguientes partidos

@@ -55,5 +55,5 @@ def actualizar_datos(df_partidos):
 
 df_partidos = actualizar_datos(df_partidos)
 #lo pasamos a csv
-df_partidos.to_csv('csvs1/partidos_fut.csv', sep=';', index=False, encoding='utf-8')
+df_partidos.to_csv('csvs1/partidos_fut_regresion.csv', sep=';', index=False, encoding='utf-8')
 

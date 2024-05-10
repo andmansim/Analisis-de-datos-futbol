@@ -1,0 +1,17 @@
+fecha;local;visitante;prob_ganar_local;prob_empate;prob_ganar_visitante;resultado
+13/02/24;B 1903 København;Manchester City FC;6.09;2.52;34.66;2
+13/02/24;RB Leipzig;Real Madrid CF;10.95;2.24;23.63;2
+14/02/24;SS Lazio;FC Bayern München;8.06;5.31;19.98;2
+14/02/24;Paris Saint-Germain;Real Sociedad de Fútbol;24.85;4.36;8.39;1
+20/02/24;FC Inter Turku;Club Atlético de Madrid;0.0;0.0;47.5;2
+20/02/24;PSV Eindhoven;Borussia Dortmund;12.15;4.57;18.85;2
+21/02/24;FC Porto;Arsenal FC;12.76;4.85;16.25;2
+21/02/24;SSC Napoli;FC Barcelona;9.11;5.79;15.93;2
+5/03/24;FC Bayern München;SS Lazio;19.98;5.31;8.06;1
+5/03/24;Real Sociedad de Fútbol;Paris Saint-Germain;8.39;4.36;24.85;2
+6/03/24;Manchester City FC;B 1903 København;34.66;2.52;6.09;1
+6/03/24;Real Madrid CF;RB Leipzig;23.63;2.24;10.95;1
+12/03/24;Arsenal FC;FC Porto;16.25;4.85;12.76;1
+12/03/24;FC Barcelona;SSC Napoli;15.93;5.79;9.11;1
+13/03/24;Club Atlético de Madrid;FC Inter Turku;47.5;0.0;0.0;1
+13/03/24;Borussia Dortmund;PSV Eindhoven;18.85;4.57;12.15;1

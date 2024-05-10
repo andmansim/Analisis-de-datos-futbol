@@ -42,5 +42,5 @@ df_partidos = actualizar_probabilidades(df_partidos)
 
 
 #lo pasamos a csv
-df_partidos.to_csv('csvs/partidos_fut.csv', sep=';', index=False, encoding='utf-8')
+df_partidos.to_csv('csvs/partidos_fut_regresion.csv', sep=';', index=False, encoding='utf-8')
 
