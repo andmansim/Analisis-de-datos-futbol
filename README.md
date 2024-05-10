@@ -68,3 +68,10 @@ Técnicas de análisis de series temporales:
     - Gradient Boosting
     - Multivariate Forecasting
     - Esemble modeling
+
+# CNN
+CNN sin transferencia:
+Entrenamiento de redes neuronales convolucionales es un proceso de aprendizaje automático que se utiliza para aplicar filtros en regiones locales y detectar texturas, patrones, formas, etc. en datos que tienen forma de cuadrícula como las imágenes y reconocimiento de patrones. Tiene pesos y sesgos que se van ajustando según avanzamos en la red, donde las características más complejas se van fromando de las más sencillas de las capas anteriores. 
+
+CNN con transferencia:
+Aprovechamos el conocimiento adquirido por un modelo entrenado en una tarea similar a la que lo queremos evaluar. Por lo general se coge un modelo ya entrenado y se adapta a un nuevo uso más pequeño.
