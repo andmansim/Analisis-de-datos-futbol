@@ -131,12 +131,7 @@ if __name__ == '__main__':
     #dependiendo de ello les asociaremos un número 0, 1 o 2
 
     #leemos el archivo
-    df_equipos = pd.read_csv('csvs/partidos22_23.csv', delimiter=';', encoding='utf-8')
-
-
-    #Quitamos las columnas que no numéricas
-    df_equipos = df_equipos.drop(['ronda'], axis=1)
-
+    df_equipos = pd.read_csv('csvs/partidos_fut_dnn.csv', delimiter=';', encoding='utf-8')
     
 
     # Aplicar one-hot encoding al nombre del club
@@ -189,7 +184,7 @@ if __name__ == '__main__':
     
     loss_criteria = nn.CrossEntropyLoss()
     #Tasa de aprendizaje 
-    learning_rate = 0.001
+    learning_rate = 0.0001
     #acrtualiza los pesos durente el entrenamiento para minimazar la función pérdida
     optimizador = torch.optim.Adam(model.parameters(), lr=learning_rate)
     optimizador.zero_grad()
