@@ -117,6 +117,32 @@ equipos_local = []
 equipos_visitante = []
 resultados = []
 
+#07-08
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#06-07
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#05-06
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#04-05
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+#03-04
+equipos_local = []
+equipos_visitante = []
+resultados = []
+
+
 
 
 
