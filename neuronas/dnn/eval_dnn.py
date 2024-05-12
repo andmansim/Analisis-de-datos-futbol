@@ -10,12 +10,6 @@ from sklearn.preprocessing import StandardScaler
 from matplotlib import pyplot as plt
 from dnn import RedNeuronal
 
-modelo_ruta = 'neuronas/dnn/modelo_dnn_uefa.pth'
-#cargamos el modelo
-model = RedNeuronal()
-model.load_state_dict(torch.load(modelo_ruta))
-model.eval()
-x_nuevos = 'csvs/partidos_fut_dnn_23_24.csv'
-x = torch.Tensor(x_nuevos.values).float()
-_, predicted = torch.max(model(x).data, 1)
-print('Predicciones:\n',predicted.items())
+tipo_resultados = [1,2,3] #1 gana local, 2 gana visitante y 3 empatan
+features = ['porganarpartido_local','porganarpartido_visitante','porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
+

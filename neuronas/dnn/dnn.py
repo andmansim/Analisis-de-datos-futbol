@@ -236,5 +236,17 @@ if __name__ == '__main__':
     torch.save(model.state_dict(), modelo_ruta)
     del model
     print('Modelo guardado en', modelo_ruta)
+    
+    #modelo_ruta = 'neuronas/dnn/modelo_dnn_uefa.pth'
+    #cargamos el modelo
+    model = RedNeuronal()
+    model.load_state_dict(torch.load(modelo_ruta))
+    model.eval()
+    df_23_24 = pd.read_csv('csvs/partidos_fut_dnn_23_24.csv', delimiter=';', encoding='utf-8')
+    df_23_24 = pd.get_dummies(df_23_24, columns=['local', 'visitante'])
+    x_nuevos = df_23_24[features]
+    x = torch.Tensor(x_nuevos.values).float()
+    _, predicted = torch.max(model(x).data, 1)
+    print('Predicciones:\n',predicted.items())
 
 
