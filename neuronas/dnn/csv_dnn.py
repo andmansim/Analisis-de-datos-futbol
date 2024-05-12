@@ -88,62 +88,9 @@ equipos_visitante = ['Borussia Dortmund', 'AS Monaco FC', 'Club Atlético de Mad
 resultados = [1,3,2,2,1,2,2,2,1,2,2,2,1,1,2]
 
 #13-14
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#12-13
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#11-12
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#10-11
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#09-10
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#08-09
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#07-08
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#06-07
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#05-06
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#04-05
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-#03-04
-equipos_local = []
-equipos_visitante = []
-resultados = []
-
-
-
+equipos_local = ['FC Schalke 04','FC Zenit', 'Olympiacos FC', 'Arsenal FC', 'Manchester City FC', 'AC Milan', 'Bayer 04 Leverkusen', 'Galatasaray AÅž', 'Real Madrid CF', 'Manchester United FC', 'FC Barcelona', 'Paris Saint-Germain', 'Real Madrid CF', 'Club Atlético de Madrid', 'Real Madrid CF']
+equipos_visitante = ['Real Madrid CF', 'Borussia Dortmund', 'Manchester United FC', 'FC Bayern München', 'FC Barcelona', 'Club Atlético de Madrid', 'Paris Saint-Germain', 'Chelsea FC', 'Borussia Dortmund', 'FC Bayern München', 'Club Atlético de Madrid', 'Chelsea FC', 'FC Bayern München', 'Chelsea FC', 'Club Atlético de Madrid']
+resultados = [2,2,2,2,2,2,2,2,1,2,2,2,1,1,1]
 
 
 #lo pasamos a csv
