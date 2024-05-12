@@ -247,6 +247,6 @@ if __name__ == '__main__':
     x_nuevos = df_23_24[features]
     x = torch.Tensor(x_nuevos.values).float()
     _, predicted = torch.max(model(x).data, 1)
-    print('Predicciones:\n',predicted.items())
+    print('Predicciones:\n',predicted.item())
 
 
