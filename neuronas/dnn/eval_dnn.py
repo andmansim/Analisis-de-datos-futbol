@@ -15,7 +15,7 @@ modelo_ruta = 'neuronas/dnn/modelo_dnn_uefa.pth'
 model = RedNeuronal()
 model.load_state_dict(torch.load(modelo_ruta))
 model.eval()
-x_nuevos = None
+x_nuevos = 'csvs/partidos_fut_dnn_23_24.csv'
 x = torch.Tensor(x_nuevos.values).float()
 _, predicted = torch.max(model(x).data, 1)
 print('Predicciones:\n',predicted.items())
