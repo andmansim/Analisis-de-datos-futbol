@@ -82,20 +82,6 @@ resultados = [1,2,2,2,2,2,2,1,2,2,2,1,2,1,1]
 
 df = agregar_datos(df, equipos_local, equipos_visitante, resultados)
 
-#14-15
-equipos_local = ['Juventus', 'Arsenal FC', 'Bayer 04 Leverkusen', 'FC Schalke 04', 'Paris Saint-Germain', 'Manchester City FC', 'FC Basel 1893', 'FC Shakhter Karagandy', 'Juventus', 'Club Atlético de Madrid', 'Paris Saint-Germain', 'FC Porto', 'Juventus', 'FC Barcelona', 'Juventus' ]
-equipos_visitante = ['Borussia Dortmund', 'AS Monaco FC', 'Club Atlético de Madrid', 'Real Madrid CF', 'Chelsea FC', 'FC Barcelona', 'FC Porto', 'FC Bayern München', 'AS Monaco FC', 'Real Madrid CF', 'FC Barcelona', 'FC Bayern München', 'Real Madrid CF', 'FC Bayern München', 'FC Barcelona']
-resultados = [1,3,2,2,1,2,2,2,1,2,2,2,1,1,2]
-
-df = agregar_datos(df, equipos_local, equipos_visitante, resultados)
-
-#13-14
-equipos_local = ['FC Schalke 04','FC Zenit', 'Olympiacos FC', 'Arsenal FC', 'Manchester City FC', 'AC Milan', 'Bayer 04 Leverkusen', 'Galatasaray AŞ', 'Real Madrid CF', 'Manchester United', 'FC Barcelona', 'Paris Saint-Germain', 'Real Madrid CF', 'Club Atlético de Madrid', 'Real Madrid CF']
-equipos_visitante = ['Real Madrid CF', 'Borussia Dortmund', 'Manchester United', 'FC Bayern München', 'FC Barcelona', 'Club Atlético de Madrid', 'Paris Saint-Germain', 'Chelsea FC', 'Borussia Dortmund', 'FC Bayern München', 'Club Atlético de Madrid', 'Chelsea FC', 'FC Bayern München', 'Chelsea FC', 'Club Atlético de Madrid']
-resultados = [2,2,2,2,2,2,2,2,1,2,2,2,1,1,1]
-
-df = agregar_datos(df, equipos_local, equipos_visitante, resultados)
-
 #lo pasamos a csv
 df.to_csv('csvs/partidos_fut_dnn.csv', sep=';', index=False, encoding='utf-8')
 
