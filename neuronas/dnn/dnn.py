@@ -238,15 +238,27 @@ if __name__ == '__main__':
     print('Modelo guardado en', modelo_ruta)
     
     #modelo_ruta = 'neuronas/dnn/modelo_dnn_uefa.pth'
-    #cargamos el modelo
+    #creamos un modelo vacio
     model = RedNeuronal()
+    #cargamos el modelo guardado
     model.load_state_dict(torch.load(modelo_ruta))
+    #evaluamos el modelo
     model.eval()
+    
+    #leemos el csv de los datos a predecir
     df_23_24 = pd.read_csv('csvs/partidos_fut_dnn_23_24.csv', delimiter=';', encoding='utf-8')
+    # Aplicar one-hot encoding al nombre del club
     df_23_24 = pd.get_dummies(df_23_24, columns=['local', 'visitante'])
+    #Eliminamos la columna de resultado
+    df_23_24 = df_23_24.drop(columns=['resultado'])
+    
+    #preparamos los datos para torch
     x_nuevos = df_23_24[features]
+    #le pasamos los datos a la red
     x = torch.Tensor(x_nuevos.values).float()
+    
+    #obtenemos las predicciones
     _, predicted = torch.max(model(x).data, 1)
-    print('Predicciones:\n',tipo_resultados[predicted.item()])
+    print('Predicciones:\n',predicted)
 
 
