@@ -83,9 +83,9 @@ resultados = [1,2,2,2,2,2,2,1,2,2,2,1,2,1,1]
 df = agregar_datos(df, equipos_local, equipos_visitante, resultados)
 
 #14-15
-equipos_local = []
-equipos_visitante = []
-resultados = []
+equipos_local = ['Juventus', 'Arsenal FC', 'Bayer 04 Leverkusen', 'FC Schalke 04', 'Paris Saint-Germain', 'Manchester City FC', 'FC Basel 1893', 'FC Shakhter Karagandy', 'Juventus', 'Club Atlético de Madrid', 'Paris Saint-Germain', 'FC Porto', 'Juventus', 'FC Barcelona', 'Juventus' ]
+equipos_visitante = ['Borussia Dortmund', 'AS Monaco FC', 'Club Atlético de Madrid', 'Real Madrid CF', 'Chelsea FC', 'FC Barcelona', 'FC Porto', 'FC Bayern München', 'AS Monaco FC', 'Real Madrid CF', 'FC Barcelona', 'FC Bayern München', 'Real Madrid CF', 'FC Bayern München', 'FC Bacelona']
+resultados = [1,3,2,2,1,2,2,2,1,2,2,2,1,1,2]
 
 #13-14
 equipos_local = []
