@@ -257,7 +257,7 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(modelo_ruta))
     model.eval()
     #x_nuevos = None
-    x = torch.Tensor(x_nuevos.values).float()
+    x = torch.Tensor(x_nuevos.values)
     _, predicted = torch.max(model(x).data, 1)
     print('Predicciones:\n',predicted)
 
