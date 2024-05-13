@@ -150,9 +150,9 @@ if __name__ == '__main__':
     df_equipos = df_equipos.drop(['club', 'pais'], axis=1)
 
     
-
     #Separamos los datos en train y test
-    x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
+    x = df_equipos.drop(['categoria'], axis=1)
+    print(x.columns)
     y = df_equipos['categoria']
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
@@ -248,8 +248,7 @@ if __name__ == '__main__':
 #cargamos el modelo
     #cogemos los datos a clasificar
     df = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
-    df = df.drop(['club', 'pais'], axis=1)
-    x_nuevos = df.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
+    x_nuevos = df.drop(['club', 'pais'], axis=1)
     #Dejamos solo las 5 primeras filas
     x_nuevos = x_nuevos.head(5)
     
