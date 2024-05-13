@@ -214,7 +214,7 @@ if __name__ == '__main__':
     plt.xlabel('epoch')
     plt.ylabel('loss')
     plt.legend(['training', 'validation'], loc='upper right')
-    plt.savefig('grafico_error_dnn.png')
+    plt.savefig('neuronas/dnn/clasificar/img/grafico_error_dnn.png')
     plt.show()
     
     #mostramos los pesos de la red
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     plt.yticks(tick_marks, x_train.columns)
     plt.xlabel('Predicho')
     plt.ylabel('Real')
-    plt.savefig('matriz_confusion_dnn.png')
+    plt.savefig('neuronas/dnn/clasificar/img/matriz_confusion_dnn.png')
     plt.show()
 
     
