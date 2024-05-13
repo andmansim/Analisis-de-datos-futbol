@@ -22,7 +22,7 @@ class RedNeuronal(nn.Module):
         
         #se define la capa de entrada que toma como entrada la cantidad de nodos (los valores de entrada)
         #y produce una salida de hl nodos
-        self.fc1 = nn.Linear(features, hl) 
+        self.fc1 = nn.Linear(len(features), hl) 
         
         #se define la segunda capa oculta con hl nodos y produce una salida de hl nodos
         self.fc2 = nn.Linear(hl, hl)
@@ -140,10 +140,8 @@ if __name__ == '__main__':
 
     #Separamos los datos en train y test
     tipo_resultados = [1,2,3] #1 gana local, 2 gana visitante y 3 empatan
-    #features = ['porganarpartido_local','porganarpartido_visitante','porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
-    #features = df_equipos.columns.tolist()
-    
     x = df_equipos.drop(columns=['resultado'])
+    features = x.columns.tolist()
     y = df_equipos['resultado']
     
     
@@ -175,7 +173,7 @@ if __name__ == '__main__':
 #creamos una instancia de la red neuronal
     #definimos el número de nodos en cada capa oculta
     hl = 10
-    model = RedNeuronal(x_train.shape[1], tipo_resultados, hl)
+    model = RedNeuronal(features, tipo_resultados, hl)
     print('Red Neuronal creada\n', model)
 
     loss_criteria = nn.CrossEntropyLoss()
