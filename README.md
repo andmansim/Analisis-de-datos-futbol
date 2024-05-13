@@ -53,12 +53,17 @@ Técnicas de análisis de series temporales:
     - Multivariate Forecasting
     - Esemble modeling
 
-# CNN
+# CNN (Neuronas)
 CNN sin transferencia:
 Entrenamiento de redes neuronales convolucionales es un proceso de aprendizaje automático que se utiliza para aplicar filtros en regiones locales y detectar texturas, patrones, formas, etc. en datos que tienen forma de cuadrícula como las imágenes y reconocimiento de patrones. Tiene pesos y sesgos que se van ajustando según avanzamos en la red, donde las características más complejas se van fromando de las más sencillas de las capas anteriores. 
 
 CNN con transferencia:
 Aprovechamos el conocimiento adquirido por un modelo entrenado en una tarea similar a la que lo queremos evaluar. Por lo general se coge un modelo ya entrenado y se adapta a un nuevo uso más pequeño.
 
-# DNN
+# DNN (Neuronas)
 Entrenamiento de redes neuronales profundas es un proceso de aprendizaje automático compuesto por múltiples capas de neuronas. Consiste en ajustar pesos y sesgos de las conexiones entre las neuronas para que el modelo pueda aprender a realizar tareas específicas.  
+
+En esta parte he hechos dos DNN:
+Una encargada de clasificar si los equipos son de ataque (1), defensa (2) o neutro (3). Se encuentra en la carpeta clasificar y sus imágenes están guardadas en img. 
+
+La otra se encarga de predecir los resltados de los partidos, siendo 1 gana el equipo local, 2 gana el equipo visitante y 3 empatan. Se encuentra en la carpeta de redecir y sus imágenes están guardadas en img. 
