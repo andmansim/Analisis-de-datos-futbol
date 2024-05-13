@@ -199,7 +199,7 @@ if __name__ == '__main__':
     
     loss_criteria = nn.CrossEntropyLoss()
     #Tasa de aprendizaje 
-    learning_rate = 0.0001
+    learning_rate = 0.0005
     #acrtualiza los pesos durente el entrenamiento para minimazar la función pérdida
     optimizador = torch.optim.Adam(model.parameters(), lr=learning_rate)
     optimizador.zero_grad()
@@ -247,7 +247,7 @@ if __name__ == '__main__':
     torch.save(model.state_dict(), modelo_ruta)
     del model
     print('Modelo guardado en', modelo_ruta)
-'''    
+   
 #cargamos el modelo
     model = RedNeuronal()
     df = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
@@ -259,7 +259,7 @@ if __name__ == '__main__':
     #x_nuevos = None
     x = torch.Tensor(x_nuevos.values).float()
     _, predicted = torch.max(model(x).data, 1)
-    print('Predicciones:\n',predicted.items())'''
+    print('Predicciones:\n',predicted)
 
     
 
