@@ -17,7 +17,7 @@ from matplotlib import pyplot as plt
 
 #definimos la red neuronal
 class RedNeuronal(nn.Module):
-    def __init__(self):
+    def __init__(self, features, tipo_resultados, hl):
         super(RedNeuronal, self).__init__()#se inicializa la clase padre
         
         #se define la capa de entrada que toma como entrada la cantidad de nodos (los valores de entrada)
@@ -137,15 +137,12 @@ if __name__ == '__main__':
     # Aplicar one-hot encoding al nombre del club
     df_equipos = pd.get_dummies(df_equipos, columns=['local', 'visitante'])
 
+    
+    #Separamos los datos en train y test
     tipo_resultados = [1,2,3] #1 gana local, 2 gana visitante y 3 empatan
     features = ['porganarpartido_local','porganarpartido_visitante','porperderpartido_local', 'porperderpartido_visitante', 'porcapacidad_ofensiva_local','porcapacidad_ofensiva_visitante', 'porcapacidad_defensiva_local','porcapacidad_defensiva_visitante']
-    #Separamos los datos en train y test
     x = df_equipos[features]
     y = df_equipos['resultado']
-
-    #preparamos los datos para torch
-    '''scaler = StandardScaler()
-    x = scaler.fit_transform(x)'''
 
     x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=0.30, random_state=0)
 
@@ -157,8 +154,8 @@ if __name__ == '__main__':
     torch.manual_seed(0)
     print('Se han importado las librerías, listo para usar\n', torch.__version__)
     
-    print('TODO BIEN 1\n')
-    #preparamos los datos para torch
+
+#preparamos los datos para torch
     #creamos un dataset con los datos de train
     train_x = torch.Tensor(x_train).float()
     train_y = torch.Tensor(y_train).long()
@@ -171,30 +168,27 @@ if __name__ == '__main__':
     test_ds = td.TensorDataset(test_x, test_y)
     test_loader = td.DataLoader(test_ds, batch_size=20, shuffle=False, num_workers=1)
 
-    print('TODO BIEN 2\n')
-
-    #definimos neuronas
+    
+#creamos una instancia de la red neuronal
     #definimos el número de nodos en cada capa oculta
     hl = 10
     
-    #creamos una instancia de la red neuronal
-    model = RedNeuronal()
+    model = RedNeuronal(features, tipo_resultados, hl)
     print('Red Neuronal creada\n', model)
-    print('TODO BIEN 3\n')
-    
+
     loss_criteria = nn.CrossEntropyLoss()
     #Tasa de aprendizaje 
     learning_rate = 0.0001
-    #acrtualiza los pesos durente el entrenamiento para minimazar la función pérdida
+    #actualiza los pesos durante el entrenamiento para minimazar la función pérdida
     optimizador = torch.optim.Adam(model.parameters(), lr=learning_rate)
     optimizador.zero_grad()
-
 
     #epoch o épocas son cada pasada completa por el conjunto de datos de entrenamiento
     epoch_nums = []
     training_loss = [] 
     validation_loss = []
-    #entrenamos la red
+    
+#entrenamos la red
     epochs = 50
     for epoch in range(1, epochs + 1): #iteramos a través de las épocas
         print('Epoch:', epoch)
@@ -204,23 +198,24 @@ if __name__ == '__main__':
         training_loss.append(train_loss)
         validation_loss.append(test_loss)
 
-    #graficamos el error
+#graficamos el error
     plt.plot(epoch_nums, training_loss)
     plt.plot(epoch_nums, validation_loss)
     plt.xlabel('epoch')
     plt.ylabel('loss')
     plt.legend(['training', 'validation'], loc='upper right')
+    plt.savefig('neuronas/dnn/predecir/img/grafica_error_dnn.png')
     plt.show()
 
     for param_tensor in model.state_dict():
         print(param_tensor, "\n", model.state_dict()[param_tensor].size(), '\n', model.state_dict()[param_tensor])
 
-    #evaluamos el modelo
+#evaluamos el modelo
     model.eval()
     x1 = torch.Tensor(x_test).float()
     _, predicted = torch.max(model(x1).data, 1)
 
-    #creamos la matriz de confusión
+#creamos la matriz de confusión
     matriz = confusion_matrix(y_test, predicted.numpy())
     plt.imshow(matriz, interpolation='nearest', cmap=plt.cm.Blues)
     plt.colorbar()
@@ -229,36 +224,16 @@ if __name__ == '__main__':
     plt.yticks(tick_marks, tipo_resultados)
     plt.xlabel('Predicho')
     plt.ylabel('Real')
+    plt.savefig('neuronas/dnn/predecir/img/confusion_matrix_dnn.png')
     plt.show()
 
-    #guardamos el modelo
+#guardamos el modelo
     modelo_ruta = os.path.join(os.path.dirname(__file__), 'modelo_dnn_uefa.pth')
     torch.save(model.state_dict(), modelo_ruta)
     del model
     print('Modelo guardado en', modelo_ruta)
     
-    #modelo_ruta = 'neuronas/dnn/modelo_dnn_uefa.pth'
-    #creamos un modelo vacio
-    model = RedNeuronal()
-    #cargamos el modelo guardado
-    model.load_state_dict(torch.load(modelo_ruta))
-    #evaluamos el modelo
-    model.eval()
+
     
-    #leemos el csv de los datos a predecir
-    df_23_24 = pd.read_csv('csvs/partidos_fut_dnn_23_24.csv', delimiter=';', encoding='utf-8')
-    # Aplicar one-hot encoding al nombre del club
-    df_23_24 = pd.get_dummies(df_23_24, columns=['local', 'visitante'])
-    #Eliminamos la columna de resultado
-    df_23_24 = df_23_24.drop(columns=['resultado'])
-    
-    #preparamos los datos para torch
-    x_nuevos = df_23_24[features]
-    #le pasamos los datos a la red
-    x = torch.Tensor(x_nuevos.values).float()
-    
-    #obtenemos las predicciones
-    _, predicted = torch.max(model(x).data, 1)
-    print('Predicciones:\n',predicted)
 
 
