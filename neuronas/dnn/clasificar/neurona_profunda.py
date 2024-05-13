@@ -126,11 +126,10 @@ def test(model, data_loader):
 
 if __name__ == '__main__':
     #Aquí vamos a clasificar los equipos en tres categorías, ataque, defensa o neutro
-    #dependiendo de ello les asociaremos un número 0, 1 o 2
+    #dependiendo de ello les asociaremos un número 1, 2 o 3
 
     #leemos el archivo
     df_equipos = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
-
 
     #clasificamos los equipos
     def clasificar_equipos(row):
@@ -150,23 +149,20 @@ if __name__ == '__main__':
     #Quitamos las columnas que no numéricas
     df_equipos = df_equipos.drop(['club', 'pais'], axis=1)
 
-    #creamos semilla
-    torch.manual_seed(0)
-    print('Se han importado las librerías, listo para usar\n', torch.__version__)
+    
 
-    tipo_resultados = [1,2,3]
     #Separamos los datos en train y test
     x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
     y = df_equipos['categoria']
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
-    
+
     print('Datos separados en train y test\n')
     for i in range(10):
         print(x_train.iloc[i], y_train.iloc[i])
 
-    print('TODO BIEN 1\n')
-    #preparamos los datos para torch
+  
+#preparamos los datos para torch
     #creamos un dataset con los datos de train
     train_x = torch.Tensor(x_train.values).float()
     train_y = torch.Tensor(y_train.values).long()
@@ -178,33 +174,31 @@ if __name__ == '__main__':
     test_y = torch.Tensor(y_test.values).long()
     test_ds = td.TensorDataset(test_x, test_y)
     test_loader = td.DataLoader(test_ds, batch_size=20, shuffle=False, num_workers=1)
-    print('TODO BIEN 2\n')
 
-    #definimos neuronas
     #definimos el número de nodos en cada capa oculta
     hl = 10
-    
-    
-    #creamos una instancia de la red neuronal
+
+#creamos una instancia de la red neuronal
     model = RedNeuronal()
     print('Red Neuronal creada\n', model)
-
-    print('TODO BIEN 3\n')
     
     #epoch o épocas son cada pasada completa por el conjunto de datos de entrenamiento
     epoch_nums = []
     training_loss = [] 
     validation_loss = []
 
+    #creamos semilla
+    torch.manual_seed(0)
+    print('Se han importado las librerías, listo para usar\n', torch.__version__)
     
     loss_criteria = nn.CrossEntropyLoss()
     #Tasa de aprendizaje 
     learning_rate = 0.0005
-    #acrtualiza los pesos durente el entrenamiento para minimazar la función pérdida
+    #actualiza los pesos durente el entrenamiento para minimazar la función pérdida
     optimizador = torch.optim.Adam(model.parameters(), lr=learning_rate)
     optimizador.zero_grad()
-    #entrenamos la red
-    
+
+#entrenamos la red    
     epochs = 50
     for epoch in range(1, epochs + 1): #iteramos a través de las épocas
         print('Epoch:', epoch)
@@ -220,12 +214,14 @@ if __name__ == '__main__':
     plt.xlabel('epoch')
     plt.ylabel('loss')
     plt.legend(['training', 'validation'], loc='upper right')
+    plt.savefig('grafico_error_dnn.png')
     plt.show()
     
+    #mostramos los pesos de la red
     for param_tensor in model.state_dict():
         print(param_tensor, "\n", model.state_dict()[param_tensor].size(), '\n', model.state_dict()[param_tensor])
     
-    #evaluamos el modelo
+#evaluamos el modelo
     model.eval()
     x1 = torch.Tensor(x_test.values).float()
     _, predicted = torch.max(model(x1).data, 1)
@@ -239,6 +235,7 @@ if __name__ == '__main__':
     plt.yticks(tick_marks, x_train.columns)
     plt.xlabel('Predicho')
     plt.ylabel('Real')
+    plt.savefig('matriz_confusion_dnn.png')
     plt.show()
 
     
@@ -249,20 +246,20 @@ if __name__ == '__main__':
     print('Modelo guardado en', modelo_ruta)
    
 #cargamos el modelo
-    model = RedNeuronal()
+    #cogemos los datos a clasificar
     df = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
+    df = df.drop(['club', 'pais'], axis=1)
     x_nuevos = df.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
     #Dejamos solo las 5 primeras filas
-    x_nuevos = x_nuevos.head()
+    x_nuevos = x_nuevos.head(5)
+    
+    #cargamos el modelo
+    model = RedNeuronal()
     model.load_state_dict(torch.load(modelo_ruta))
     model.eval()
-    #x_nuevos = None
-    ''' LE HE QUITADO EL .FLOAT, 
-    x = torch.Tensor(x_nuevos.values).float()
-    DA EL ERROR: 
-    TypeError: can't convert np.ndarray of type numpy.object_. The only supported types are: float64, float32, float16, complex64, complex128, int64, int32, int16, int8, uint8, and bool.'''
     
-    x = torch.Tensor(x_nuevos.values)
+    #hacemos las predicciones
+    x = torch.Tensor(x_nuevos.values).float()
     _, predicted = torch.max(model(x).data, 1)
     print('Predicciones:\n',predicted)
 
