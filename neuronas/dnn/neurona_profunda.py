@@ -257,6 +257,11 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(modelo_ruta))
     model.eval()
     #x_nuevos = None
+    ''' LE HE QUITADO EL .FLOAT, 
+    x = torch.Tensor(x_nuevos.values).float()
+    DA EL ERROR: 
+    TypeError: can't convert np.ndarray of type numpy.object_. The only supported types are: float64, float32, float16, complex64, complex128, int64, int32, int16, int8, uint8, and bool.'''
+    
     x = torch.Tensor(x_nuevos.values)
     _, predicted = torch.max(model(x).data, 1)
     print('Predicciones:\n',predicted)
