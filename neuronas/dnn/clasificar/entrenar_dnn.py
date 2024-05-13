@@ -17,18 +17,18 @@ from matplotlib import pyplot as plt
 
 #definimos la red neuronal
 class RedNeuronal(nn.Module):
-    def __init__(self):
+    def __init__(self, entrada, hl):
         super(RedNeuronal, self).__init__()#se inicializa la clase padre
         
         #se define la capa de entrada que toma como entrada la cantidad de nodos (los valores de entrada)
         #y produce una salida de hl nodos
-        self.fc1 = nn.Linear(x_train.shape[1], hl) 
+        self.fc1 = nn.Linear(entrada, hl) 
         
         #se define la segunda capa oculta con hl nodos y produce una salida de hl nodos
         self.fc2 = nn.Linear(hl, hl)
         
         #se define la capa de salida con hl nodos y produce una salida de 3 nodos
-        self.fc3 = nn.Linear(hl, x_train.shape[1])
+        self.fc3 = nn.Linear(hl, entrada)
 
     def forward(self, x):
         #indica cómo van a ser procesados los datos de entrada
@@ -152,7 +152,6 @@ if __name__ == '__main__':
     
     #Separamos los datos en train y test
     x = df_equipos.drop(['categoria'], axis=1)
-    print(x.columns)
     y = df_equipos['categoria']
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
@@ -177,9 +176,10 @@ if __name__ == '__main__':
 
     #definimos el número de nodos en cada capa oculta
     hl = 10
+    entrada = x_train.shape[1]
 
 #creamos una instancia de la red neuronal
-    model = RedNeuronal()
+    model = RedNeuronal(entrada, hl)
     print('Red Neuronal creada\n', model)
     
     #epoch o épocas son cada pasada completa por el conjunto de datos de entrenamiento
@@ -245,22 +245,7 @@ if __name__ == '__main__':
     del model
     print('Modelo guardado en', modelo_ruta)
    
-#cargamos el modelo
-    #cogemos los datos a clasificar
-    df = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
-    x_nuevos = df.drop(['club', 'pais'], axis=1)
-    #Dejamos solo las 5 primeras filas
-    x_nuevos = x_nuevos.head(5)
-    
-    #cargamos el modelo
-    model = RedNeuronal()
-    model.load_state_dict(torch.load(modelo_ruta))
-    model.eval()
-    
-    #hacemos las predicciones
-    x = torch.Tensor(x_nuevos.values).float()
-    _, predicted = torch.max(model(x).data, 1)
-    print('Predicciones:\n',predicted)
+
 
     
 
