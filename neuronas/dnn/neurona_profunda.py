@@ -22,13 +22,13 @@ class RedNeuronal(nn.Module):
         
         #se define la capa de entrada que toma como entrada la cantidad de nodos (los valores de entrada)
         #y produce una salida de hl nodos
-        self.fc1 = nn.Linear(len(features), hl) 
+        self.fc1 = nn.Linear(x_train.shape[1], hl) 
         
         #se define la segunda capa oculta con hl nodos y produce una salida de hl nodos
         self.fc2 = nn.Linear(hl, hl)
         
         #se define la capa de salida con hl nodos y produce una salida de 3 nodos
-        self.fc3 = nn.Linear(hl, len(tipo_resultados))
+        self.fc3 = nn.Linear(hl, x_train.shape[1])
 
     def forward(self, x):
         #indica cómo van a ser procesados los datos de entrada
@@ -65,7 +65,7 @@ def train(model, data_loader, optimizador):
         
         #calculamos el error (pedida de los datos reales con los 
         #datos predichos)
-        loss = loss_criteria(output, target)
+        loss = torch.nn.functional.cross_entropy(output, target)
         
         #acumulamos el error
         train_loss += loss.item()
@@ -112,7 +112,7 @@ def test(model, data_loader):
             output = model(data)
             
             #calculamos el error acumulado
-            test_loss += loss_criteria(output, target).item()
+            test_loss += torch.nn.functional.cross_entropy(output, target, reduction='sum').item()
             
             #calculamos el número de predicciones correctas
             _, predicted = torch.max(output.data, 1)
@@ -156,30 +156,28 @@ if __name__ == '__main__':
 
     tipo_resultados = [1,2,3]
     #Separamos los datos en train y test
-    features = ['porganarpartido', 'porperderpartido', 'poremppartido']
-    x = df_equipos[features]
+    x = df_equipos.drop(['porganarpartido', 'porperderpartido', 'poremppartido'], axis=1)
     y = df_equipos['categoria']
 
-    x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=0.3, random_state=0)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
     
     print('Datos separados en train y test\n')
     for i in range(10):
-        print(x_train[i], y_train[i])
+        print(x_train.iloc[i], y_train.iloc[i])
 
     print('TODO BIEN 1\n')
     #preparamos los datos para torch
     #creamos un dataset con los datos de train
-    train_x = torch.Tensor(x_train).float()
-    train_y = torch.Tensor(y_train).long()
+    train_x = torch.Tensor(x_train.values).float()
+    train_y = torch.Tensor(y_train.values).long()
     train_ds = td.TensorDataset(train_x, train_y)
     train_loader = td.DataLoader(train_ds, batch_size=20, shuffle=False, num_workers=1)
 
     #creamos un dataset con los datos de test
-    test_x = torch.Tensor(x_test).float()
-    test_y = torch.Tensor(y_test).long()
+    test_x = torch.Tensor(x_test.values).float()
+    test_y = torch.Tensor(y_test.values).long()
     test_ds = td.TensorDataset(test_x, test_y)
     test_loader = td.DataLoader(test_ds, batch_size=20, shuffle=False, num_workers=1)
-
     print('TODO BIEN 2\n')
 
     #definimos neuronas
@@ -229,16 +227,16 @@ if __name__ == '__main__':
     
     #evaluamos el modelo
     model.eval()
-    x1 = torch.Tensor(x_test).float()
+    x1 = torch.Tensor(x_test.values).float()
     _, predicted = torch.max(model(x1).data, 1)
     
     #creamos la matriz de confusión
     matriz = confusion_matrix(y_test, predicted.numpy())
     plt.imshow(matriz, interpolation='nearest', cmap=plt.cm.Blues)
     plt.colorbar()
-    tick_marks = np.arange(len(tipo_resultados))
-    plt.xticks(tick_marks, tipo_resultados, rotation=45)
-    plt.yticks(tick_marks, tipo_resultados)
+    tick_marks = np.arange(x_train.shape[1])
+    plt.xticks(tick_marks, x_train.columns, rotation=45)
+    plt.yticks(tick_marks, x_train.columns)
     plt.xlabel('Predicho')
     plt.ylabel('Real')
     plt.show()
@@ -249,16 +247,16 @@ if __name__ == '__main__':
     torch.save(model.state_dict(), modelo_ruta)
     del model
     print('Modelo guardado en', modelo_ruta)
-    
-''' #cargamos el modelo
+'''    
+#cargamos el modelo
     model = RedNeuronal()
     model.load_state_dict(torch.load(modelo_ruta))
     model.eval()
     x_nuevos = None
     x = torch.Tensor(x_nuevos.values).float()
     _, predicted = torch.max(model(x).data, 1)
-    print('Predicciones:\n',predicted.items())
-    '''
+    print('Predicciones:\n',predicted.items())'''
+
     
 
 
