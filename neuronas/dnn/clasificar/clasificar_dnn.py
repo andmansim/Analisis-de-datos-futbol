@@ -3,13 +3,6 @@ import torch
 from entrenar_dnn import RedNeuronal
 import os
 
-
-
-
-
-
-
-#cargamos el modelo
 #cogemos los datos a clasificar
 df = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
 x_nuevos = df.drop(['club', 'pais'], axis=1)

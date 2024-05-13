@@ -226,7 +226,7 @@ if __name__ == '__main__':
     x1 = torch.Tensor(x_test.values).float()
     _, predicted = torch.max(model(x1).data, 1)
     
-    #creamos la matriz de confusión
+#creamos la matriz de confusión
     matriz = confusion_matrix(y_test, predicted.numpy())
     plt.imshow(matriz, interpolation='nearest', cmap=plt.cm.Blues)
     plt.colorbar()
@@ -239,7 +239,7 @@ if __name__ == '__main__':
     plt.show()
 
     
-    #guardamos el modelo
+#guardamos el modelo
     modelo_ruta = os.path.join(os.path.dirname(__file__), 'modelo_red_neuronal_prof_uefa.pth')
     torch.save(model.state_dict(), modelo_ruta)
     del model
