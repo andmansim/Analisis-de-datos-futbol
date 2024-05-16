@@ -9,8 +9,7 @@ Mandamos datos a la red neuronal para predecir los resultados de los partidos de
 
 #leemos el csv de los datos a predecir
 df_23_24 = pd.read_csv('csvs/partidos_fut_dnn_23_24.csv', delimiter=';', encoding='utf-8')
-# Aplicar one-hot encoding al nombre del club
-df_23_24 = pd.get_dummies(df_23_24, columns=['local', 'visitante'])
+df_23_24 = df_23_24.drop(columns=['local', 'visitante'])
 #Eliminamos la columna de resultado
 df_23_24 = df_23_24.drop(columns=['resultado'])
 
