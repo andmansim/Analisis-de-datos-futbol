@@ -3,6 +3,10 @@ import torch
 from entrenar_dnn import RedNeuronal
 import os
 
+'''
+Mandamos datos a la red neuronal para clasificar los jugadores de futbol en base a su rendimiento
+'''
+
 #cogemos los datos a clasificar
 df = pd.read_csv('csvs/datos_fut.csv', delimiter=';', encoding='utf-8')
 x_nuevos = df.drop(['club', 'pais'], axis=1)

@@ -3,6 +3,9 @@ import os
 import torch
 from entrenar_dnn import RedNeuronal
 from sklearn.model_selection import train_test_split
+'''
+Mandamos datos a la red neuronal para predecir los resultados de los partidos de la uefa champions league
+'''
 
 #leemos el csv de los datos a predecir
 df_23_24 = pd.read_csv('csvs/partidos_fut_dnn_23_24.csv', delimiter=';', encoding='utf-8')

@@ -1,5 +1,9 @@
-
 import pandas as pd
+
+'''
+Creamos un csv con los primeros partidos y las probabilidades enfrentadas de cada equipo. 
+Posteriormente se utilizará para crear los nuevos csv de las siguientes rondas.
+'''
 #leemos el csv con los datos de cadda equipo
 df_equipos = pd.read_csv('csvs/datos_fut.csv', encoding='utf-8', sep=';')
 
